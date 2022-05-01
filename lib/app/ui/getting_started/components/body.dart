@@ -11,7 +11,7 @@ import 'package:enft/app/ui/getting_started/components/started_page_view.dart';
 
 import 'package:enft/app/ui/loading_hud/loading_hud.dart';
 
-class GettingStartedBody extends GetView<UserController> {
+class GettingStartedBody extends GetView<KlipController> {
   const GettingStartedBody({Key? key}) : super(key: key);
 
   @override

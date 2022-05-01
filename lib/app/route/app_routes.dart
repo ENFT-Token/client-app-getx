@@ -1,9 +1,11 @@
-import 'package:enft/app/binding/getting_started.dart';
-import 'package:enft/app/binding/klip.dart';
-import 'package:enft/app/binding/user.dart';
 import 'package:get/get.dart';
 
 import 'package:enft/app/route/routes.dart';
+
+import 'package:enft/app/binding/getting_started.dart';
+import 'package:enft/app/binding/klip.dart';
+import 'package:enft/app/binding/register.dart';
+import 'package:enft/app/binding/user.dart';
 
 import 'package:enft/app/ui/home/home.dart';
 import 'package:enft/app/ui/splash/splash.dart';
@@ -23,7 +25,7 @@ class AppRoutes implements Routes {
     GetPage(
       name: '/register',
       page: () => RegisterPage(),
-      binding: UserBinding(),
+      binding: RegisterBinding(),
     ),
     GetPage(name: '/home', page: () => HomePage()),
   ];

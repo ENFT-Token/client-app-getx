@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 
+import 'package:get/get.dart';
+
 import 'package:enft/app/constant/constant.dart';
 
-class RoundedDropDown extends StatefulWidget {
+import 'package:enft/app/controller/register.dart';
+
+class RoundedDropDown extends GetView<RegisterController> {
   RoundedDropDown(
       {Key? key, required this.values, this.textColor = Colors.white})
       : super(key: key);
 
   final List values;
   final Color textColor;
-
-  @override
-  State<RoundedDropDown> createState() => RoundedDropDownState();
-}
-
-class RoundedDropDownState extends State<RoundedDropDown> {
-  String selectedValue = "남자";
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,25 +42,22 @@ class RoundedDropDownState extends State<RoundedDropDown> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                   alignedDropdown: true,
-                  child: DropdownButton(
-                    elevation: 0,
-                    borderRadius: BorderRadius.all(Radius.circular(29.0)),
-                    hint: Text("성별을 고르세요"),
-                    items: widget.values
-                        .map((e) => DropdownMenuItem<String>(
-                              child: Text(e),
-                              value: e,
-                            ))
-                        .toList(),
-                    value: selectedValue,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedValue = value.toString();
-                        // if(selectedValue == "남자") context.read<UserProvider>().registerJson['sex'] = "male";
-                        // else context.read<UserProvider>().registerJson['sex'] = "female";
-                      });
-                    },
-                  ),
+                  child: Obx(() => DropdownButton(
+                        elevation: 0,
+                        borderRadius: BorderRadius.all(Radius.circular(29.0)),
+                        hint: Text("성별을 고르세요"),
+                        items: values
+                            .map((e) => DropdownMenuItem<String>(
+                                  child: Text(e),
+                                  value: e,
+                                ))
+                            .toList(),
+                        value: controller.user.sex,
+                        onChanged: (value) {
+                          controller.user.sex = value;
+                          print(controller.user.sex);
+                        },
+                      )),
                 )))));
   }
 }

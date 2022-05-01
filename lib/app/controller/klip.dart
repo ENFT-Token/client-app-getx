@@ -6,12 +6,12 @@ import 'package:enft/app/data/repository/klip.dart';
 
 import 'package:enft/app/ui/loading_hud/loading_hud.dart';
 
-class UserController extends GetxController {
+class KlipController extends GetxController {
   final KlipRepository repository;
 
-  UserController({required this.repository});
+  KlipController({required this.repository});
 
-  final _klip = Klip().obs;
+  late final _klip;
 
   get klip => this._klip.value;
 
@@ -23,7 +23,7 @@ class UserController extends GetxController {
     final loadingHud = LoadingHud(context: context);
     loadingHud.showHud();
     await repository.getAddress().then((data) {
-      this.klip = data;
+      this._klip = data;
     });
     loadingHud.hideHud();
     Get.toNamed('register');

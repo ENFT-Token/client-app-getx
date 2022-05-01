@@ -5,7 +5,11 @@ class User {
   late String sex;
   late Klip klip;
 
-  User({nickname, sex, klip});
+  User({nickname, sex, klip}) {
+    this.nickname = nickname;
+    this.sex = sex;
+    this.klip = klip;
+  }
 
   User.fromJson(Map<String, dynamic> json) {
     nickname = json['nickname'];

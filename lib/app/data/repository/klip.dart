@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import 'package:enft/app/data/model/klip.dart';
 import 'package:enft/app/data/provider/klaytn_api.dart';
 import 'package:enft/app/data/provider/klip_api.dart';
@@ -35,6 +37,6 @@ class KlipRepository {
       'balance': balance,
       'nftTokens': nftTokens,
       'nfts': nfts,
-    });
+    }).obs;
   }
 }
