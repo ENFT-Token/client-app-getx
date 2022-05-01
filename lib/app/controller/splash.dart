@@ -1,3 +1,4 @@
+import 'package:enft/app/binding/getting_started.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController {
@@ -22,13 +23,14 @@ class SplashController extends GetxController {
   }
 
   animation() {
-    Future.delayed(const Duration(seconds: 1))
+    Future.delayed(const Duration(milliseconds: 750))
         .then((value) => toggle(isExpanded))
-        .then((value) => Future.delayed(const Duration(seconds: 1)))
+        .then((value) => Future.delayed(const Duration(milliseconds: 1250)))
         .then((value) => toggle(isOpacity))
         .then((value) => Future.delayed(const Duration(seconds: 5)))
         .then((value) {
-      Get.offNamed('/home');
+      GettingStartedBinding().dependencies();
+      Get.offNamed('/getting_started');
     });
   }
 

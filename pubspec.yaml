@@ -33,12 +33,27 @@ dependencies:
   # getX
   get: ^4.6.1
 
+  # api
+  http: ^0.13.4
+  http_auth: ^1.0.1
+
+  # deep link
+  url_launcher: ^6.0.20
+  android_intent_plus: ^3.1.0
+
+  # ui
+  lottie: ^1.2.1
+
+  # math
+  convert: ^3.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # flutter
   flutter_dotenv: ^5.0.2
+  flutter_svg: ^1.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

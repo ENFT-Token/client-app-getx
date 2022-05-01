@@ -16,7 +16,7 @@ class EnftApp extends StatelessWidget {
         primaryColor: Colors.blue,
       ),
       initialRoute: AppRoutes.routes.first.toString(),
-      initialBinding: SplashBinding(),
+      initialBinding: InitialBinding(),
       getPages: AppRoutes.routes
     );
   }
