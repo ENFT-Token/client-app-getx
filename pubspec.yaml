@@ -47,6 +47,9 @@ dependencies:
   # math
   convert: ^3.0.1
 
+  # image
+  image_picker: ^0.8.4+11
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

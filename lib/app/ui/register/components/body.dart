@@ -78,11 +78,11 @@ class RegisterBody extends GetView<RegisterController> {
                     RoundedDropDown(values: ['남자', '여자']),
                     RoundedRegisterButton(
                       onPressed: () {
-                        if (!controller.isAlreadyNickname) {
-                          openDialog('중복체크', '닉네임 중복체크를 해주세요');
-                          return;
-                        }
-                        // Get.to('/register_profile');
+                        // if (!controller.isAlreadyNickname) {
+                        //   openDialog('중복체크', '닉네임 중복체크를 해주세요');
+                        //   return;
+                        // }
+                        Get.toNamed('/register_profile');
                       },
                       text: '회원가입',
                     ),
