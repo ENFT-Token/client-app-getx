@@ -8,7 +8,7 @@ import 'package:enft/app/data/repository/klip.dart';
 class KlipBinding extends Bindings {
   @override
   void dependencies() async {
-    Get.lazyPut<KlipController>(() => KlipController(
+    Get.lazyPut<UserController>(() => UserController(
         repository: KlipRepository(
             klipApiClient: KlipApiClient(),
             klaytnApiClient: KlaytnApiClient())));

@@ -4,9 +4,7 @@ import 'package:http/http.dart' as http;
 
 
 class UserApiClient {
-  late final http.Client httpClient;
-
-  UserApiClient({required this.httpClient});
+  UserApiClient();
 
   // late User user;
   // Map<String, String> headers = <String, String>{

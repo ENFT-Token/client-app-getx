@@ -1,12 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import 'package:enft/app/data/model/klip.dart';
 import 'package:enft/app/data/repository/klip.dart';
 
-class KlipController extends GetxController {
+import 'package:enft/app/ui/loading_hud/loading_hud.dart';
+
+class UserController extends GetxController {
   final KlipRepository repository;
 
-  KlipController({required this.repository});
+  UserController({required this.repository});
 
   final _klip = Klip().obs;
 
@@ -15,9 +18,14 @@ class KlipController extends GetxController {
   set klip(value) => this._klip.value = value;
 
   // async await가 필요한가?
-  getAddress() async {
+  // 나중에 try - catch로 error 잡기
+  getAddress(BuildContext context) async {
+    final loadingHud = LoadingHud(context: context);
+    loadingHud.showHud();
     await repository.getAddress().then((data) {
       this.klip = data;
     });
+    loadingHud.hideHud();
+    Get.toNamed('register');
   }
 }

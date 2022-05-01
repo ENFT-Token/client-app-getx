@@ -11,7 +11,7 @@ import 'package:enft/app/ui/getting_started/components/started_page_view.dart';
 
 import 'package:enft/app/ui/loading_hud/loading_hud.dart';
 
-class GettingStartedBody extends GetView<KlipController> {
+class GettingStartedBody extends GetView<UserController> {
   const GettingStartedBody({Key? key}) : super(key: key);
 
   @override
@@ -25,8 +25,6 @@ class GettingStartedBody extends GetView<KlipController> {
             (heightPadding + heightKlipLoginButton + heightStartedPageView)) /
         4;
 
-    final loadingHud = LoadingHud(context: context);
-
     return SafeArea(
         child: Stack(children: [
               Padding(
@@ -36,8 +34,7 @@ class GettingStartedBody extends GetView<KlipController> {
                     Expanded(child: StartedPageView()),
                     SizedBox(height: paddingSlideDotsFromBtn),
                     KlipLoginButton(onPressed: () async {
-                      loadingHud.showHud();
-                      controller.getAddress();
+                      controller.getAddress(context);
                       // if(loadingHud.isLoading) loadingHud.hideHud();
                     }),
                   ],
