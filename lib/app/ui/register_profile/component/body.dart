@@ -26,6 +26,7 @@ class RegisterProfileBody extends GetView<ImageController> {
         RoundedButton(
             text: "프로필 등록하기",
             onPressed: () async {
+              Get.toNamed('location');
               // print(context.read<UserProvider>().login);
               // await context.read<UserProvider>().register(context).then((value) {
               //   print(context.read<UserProvider>().login);

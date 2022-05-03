@@ -1,9 +1,9 @@
-import 'package:enft/app/controller/register.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import 'package:enft/app/constant/constant.dart';
+import 'package:enft/app/controller/register.dart';
 
 class RoundedRegisterButton extends GetView<RegisterController> {
   const RoundedRegisterButton(
@@ -21,7 +21,7 @@ class RoundedRegisterButton extends GetView<RegisterController> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     // total height = margin 20 + padding 20 + text 24
-    return Container(
+    return Obx(() => Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         width: size.width * 0.8,
         child: ClipRRect(
@@ -45,6 +45,6 @@ class RoundedRegisterButton extends GetView<RegisterController> {
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
-                ))));
+                )))));
   }
 }

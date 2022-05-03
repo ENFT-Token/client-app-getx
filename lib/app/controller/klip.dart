@@ -11,7 +11,7 @@ class KlipController extends GetxController {
 
   KlipController({required this.repository});
 
-  late final _klip;
+  late var _klip;
 
   get klip => this._klip.value;
 

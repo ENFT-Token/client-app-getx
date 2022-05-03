@@ -21,6 +21,11 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+// naver map api key
+def localPropertyApiToken = localProperties.getProperty("NAVER_MAP_API_KEY_ID")
+def systemEnvApiToken = System.getenv('NAVER_MAP_API_KEY_ID')
+def NAVER_MAP_API_KEY_ID = localPropertyApiToken != null ? localPropertyApiToken : systemEnvApiToken
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
@@ -48,6 +53,7 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        manifestPlaceholders += [NAVER_MAP_API_KEY_ID: NAVER_MAP_API_KEY_ID]
     }
 
     buildTypes {

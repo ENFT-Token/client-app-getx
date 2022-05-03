@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart' as foundation;
 
 import 'package:get/get.dart';
 
@@ -18,16 +20,13 @@ class RegisterBody extends GetView<RegisterController> {
   String name = "";
   String nickname = "";
 
-  void openDialog(String title, String content) => Get.dialog(AlertDialog(
-        title: Text(title),
-        content: Text(content),
-        actions: [
-          TextButton(
-            child: const Text('취소'),
-            onPressed: () => Get.back(),
-          )
-        ],
-      ));
+  void openDialog(String title, String content, List<Widget> actions) {
+    Get.dialog(foundation.defaultTargetPlatform == foundation.TargetPlatform.iOS
+        ? CupertinoAlertDialog(
+            title: Text(title), content: Text(content), actions: actions)
+        : AlertDialog(
+            title: Text(title), content: Text(content), actions: actions));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +63,26 @@ class RegisterBody extends GetView<RegisterController> {
                             controller.user.nickname = value,
                         onPressed: () {
                           if (controller.user.nickname.length < 2) {
-                            openDialog('너무 짧은 닉네임', '닉네임은 2글자 이상이어야 합니다.');
+                            openDialog('너무 짧은 닉네임', '닉네임은 2글자 이상이어야 합니다.', [
+                              TextButton(
+                                child: const Text('취소'),
+                                onPressed: () => Get.back(),
+                              )
+                            ]);
                             return;
                           }
 
                           if (!controller.isAlreadyNickname) {
-                            openDialog('중복되는 닉네임', '이미 존재하는 닉네임입니다.');
+                            openDialog(
+                              '중복되는 닉네임',
+                              '이미 존재하는 닉네임입니다.',
+                              [
+                                TextButton(
+                                  child: const Text('취소'),
+                                  onPressed: () => Get.back(),
+                                )
+                              ],
+                            );
                             return;
                           }
 
