@@ -2,10 +2,10 @@ import 'package:get/get.dart';
 
 import 'package:enft/app/data/repository/image.dart';
 
-class ImageController extends GetxController {
+class HomeController extends GetxController {
   final ImageRepository repository;
 
-  ImageController({required this.repository});
+  HomeController({required this.repository});
 
   @override
   onInit() async {

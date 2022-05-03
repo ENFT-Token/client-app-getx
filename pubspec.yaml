@@ -49,6 +49,7 @@ dependencies:
 
   # image
   image_picker: ^0.8.4+11
+  qr_flutter: ^4.0.0
 
   # gps
   location: ^4.3.0
@@ -63,6 +64,8 @@ dependencies:
   # sql
   sqflite: ^2.0.2
   path: ^1.8.0
+
+
 
 
 dev_dependencies:

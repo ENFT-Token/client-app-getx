@@ -50,7 +50,7 @@ class LocationApiClient {
   Future<List> getAroundLocation(int num, String lat, String lon) async {
     List<String> address = [];
     List<Map<String, String>> gpsMap = latLonMapWithSnailArray(num, lat, lon);
-
+    print(gpsMap);
     Map<String, String> headers = {
       "X-NCP-APIGW-API-KEY-ID": dotenv.env['NAVER_MAP_API_KEY_ID'] ?? "",
       "X-NCP-APIGW-API-KEY": dotenv.env['NAVER_MAP_API_KEY'] ?? ""

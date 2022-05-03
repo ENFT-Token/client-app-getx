@@ -1,5 +1,3 @@
-import 'package:get/get.dart';
-
 import 'package:location/location.dart';
 
 import 'package:enft/app/data/provider/location_api.dart';
@@ -30,9 +28,10 @@ class LocationRepository {
         return;
       }
     }
+
     _locationData = await location.getLocation();
 
-    return await apiClient.getAroundLocation(
-        5, _locationData.latitude.toString(), _locationData.longitude.toString());
+    return await apiClient.getAroundLocation(5,
+        _locationData.latitude.toString(), _locationData.longitude.toString());
   }
 }
