@@ -6,7 +6,8 @@ import 'package:enft/app/controller/user.dart';
 
 import 'package:enft/app/constant/constant.dart';
 
-class TicketController extends GetxController with GetTickerProviderStateMixin, StateMixin {
+class TicketController extends GetxController
+    with GetTickerProviderStateMixin, StateMixin {
   // Background gradient animation
   late Rx<AnimationController> _backgroundGradientController;
   late Rx<Animation<Color?>> _backgroundGradientAnimationForward;
@@ -61,6 +62,12 @@ class TicketController extends GetxController with GetTickerProviderStateMixin, 
   }
 
   @override
+  void onReady() {
+    change(null, status: RxStatus.success());
+    super.onReady();
+  }
+
+  @override
   void onClose() {
     _backgroundGradientController.close();
     _pageController.close();
@@ -97,37 +104,7 @@ class TicketController extends GetxController with GetTickerProviderStateMixin, 
   initPageController() {
     _pageController = PageController(viewportFraction: 0.8).obs;
     pageController.addListener(() {
-      currPageValue = pageController.page!;
+      currPageValue = pageController.page;
     });
   }
-
-// pageChangedAnimation(int index, double height) {
-//   final double _scaleFactor = 0.8;
-//   if (index == currPageValue.floor()) {
-//     var currScale = 1.0 - (currPageValue - index) * (1.0 - _scaleFactor);
-//     var currTrans = height * (1.0 - currScale) / 2.0;
-//     matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
-//       ..setTranslationRaw(0.0, currTrans, 0.0);
-//     currOpacity = currScale;
-//   } else if (index == currPageValue.floor() + 1) {
-//     var currScale =
-//         _scaleFactor + (currPageValue - index + 1) * (1.0 - _scaleFactor);
-//     var currTrans = height * (1.0 - currScale) / 2.0;
-//     matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
-//       ..setTranslationRaw(0.0, currTrans, 0.0);
-//     currOpacity = currScale - 0.2;
-//   } else if (index == currPageValue.floor() - 1) {
-//     var currScale =
-//         _scaleFactor + (currPageValue - index - 1) * (1.0 - _scaleFactor);
-//     var currTrans = height * (1.0 - currScale) / 2.0;
-//     matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
-//       ..setTranslationRaw(0.0, currTrans, 0.0);
-//     currOpacity = currScale - 0.2;
-//   } else {
-//     var currScale = 0.8;
-//     matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
-//       ..setTranslationRaw(0.0, height * (1.0 - _scaleFactor) / 2.0, 0.0);
-//     currOpacity = currScale - 0.2;
-//   }
-// }
 }

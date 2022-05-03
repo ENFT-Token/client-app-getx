@@ -23,6 +23,8 @@ class Ticket extends GetView<TicketController> {
     final height = width * 1.618;
     final double _scaleFactor = 0.8;
 
+    controller.index = index;
+
     return Obx(() {
         if (index == controller.currPageValue.floor()) {
           var currScale =

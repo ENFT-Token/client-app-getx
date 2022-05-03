@@ -18,48 +18,52 @@ class TicketPageView extends GetView<TicketController> {
     final height = width * 1.618;
 
     return Center(
-        child: SizedBox(
-            height: height,
-            child: UserController.to.qrDataList.first == ""
-                ? Obx(() => PageView.builder(
-                    onPageChanged: (index) => controller.selectedIndex = index,
-                    controller: controller.pageController,
-                    // itemCount: 3,
-                    itemCount: 3,
-                    itemBuilder: (BuildContext context, int index) {
-                      return FlipCard(
-                          controller: FlipCardController(),
-                          front: NoneTicket(
-                              index: index, description: "헬스장\n티켓이\n없어요"),
-                          back: NoneTicket(
-                              index: index, description: "헬스장\n티켓이\n없어요"));
-                    }))
-                : Obx(() => PageView.builder(
-                    onPageChanged: (index) => controller.selectedIndex = index,
-                    controller: controller.pageController,
-                    // itemCount: 3,
-                    itemCount: UserController.to.qrDataList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return FlipCard(
-                        controller: FlipCardController(),
-                        front: FrontTicket(
-                          index: index,
-                          place: UserController.to.user.klip.nfts[index]
-                              ['place'],
-                          // qrData: "",
-                          qrData: UserController.to.qrDataList[index],
-                        ),
-                        back: BackTicket(
-                          index: index,
-                          start_date: UserController.to.user.klip.nfts[index]
-                              ['start_date'],
-                          end_date: UserController.to.user.klip.nfts[index]
-                              ['end_date'],
-                          during: UserController.to.user.klip.nfts[index]
-                              ['during'],
-                          qrData: UserController.to.qrDataList[index],
-                        ),
-                      );
-                    }))));
+        child: Obx(() => controller.obx(
+            (state) => SizedBox(
+                height: height,
+                child: UserController.to.qrDataList.first == ""
+                    ? PageView.builder(
+                        onPageChanged: (index) =>
+                            controller.selectedIndex = index,
+                        controller: controller.pageController,
+                        // itemCount: 3,
+                        itemCount: 3,
+                        itemBuilder: (BuildContext context, int index) {
+                          return FlipCard(
+                              controller: FlipCardController(),
+                              front: NoneTicket(
+                                  index: index, description: "헬스장\n티켓이\n없어요"),
+                              back: NoneTicket(
+                                  index: index, description: "헬스장\n티켓이\n없어요"));
+                        })
+                    : PageView.builder(
+                        onPageChanged: (index) =>
+                            controller.selectedIndex = index,
+                        controller: controller.pageController,
+                        // itemCount: 3,
+                        itemCount: UserController.to.qrDataList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return FlipCard(
+                            controller: FlipCardController(),
+                            front: FrontTicket(
+                              index: index,
+                              place: UserController.to.user.klip.nfts[index]
+                                  ['place'],
+                              // qrData: "",
+                              qrData: UserController.to.qrDataList[index],
+                            ),
+                            back: BackTicket(
+                              index: index,
+                              start_date: UserController
+                                  .to.user.klip.nfts[index]['start_date'],
+                              end_date: UserController.to.user.klip.nfts[index]
+                                  ['end_date'],
+                              during: UserController.to.user.klip.nfts[index]
+                                  ['during'],
+                              qrData: UserController.to.qrDataList[index],
+                            ),
+                          );
+                        })),
+            onLoading: CircularProgressIndicator())));
   }
 }
