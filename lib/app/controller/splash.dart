@@ -1,4 +1,7 @@
-import 'package:enft/app/binding/getting_started.dart';
+import 'package:enft/app/binding/klip.dart';
+import 'package:enft/app/binding/user.dart';
+import 'package:enft/app/controller/klip.dart';
+import 'package:enft/app/controller/user.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController {
@@ -8,6 +11,8 @@ class SplashController extends GetxController {
 
   @override
   void onInit() async {
+    KlipBinding();
+    UserBinding();
     super.onInit();
   }
 
@@ -22,15 +27,19 @@ class SplashController extends GetxController {
     super.onClose();
   }
 
-  animation() {
+  animation() async {
+    await KlipController.to.getAddress();
+    final isLogin = await UserController.to.login(KlipController.to.klip);
     Future.delayed(const Duration(milliseconds: 750))
         .then((value) => toggle(isExpanded))
         .then((value) => Future.delayed(const Duration(milliseconds: 1250)))
         .then((value) => toggle(isOpacity))
         .then((value) => Future.delayed(const Duration(seconds: 5)))
         .then((value) {
-      GettingStartedBinding().dependencies();
-      Get.offNamed('/getting_started');
+      if (isLogin)
+        Get.offNamed('/home');
+      else
+        Get.offNamed('/getting_started');
     });
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import 'package:enft/app/controller/register.dart';
 import 'package:enft/app/controller/image.dart';
 
 import 'package:enft/app/ui/register/components/rounded_button.dart';
@@ -16,26 +17,19 @@ class RegisterProfileBody extends GetView<ImageController> {
     return SafeArea(
         child: Center(
             child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        ProfileButton(),
-        SizedBox(
-          height: 16,
-        ),
-        RoundedButton(
-            text: "프로필 등록하기",
-            onPressed: () async {
-              Get.toNamed('location');
-              // print(context.read<UserProvider>().login);
-              // await context.read<UserProvider>().register(context).then((value) {
-              //   print(context.read<UserProvider>().login);
-              //   if (context.read<UserProvider>().login == true)
-              //     Navigator.of(context).push(
-              //         MaterialPageRoute(builder: (_) => HomePage(title: "")));
-              // });
-            })
-      ],
-    )));
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+          ProfileButton(),
+          SizedBox(
+            height: 16,
+          ),
+          RoundedButton(
+              text: "프로필 등록하기",
+              onPressed: () {
+                RegisterController.to.user.profile = controller.img;
+                Get.toNamed('location');
+              })
+        ])));
   }
 }

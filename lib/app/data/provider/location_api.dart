@@ -67,8 +67,6 @@ class LocationApiClient {
 
       String jsonData = response.body;
 
-      print(jsonData);
-
       var status = jsonDecode(jsonData)["status"]["code"];
 
       var state = jsonDecode(jsonData)["results"][1]['region']['area1']['name'];

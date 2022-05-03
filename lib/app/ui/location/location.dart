@@ -12,7 +12,10 @@ class LocationPage extends GetView<LocationController> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(appBar: buildAppBar(), body: LocationBody()));
+        child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: buildAppBar(),
+            body: LocationBody()));
   }
 
   AppBar buildAppBar() {

@@ -10,7 +10,7 @@ class KlipRepository {
 
   KlipRepository({required this.klipApiClient, required this.klaytnApiClient});
 
-  getAddress() async {
+  getKlip() async {
     // await klipApiClient.createUriLaunch();
     // String status = "";
     // int i = 0;

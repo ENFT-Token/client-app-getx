@@ -2,9 +2,6 @@ import 'dart:io';
 
 import 'dart:convert';
 
-import 'package:enft/app/data/model/klip.dart';
-import 'package:flutter/services.dart';
-
 import 'package:http/http.dart' as http;
 
 import 'package:android_intent_plus/android_intent.dart';
@@ -28,7 +25,7 @@ class KlipApiClient {
     'Content-Type': 'application/json'
   };
 
-  String get getRequestKey =>_requestKey;
+  String get getRequestKey => _requestKey;
 
   Future<void> initKlipApi() async {
     await prepareRequestKey();
@@ -70,7 +67,8 @@ class KlipApiClient {
   }
 
   // Send NFT card to another user
-  Future<String> sendCard(String contract, String from, String to, String cardId) async {
+  Future<String> sendCard(
+      String contract, String from, String to, String cardId) async {
     String body = jsonEncode(<String, dynamic>{
       'transaction': {
         'contract': contract,
@@ -121,6 +119,7 @@ class KlipApiClient {
       await createDeepLink();
     }
   }
+
   // Result api
   // Get user klip address
   // Status : completed, canceled, error, prepare, requested
@@ -167,4 +166,6 @@ class KlipApiClient {
 
     return int.parse(body['data']['closing_price']);
   }
+
+
 }

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import 'package:enft/app/route/routes.dart';
 
+import 'package:enft/app/binding/splash.dart';
 import 'package:enft/app/binding/getting_started.dart';
 import 'package:enft/app/binding/klip.dart';
 import 'package:enft/app/binding/register.dart';
@@ -18,14 +19,11 @@ import 'package:enft/app/ui/location/location.dart';
 
 class AppRoutes implements Routes {
   static final routes = [
-    GetPage(name: Routes.INITIAL, page: () => SplashPage()),
+    GetPage(name: Routes.INITIAL, page: () => SplashPage(), bindings: [SplashBinding(), KlipBinding(), UserBinding()]),
     GetPage(
         name: '/getting_started',
         page: () => GettingStartedPage(),
-        bindings: [
-          GettingStartedBinding(),
-          KlipBinding(),
-        ]),
+        bindings: [GettingStartedBinding(), KlipBinding(), RegisterBinding()]),
     GetPage(
         name: '/register',
         page: () => RegisterPage(),
@@ -33,12 +31,12 @@ class AppRoutes implements Routes {
     GetPage(
       name: '/register_profile',
       page: () => RegisterProfilePage(),
-      binding: ImageBinding(),
+      bindings: [ImageBinding(), RegisterBinding()],
     ),
     GetPage(
         name: '/location',
         page: () => LocationPage(),
-        binding: LocationBinding()),
+        bindings: [LocationBinding(), RegisterBinding(), UserBinding()]),
     GetPage(name: '/home', page: () => HomePage()),
   ];
 }

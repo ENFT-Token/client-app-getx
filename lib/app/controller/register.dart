@@ -1,19 +1,23 @@
-import 'dart:convert';
-
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 import 'package:get/get.dart';
 
-import 'package:http/http.dart' as http;
-
-import 'package:enft/app/data/model/user.dart';
 import 'package:enft/app/data/repository/register.dart';
+import 'package:enft/app/data/repository/sqflite.dart';
 
 class RegisterController extends GetxController {
-  final RegisterRepository repository;
+  static RegisterController get to => Get.find<RegisterController>();
 
-  RegisterController({required this.repository}) {
+  final RegisterRepository registerRepository;
+  final SqfliteRepository sqfliteRepository;
+
+  RegisterController(
+      {required this.registerRepository, required this.sqfliteRepository}) {
     initUser();
+  }
+
+  @override
+  onInit() async {
+    if (sqfliteRepository.api.db == null)
+      await sqfliteRepository.api.init('enft.db', 'user');
   }
 
   late var _user;
@@ -27,32 +31,25 @@ class RegisterController extends GetxController {
 
   set isAlreadyNickname(value) => this._isAlreadyNickname.value = value;
 
-  initUser() => this._user = repository.initUser();
+  initUser() => _user = registerRepository.user.obs;
 
-  alreadyNickname() async =>
-      isAlreadyNickname = await repository.alreadyNickname(_user.value.nickname);
+  alreadyNickname() async => isAlreadyNickname =
+      await registerRepository.alreadyNickname(_user.value.nickname);
 
-  Future<void> register() async {
-    Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json'
-    };
-
-    final uri =
-    Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000/auth/user/register");
-
-    // registerJson['profile'] = "none";
-    final body = json.encode(user.toJson());
-    print(body);
-    final http.Response response =
-    await http.post(uri, body: body, headers: headers);
-
-    print(response.body);
-    final responseBody = Map<String, dynamic>.from(json.decode(response.body));
-
-    print(responseBody);
-    // if (responseBody['privateKey'] != "") {
-    //   await bcrypt(context, responseBody['privateKey']);
-    // }
+  Future<bool> register() async {
+    registerRepository.user = user;
+    print(registerRepository.user.klip.address);
+    final result = await registerRepository.register();
+    if (result.isEmpty)
+      return false;
+    else {
+      final userTable = await sqfliteRepository.getData('user');
+      if (userTable.isEmpty) {
+        await sqfliteRepository.insert('user', result);
+      } else {
+        await sqfliteRepository.update('user', result);
+      }
+      return true;
+    }
   }
-
 }

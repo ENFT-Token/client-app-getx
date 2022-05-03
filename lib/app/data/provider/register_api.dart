@@ -18,27 +18,48 @@ class RegisterApiClient {
   Map<String, String> headers = <String, String>{
     'Content-Type': 'application/json'
   };
-  Map<String, dynamic> registerJson = {
-    'nickname': '',
-    'address': '',
-    'location': '경기도 화성시',
-    'sex': '',
-    'profile': '',
-  };
+
+  Future<Map<String, dynamic>> register(Map<String, dynamic> data) async {
+    Map<String, String> headers = <String, String>{
+      'Content-Type': 'application/json'
+    };
+
+    final uri =
+        Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000/auth/user/register");
+
+    final body = json.encode(data);
+    print(body);
+    final http.Response response =
+        await http.post(uri, body: body, headers: headers);
+
+    print(response.body);
+    final responseBody = Map<String, dynamic>.from(json.decode(response.body));
+
+    print(responseBody);
+    return responseBody;
+  }
 
   Future<bool> alreadyNickname(String nickname) async {
-    final uri =
-        Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000/user/nickname?nickname=testjsh");
+    final uri = Uri.parse(
+        dotenv.env['SERVER_ADDRESS']! + ":3000/user/nickname?nickname=testjsh");
 
     final http.Response response = await http.get(uri, headers: headers);
 
     final responseBody = Map<String, dynamic>.from(json.decode(response.body));
 
-    print(responseBody);
-
     return responseBody['result'];
   }
 
+  Future<Map<String, dynamic>> alreadyAccount(String address) async {
+    final uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! +
+        ":3000/auth/user/alreadyAccount?address=$address");
+
+    final http.Response response = await http.get(uri, headers: headers);
+
+    final responseBody = Map<String, dynamic>.from(json.decode(response.body));
+
+    return responseBody;
+  }
 // Map<String, dynamic> userJson(Map<String, dynamic> responseBody) {
 //   final userJson = {
 //     'nickname': responseBody['status'],

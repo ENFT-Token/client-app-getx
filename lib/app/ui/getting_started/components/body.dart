@@ -1,15 +1,15 @@
+import 'package:enft/app/ui/loading_hud/loading_hud.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import 'package:enft/app/constant/constant.dart';
 
+import 'package:enft/app/controller/register.dart';
 import 'package:enft/app/controller/klip.dart';
 
 import 'package:enft/app/ui/getting_started/components/klip_login_button.dart';
 import 'package:enft/app/ui/getting_started/components/started_page_view.dart';
-
-import 'package:enft/app/ui/loading_hud/loading_hud.dart';
 
 class GettingStartedBody extends GetView<KlipController> {
   const GettingStartedBody({Key? key}) : super(key: key);
@@ -27,19 +27,23 @@ class GettingStartedBody extends GetView<KlipController> {
 
     return SafeArea(
         child: Stack(children: [
-              Padding(
-                padding: const EdgeInsets.all(kDefaultPadding),
-                child: Column(
-                  children: <Widget>[
-                    Expanded(child: StartedPageView()),
-                    SizedBox(height: paddingSlideDotsFromBtn),
-                    KlipLoginButton(onPressed: () async {
-                      controller.getAddress(context);
-                      // if(loadingHud.isLoading) loadingHud.hideHud();
-                    }),
-                  ],
-                ),
-              )
-            ]));
+      Padding(
+        padding: const EdgeInsets.all(kDefaultPadding),
+        child: Column(
+          children: <Widget>[
+            Expanded(child: StartedPageView()),
+            SizedBox(height: paddingSlideDotsFromBtn),
+            KlipLoginButton(onPressed: () async {
+              LoadingHud loadingHud = LoadingHud(context: context);
+              loadingHud.showHud();
+              await controller.getAddress();
+              RegisterController.to.user.klip = controller.klip;
+              loadingHud.hideHud();
+              Get.toNamed('register');
+            }),
+          ],
+        ),
+      )
+    ]));
   }
 }

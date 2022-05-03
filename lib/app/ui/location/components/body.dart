@@ -4,8 +4,9 @@ import 'package:flutter/foundation.dart' as foundation;
 
 import 'package:get/get.dart';
 
-import 'package:enft/app/constant/constant.dart';
+import 'package:enft/app/controller/user.dart';
 import 'package:enft/app/controller/location.dart';
+import 'package:enft/app/controller/register.dart';
 
 import 'package:enft/app/ui/loading_hud/loading_hud.dart';
 import 'package:enft/app/ui/location/components/location_list.dart';
@@ -48,9 +49,34 @@ class LocationBody extends GetView<LocationController> {
                       onPressed: () => Get.back(),
                     ),
                     TextButton(
-                      child: const Text('확인'),
-                      onPressed: () => Get.offAllNamed('/home'),
-                    ),
+                        child: const Text('확인'),
+                        onPressed: () async {
+                          RegisterController.to.user.location =
+                              controller.location;
+                          RegisterController.to.user.profile = "";
+                          if (await RegisterController.to.register() == true) {
+                            UserController.to.user = RegisterController.to.user;
+                            final isLogin = await UserController.to
+                                .login(UserController.to.user.klip);
+                            if (isLogin)
+                              Get.offAllNamed('/home');
+                            else {
+                              openDialog("에러", "다시 시도해주세요.", [
+                                TextButton(
+                                  child: const Text('취소'),
+                                  onPressed: () => Get.back(),
+                                )
+                              ]);
+                            }
+                          } else {
+                            openDialog("에러", "다시 시도해주세요.", [
+                              TextButton(
+                                child: const Text('취소'),
+                                onPressed: () => Get.back(),
+                              )
+                            ]);
+                          }
+                        })
                   ]);
                 },
               ))
