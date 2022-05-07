@@ -2,13 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import 'package:enft/app/constant/constant.dart';
-
-import 'package:enft/app/controller/user.dart';
 import 'package:enft/app/controller/ticket.dart';
 
-import 'package:enft/app/ui/ticket/components/none_ticket.dart';
-import 'package:enft/app/ui/ticket/components/bottom_ticket.dart';
 
 class Ticket extends GetView<TicketController> {
   const Ticket({Key? key, required this.index, required this.detail})
@@ -24,6 +19,8 @@ class Ticket extends GetView<TicketController> {
     final double _scaleFactor = 0.8;
 
     controller.index = index;
+
+    print(index);
 
     return Obx(() {
         if (index == controller.currPageValue.floor()) {

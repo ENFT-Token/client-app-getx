@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:enft/app/controller/image.dart';
 import 'package:enft/app/ui/register_profile/component/profile_bottom_sheet.dart';
 
-class ProfileButton extends GetView<HomeController> {
+class ProfileButton extends GetView<ImageController> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

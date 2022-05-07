@@ -7,7 +7,7 @@ import 'package:enft/app/data/repository/image.dart';
 class ImageBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<HomeController>(() => HomeController(
+    Get.lazyPut<ImageController>(() => ImageController(
         repository: ImageRepository(apiNative: ImageApiNative())));
   }
 }

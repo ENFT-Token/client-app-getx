@@ -11,10 +11,6 @@ import 'package:enft/app/binding/image.dart';
 import 'package:enft/app/binding/location.dart';
 import 'package:enft/app/binding/user.dart';
 
-// after login
-import 'package:enft/app/binding/home.dart';
-import 'package:enft/app/binding/ticket.dart';
-
 // register
 import 'package:enft/app/ui/splash/splash.dart';
 import 'package:enft/app/ui/getting_started/getting_started.dart';
@@ -23,8 +19,16 @@ import 'package:enft/app/ui/register_profile/register_profile.dart';
 import 'package:enft/app/ui/location/location.dart';
 
 // after login
+import 'package:enft/app/binding/home.dart';
+import 'package:enft/app/binding/ticket.dart';
+import 'package:enft/app/binding/chat.dart';
+import 'package:enft/app/binding/message.dart';
+
+// after login
 import 'package:enft/app/ui/home/home.dart';
 import 'package:enft/app/ui/ticket/ticket.dart';
+import 'package:enft/app/ui/chat/chat.dart';
+import 'package:enft/app/ui/message/message.dart';
 
 class AppRoutes implements Routes {
   static final routes = [
@@ -32,6 +36,8 @@ class AppRoutes implements Routes {
         name: Routes.INITIAL,
         page: () => SplashPage(),
         bindings: [SplashBinding(), KlipBinding(), UserBinding()]),
+
+    // Register pages
     GetPage(
         name: '/getting_started',
         page: () => GettingStartedPage(),
@@ -49,13 +55,22 @@ class AppRoutes implements Routes {
         name: '/location',
         page: () => LocationPage(),
         bindings: [LocationBinding(), RegisterBinding(), UserBinding()]),
-    GetPage(
-        name: '/home',
-        page: () => HomePage(),
-        bindings: [HomeBinding(), TicketBinding(), UserBinding()]),
+
+    // after login pages
+    GetPage(name: '/home', page: () => HomePage(), bindings: [
+      HomeBinding(),
+      TicketBinding(),
+      UserBinding(),
+      ChatBinding()
+    ]),
     GetPage(
         name: '/ticket',
         page: () => TicketPage(),
         bindings: [TicketBinding(), UserBinding()]),
+    GetPage(name: '/chat', page: () => ChatPage(), bindings: [ChatBinding()]),
+    GetPage(
+        name: '/message',
+        page: () => MessagePage(),
+        bindings: [MessageBinding(), ImageBinding(), UserBinding()]),
   ];
 }

@@ -1,7 +1,8 @@
-import 'package:enft/app/controller/home.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+
+import 'package:enft/app/controller/home.dart';
 
 class HomeBottomNavigationBar extends GetView<HomeController> {
   HomeBottomNavigationBar();

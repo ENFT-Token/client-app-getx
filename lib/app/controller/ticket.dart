@@ -16,7 +16,7 @@ class TicketController extends GetxController
   // Page controller
   late Rx<PageController> _pageController;
   RxInt _selectedIndex = 0.obs;
-  RxDouble _currPageValue = 0.0.obs;
+  RxDouble _currPageValue = (0.0).obs;
 
   // Page animation
   RxDouble _currOpacity = 1.0.obs;
@@ -102,7 +102,7 @@ class TicketController extends GetxController
   }
 
   initPageController() {
-    _pageController = PageController(viewportFraction: 0.8).obs;
+    _pageController = PageController(initialPage: selectedIndex, viewportFraction: 0.8).obs;
     pageController.addListener(() {
       currPageValue = pageController.page;
     });

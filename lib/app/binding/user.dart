@@ -7,11 +7,14 @@ import 'package:enft/app/data/repository/sqflite.dart';
 import 'package:enft/app/data/repository/user.dart';
 
 class UserBinding extends Bindings {
+  UserBinding();
+
   @override
   void dependencies() async {
-    Get.lazyPut<UserController>(() => UserController(
-        userRepository: UserRepository(
-            userApiClient: UserApiClient()),
-        sqfliteRepository: SqfliteRepository(api: SqfliteApi())));
+    Get.put(
+        UserController(
+            userRepository: UserRepository(userApiClient: UserApiClient()),
+            sqfliteRepository: SqfliteRepository(api: SqfliteApi())),
+        permanent: true);
   }
 }

@@ -65,6 +65,7 @@ class LocationApiClient {
           // "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=${gpsMap[i]['lon']},${gpsMap[i]['lat']}&sourcecrs=epsg:4326&output=json"),
           headers: headers);
 
+
       String jsonData = response.body;
 
       var status = jsonDecode(jsonData)["status"]["code"];

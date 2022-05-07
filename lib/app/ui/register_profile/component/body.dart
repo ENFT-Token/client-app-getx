@@ -8,7 +8,7 @@ import 'package:enft/app/controller/image.dart';
 import 'package:enft/app/ui/register/components/rounded_button.dart';
 import 'package:enft/app/ui/register_profile/component/profile_button.dart';
 
-class RegisterProfileBody extends GetView<HomeController> {
+class RegisterProfileBody extends GetView<ImageController> {
   const RegisterProfileBody({Key? key}) : super(key: key);
 
   @override

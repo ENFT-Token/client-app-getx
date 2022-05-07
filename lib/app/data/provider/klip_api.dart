@@ -164,8 +164,7 @@ class KlipApiClient {
 
     final body = Map<String, dynamic>.from(json.decode(response.body));
 
-    return int.parse(body['data']['closing_price']);
+    print(body['data']['closing_price']);
+    return (double.parse(body['data']['closing_price'])).toInt();
   }
-
-
 }

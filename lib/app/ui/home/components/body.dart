@@ -4,13 +4,14 @@ import 'package:get/get.dart';
 
 import 'package:enft/app/controller/home.dart';
 import 'package:enft/app/ui/ticket/ticket.dart';
+import 'package:enft/app/ui/chat/chat.dart';
 
 class HomeBody extends GetView<HomeController> {
   List<Widget> pages = [
     const TicketPage(),
     Container(),
     Container(),
-    Container(),
+    ChatPage(),
     Container(),
     // WalletPage(),
     // const PostListScreen(),

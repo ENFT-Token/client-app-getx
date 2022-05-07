@@ -25,6 +25,7 @@ class UserApiClient {
 
     final responseBody = Map<String, dynamic>.from(json.decode(response.body));
 
+    print("hello");
     print(responseBody);
     if (responseBody['status'] != "success") return {'status': 'fail'};
 

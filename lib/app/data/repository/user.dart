@@ -43,6 +43,7 @@ class UserRepository {
     klip.nfts = nftResult['nfts'];
     fromJson['klip'] = klip.toJson();
 
+    print(fromJson);
     user = User.fromJson(fromJson);
 
     return user;

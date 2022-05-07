@@ -24,15 +24,15 @@ class UserController extends GetxController {
   }
 
   late var _user;
-  RxList<String> _qrDataList = [""].obs;
+  List<dynamic> _qrDataList = List.empty(growable: true).obs;
 
   get user => this._user.value;
 
   set user(value) => this._user.value = value;
 
-  get qrDataList => this._qrDataList.value;
+  get qrDataList => this._qrDataList;
 
-  set qrDataList(value) => this._qrDataList.value = value;
+  set qrDataList(value) => this._qrDataList = value;
 
   initUser() {
     userRepository.initUser();
@@ -44,21 +44,24 @@ class UserController extends GetxController {
       await sqfliteRepository.api.init('enft.db', 'user');
     final loginData = await sqfliteRepository.getData('user');
 
+    print(loginData);
     try {
       user = await userRepository.login(loginData[0], klip);
       generateQrDatas();
+      print(user.nickname);
       return true;
     } catch (e) {
+      print('hello');
       print(e);
       return false;
     }
   }
 
   void generateQrDatas() {
-    for (int i = 0; i < UserController.to.user.klip.nftTokens.length; i++) {
+    for (int i = 0; i < user.klip.nftTokens.length; i++) {
       final map = {
-        'address': UserController.to.user.klip.address,
-        'nftToken': UserController.to.user.klip.nftTokens[i]
+        'address': user.klip.address,
+        'nftToken': user.klip.nftTokens[i]
       };
 
       qrDataList.add(json.encode(map));

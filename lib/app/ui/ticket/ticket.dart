@@ -7,6 +7,6 @@ class TicketPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: TicketBody());
+    return SafeArea(child: Scaffold(body: TicketBody()));
   }
 }
