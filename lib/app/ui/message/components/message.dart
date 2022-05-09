@@ -45,7 +45,7 @@ class ChatMessage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             if (message.isSender) ...[
-              Text(message.time.substring(13)),
+              Text(message.time.substring(message.time.indexOf("오"))),
               SizedBox(
                 width: kDefaultPadding / 2,
               )
@@ -75,7 +75,7 @@ class ChatMessage extends StatelessWidget {
               ],
             ),
             if (!message.isSender) ...[
-              Text(message.time.substring(13)),
+              Text(message.time.substring(message.time.indexOf("오"))),
               SizedBox(
                 width: kDefaultPadding / 2,
               )

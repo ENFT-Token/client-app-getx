@@ -30,7 +30,6 @@ class LocationRepository {
     }
 
     _locationData = await location.getLocation();
-
     return await apiClient.getAroundLocation(5,
         _locationData.latitude.toString(), _locationData.longitude.toString());
   }

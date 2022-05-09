@@ -14,6 +14,7 @@ class ChatInputField extends GetView {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<MessageController>(tag: Get.arguments['tag']);
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: kDefaultPadding,
@@ -56,7 +57,7 @@ class ChatInputField extends GetView {
                       child: TextField(
                     textInputAction: TextInputAction.go,
                     onSubmitted: (text) {
-                      MessageController.to.sendTextMessage(UserController.to.user.nickname, text);
+                      controller.sendTextMessage(UserController.to.user.nickname, text);
                     },
                     decoration: InputDecoration(
                         hintText: "메세지를 입력하세요", border: InputBorder.none),

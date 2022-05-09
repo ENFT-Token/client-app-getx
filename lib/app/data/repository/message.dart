@@ -22,7 +22,6 @@ class MessageRepository {
 
   sendTextMessage(String roomId, String nickname, String text) {
     socketClient.sendTextMessage(roomId, nickname, text);
-    print(text);
     return Message(
         text: text,
         images: null,
@@ -53,15 +52,19 @@ class MessageRepository {
       final time = element['sendAt'].substring(0, 10) +
           " " +
           element['sendAt'].substring(11, 19);
+      print(time);
+      print(DateTime.now());
+      print(DateFormat.yMd().add_jm().format(DateTime.now()));
       messageList.add(Message(
           text: element['msg'],
           images: null,
           messageType: MessageType.text,
           time: DateFormat.yMd()
               .add_jm()
-              .format(DateFormat('mm-dd-yyyy hh:mm:ss').parse(time)),
+              .format (DateFormat('yyyy-mm-dd hh:mm:ss').parse(time)),
           isSender: nickname == element['senderName'] ? true : false));
     });
+
     return messageList;
   }
 }

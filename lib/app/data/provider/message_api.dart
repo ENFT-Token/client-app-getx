@@ -13,15 +13,13 @@ class MessageApiClient {
 
   Future<List> getMessageList(String roomId) async {
     final splitRoomId = roomId.split(" ");
-    final body = json.encode({
-      'roomId1': splitRoomId[0],
-      'roomId2': splitRoomId[1],
-    });
+    final user1 = splitRoomId[0];
+    final user2 = splitRoomId[1];
 
-    final uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000/events");
+    final uri =
+        Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000/events/$user1/$user2");
 
-    final http.Response response =
-        await http.post(uri, body: body, headers: headers);
+    final http.Response response = await http.get(uri, headers: headers);
 
     final responseBody = Map<String, dynamic>.from(json.decode(response.body));
 

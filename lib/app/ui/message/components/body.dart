@@ -7,11 +7,12 @@ import 'package:enft/app/controller/message.dart';
 import 'package:enft/app/ui/message/components/chat_input_field.dart';
 import 'package:enft/app/ui/message/components/message.dart';
 
-class MessageBody extends GetView<MessageController> {
+class MessageBody extends GetView {
   const MessageBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<MessageController>(tag: Get.arguments['tag']);
     return Column(
       children: [
         Expanded(

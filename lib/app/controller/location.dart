@@ -24,8 +24,12 @@ class LocationController extends GetxController {
 
   set isEqualLists(value) => this._isEqualLists = value;
 
-  getAroundLocation() async =>
-      locationList = _locationSearchList = await repository.getAroundLocation();
+  getAroundLocation() async {
+    locationList = _locationSearchList = await repository.getAroundLocation();
+    print(locationList);
+    print(_locationSearchList);
+
+  }
 
   searchLocation(String value) {
     if (value == "") {

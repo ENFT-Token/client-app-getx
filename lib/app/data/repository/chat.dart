@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import 'package:enft/app/data/model/chat.dart';
 import 'package:enft/app/data/provider/chat_api.dart';
 

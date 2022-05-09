@@ -82,6 +82,7 @@ class LocationApiClient {
         address.add(temp);
       }
     }
+
     return address;
   }
 }

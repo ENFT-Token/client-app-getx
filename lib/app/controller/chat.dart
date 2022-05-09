@@ -11,9 +11,7 @@ class ChatController extends GetxController {
 
   ChatRepository repository;
 
-  ChatController({required this.repository}) {
-    initChat();
-  }
+  ChatController({required this.repository});
 
   @override
   onInit() async {
@@ -21,27 +19,24 @@ class ChatController extends GetxController {
   }
 
   late var _chat;
-  List<dynamic> _chatList = List.empty(growable: true).obs;
+  RxList<dynamic> _chatList = List.empty(growable: true).obs;
   String _roomId = "";
 
   get chat => _chat.value;
 
   set chat(value) => _chat.value = value;
 
-  get chatList => _chatList;
+  get chatList => _chatList.value;
 
-  set chatList(value) => _chatList = value;
+  set chatList(value) => _chatList.value = value;
 
   get roomId => _roomId;
 
   set roomId(value) => _roomId = value;
 
-  initChat() {
-    repository.initChat();
-    _chat = repository.chat.obs;
-    // chatList = chatDataList;
+  getChatList() async {
+    chatList = await repository.getChatList(UserController.to.user.nickname);
+    print(chatList.runtimeType);
+    _chatList.refresh();
   }
-
-  getChatList() async =>
-      chatList = await repository.getChatList(UserController.to.user.nickname);
 }

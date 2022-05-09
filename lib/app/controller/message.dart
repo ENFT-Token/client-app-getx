@@ -28,7 +28,7 @@ class MessageController extends GetxController with StateMixin<List> {
   void onInit() async {
     roomId = ChatController.to.roomId;
     scrollController = ScrollController()..addListener(_scrollListener);
-    _messageList = await repository.getMessageList(roomId);
+    messageList = await repository.getMessageList(roomId);
     initMessage();
     initSocket();
     super.onInit();
@@ -36,7 +36,7 @@ class MessageController extends GetxController with StateMixin<List> {
 
   @override
   void onReady() {
-    change(_messageList, status: RxStatus.success());
+    _messageList.refresh();
     super.onReady();
   }
 
@@ -49,7 +49,7 @@ class MessageController extends GetxController with StateMixin<List> {
   }
 
   late var _message;
-  List<dynamic> _messageList = List.empty(growable: true).obs;
+  RxList<dynamic> _messageList = List.empty(growable: true).obs;
   RxString _roomId = "".obs;
   late ScrollController scrollController;
 
@@ -57,9 +57,9 @@ class MessageController extends GetxController with StateMixin<List> {
 
   set message(value) => _message.value = value;
 
-  get messageList => _messageList;
+  get messageList => _messageList.value;
 
-  set messageList(value) => _messageList = value;
+  set messageList(value) => _messageList.value = value;
 
   get roomId => _roomId.value;
 
@@ -69,6 +69,7 @@ class MessageController extends GetxController with StateMixin<List> {
     print(scrollController.position.extentAfter);
     if (scrollController.position.extentAfter < 500) {
       _messageList.add(await repository.getMessageList(roomId));
+      _messageList.refresh();
     }
   }
 
@@ -81,9 +82,7 @@ class MessageController extends GetxController with StateMixin<List> {
 
   sendTextMessage(String nickname, String text) {
     _messageList.add(repository.sendTextMessage(roomId, nickname, text));
-    for (int i = 0; i < messageList.length; i++) {
-      print(messageList[i].toJson());
-    }
+    _messageList.refresh();
   }
 
   sendImageMessage(String nickname, List<String>? images) =>
@@ -115,5 +114,6 @@ class MessageController extends GetxController with StateMixin<List> {
         break;
     }
     _messageList.add(message);
+    _messageList.refresh();
   }
 }

@@ -32,7 +32,7 @@ class RegisterApiClient {
     final http.Response response =
         await http.post(uri, body: body, headers: headers);
 
-    print(response.body);
+    print(response);
     final responseBody = Map<String, dynamic>.from(json.decode(response.body));
 
     print(responseBody);
