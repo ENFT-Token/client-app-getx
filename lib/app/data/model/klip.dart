@@ -4,7 +4,7 @@ class Klip {
   late List<String> nftTokens;
   late List<Map<String, dynamic>> nfts;
 
-  Klip({address, balance, nftTokens, nfts}) {
+  Klip({address, balance, nftTokens, nfts, klaytnPrice}) {
     this.address = address;
     this.balance = balance;
     this.nftTokens = nftTokens;

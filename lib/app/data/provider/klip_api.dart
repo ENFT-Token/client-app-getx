@@ -155,7 +155,7 @@ class KlipApiClient {
 
   // Get klay price from bithumb api
   // https://www.bithumb.com/trade/order/KLAY_KRW
-  Future<int> getKlayKRWPriceFromBithumb() async {
+  Future<double> getKlayKRWPriceFromBithumb() async {
     Uri request = Uri.parse('https://api.bithumb.com/public/ticker/KLAY_KRW');
 
     final http.Response response = await http.get(
@@ -165,6 +165,6 @@ class KlipApiClient {
     final body = Map<String, dynamic>.from(json.decode(response.body));
 
     print(body['data']['closing_price']);
-    return (double.parse(body['data']['closing_price'])).toInt();
+    return double.parse(body['data']['closing_price']);
   }
 }

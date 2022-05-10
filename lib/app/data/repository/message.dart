@@ -49,19 +49,12 @@ class MessageRepository {
     int i = 0;
 
     result.forEach((element) {
-      final time = element['sendAt'].substring(0, 10) +
-          " " +
-          element['sendAt'].substring(11, 19);
-      print(time);
-      print(DateTime.now());
-      print(DateFormat.yMd().add_jm().format(DateTime.now()));
+
       messageList.add(Message(
           text: element['msg'],
           images: null,
           messageType: MessageType.text,
-          time: DateFormat.yMd()
-              .add_jm()
-              .format (DateFormat('yyyy-mm-dd hh:mm:ss').parse(time)),
+          time: DateFormat.yMd().add_jm().format(DateTime.parse(element['sendAt'])),
           isSender: nickname == element['senderName'] ? true : false));
     });
 

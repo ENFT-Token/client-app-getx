@@ -39,4 +39,6 @@ class KlipRepository {
       'nfts': nfts,
     }).obs;
   }
+
+  getKlayKRWPrice() async => await klipApiClient.getKlayKRWPriceFromBithumb();
 }

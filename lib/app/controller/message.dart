@@ -89,15 +89,13 @@ class MessageController extends GetxController with StateMixin<List> {
       _messageList.add(repository.sendImageMessage(roomId, nickname, images));
 
   receiveMessage(Map<String, dynamic> data) {
-    final time = DateFormat('mm/dd/yyyy hh:mm:ss').parse(data['sendAt']);
-
     switch (data['type']) {
       case 'text':
         message = Message(
             text: data['msg'],
             images: null,
             messageType: MessageType.text,
-            time: DateFormat.yMd().add_jm().format(time),
+            time: DateFormat.yMd().add_jm().format(DateTime.parse(data['sendAt'])),
             isSender: false);
         break;
 
@@ -106,7 +104,7 @@ class MessageController extends GetxController with StateMixin<List> {
             text: null,
             images: data['msg'],
             messageType: MessageType.text,
-            time: DateFormat.yMd().add_jm().format(time),
+            time: DateFormat.yMd().add_jm().format(DateTime.parse(data['sendAt'])),
             isSender: false);
         break;
 
