@@ -22,13 +22,13 @@ import 'package:enft/app/ui/location/location.dart';
 import 'package:enft/app/binding/home.dart';
 import 'package:enft/app/binding/ticket.dart';
 import 'package:enft/app/binding/chat.dart';
-import 'package:enft/app/binding/message.dart';
+import 'package:enft/app/binding/request_ticket.dart';
 
 // after login
 import 'package:enft/app/ui/home/home.dart';
 import 'package:enft/app/ui/ticket/ticket.dart';
 import 'package:enft/app/ui/chat/chat.dart';
-import 'package:enft/app/ui/message/message.dart';
+import 'package:enft/app/ui/request_ticket/request_ticket.dart';
 
 class AppRoutes implements Routes {
   static final routes = [
@@ -68,9 +68,9 @@ class AppRoutes implements Routes {
         page: () => TicketPage(),
         bindings: [TicketBinding(), UserBinding()]),
     GetPage(name: '/chat', page: () => ChatPage(), bindings: [ChatBinding()]),
-    // GetPage(
-    //     name: '/message',
-    //     page: () => MessagePage(),
-    //     bindings: [MessageBinding(), ImageBinding(), UserBinding()]),
+    GetPage(
+        name: '/post/gym_name/request_ticket',
+        page: () => RequestTicketPage(),
+        bindings: [RequestTicketBinding()])
   ];
 }
