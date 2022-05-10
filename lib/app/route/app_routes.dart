@@ -26,8 +26,8 @@ import 'package:enft/app/binding/request_ticket.dart';
 
 // after login
 import 'package:enft/app/ui/home/home.dart';
-import 'package:enft/app/ui/ticket/ticket.dart';
-import 'package:enft/app/ui/chat/chat.dart';
+import 'package:enft/app/ui/send_klay/send_klay.dart';
+import 'package:enft/app/ui/send_ticket/send_ticket.dart';
 import 'package:enft/app/ui/request_ticket/request_ticket.dart';
 
 class AppRoutes implements Routes {
@@ -63,11 +63,12 @@ class AppRoutes implements Routes {
       UserBinding(),
       ChatBinding()
     ]),
-    GetPage(
-        name: '/ticket',
-        page: () => TicketPage(),
-        bindings: [TicketBinding(), UserBinding()]),
-    GetPage(name: '/chat', page: () => ChatPage(), bindings: [ChatBinding()]),
+    GetPage(name: '/wallet/send_klay',
+        page: () => SendKlayPage(),
+        bindings: [KlipBinding()]),
+    GetPage(name: '/wallet/send_ticket',
+        page: () => SendTicketPage(),
+        bindings: [UserBinding(), KlipBinding()]),
     GetPage(
         name: '/post/gym_name/request_ticket',
         page: () => RequestTicketPage(),

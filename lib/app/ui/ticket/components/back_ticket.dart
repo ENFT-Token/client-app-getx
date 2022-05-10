@@ -9,15 +9,15 @@ class BackTicket extends StatelessWidget {
   const BackTicket(
       {Key? key,
       required this.index,
-      required this.start_date,
-      required this.end_date,
+      required this.startDate,
+      required this.endDate,
       required this.during,
       required this.qrData})
       : super(key: key);
 
   final int index;
-  final String start_date;
-  final String end_date;
+  final String startDate;
+  final String endDate;
   final String during;
   final String qrData;
 
@@ -46,8 +46,8 @@ class BackTicket extends StatelessWidget {
             children: [
               Expanded(
                   child: buildColumnTextItem(
-                      "등록날짜", start_date.replaceAll('-', '.'), false)),
-              buildColumnTextItem("만료날짜", end_date.replaceAll('-', '.'), false),
+                      "등록날짜", startDate.replaceAll('-', '.'), false)),
+              buildColumnTextItem("만료날짜", endDate.replaceAll('-', '.'), false),
             ],
           ),
           SizedBox(

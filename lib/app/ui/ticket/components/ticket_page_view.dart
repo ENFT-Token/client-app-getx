@@ -63,9 +63,9 @@ class TicketPageView extends GetView<TicketController> {
                                 ),
                                 back: BackTicket(
                                   index: index,
-                                  start_date: UserController
+                                  startDate: UserController
                                       .to.user.klip.nfts[index]['start_date'],
-                                  end_date: UserController.to.user.klip
+                                  endDate: UserController.to.user.klip
                                       .nfts[index]
                                   ['end_date'],
                                   during: UserController.to.user.klip

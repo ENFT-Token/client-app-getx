@@ -26,6 +26,16 @@ class Body extends GetView<KlipController> {
                     sendKlay: () {}),
                 OutlinedButton(
                     onPressed: () =>
+                        Get.toNamed('/wallet/send_klay'),
+                    child: Text("클립 전송")),
+                OutlinedButton(
+                    onPressed: () {
+                      controller.initCheckList();
+                      Get.toNamed('/wallet/send_ticket');
+                    },
+                    child: Text("티켓 전송")),
+                OutlinedButton(
+                    onPressed: () =>
                         Get.toNamed('/post/gym_name/request_ticket'),
                     child: Text("발급 요청"))
               ],

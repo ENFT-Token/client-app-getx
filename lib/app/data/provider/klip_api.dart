@@ -53,9 +53,12 @@ class KlipApiClient {
   }
 
   // Send klay to another user
-  Future<String> sendKlay(String from, String to, String amount) async {
+  Future sendKlay(String from, String to, String amount) async {
+    print(from);
     String body = jsonEncode(<String, dynamic>{
-      'transaction': {'from': from, 'to': to, 'amount': amount}
+      'bapp': {'name': 'My BApp'},
+      'type': 'send_klay',
+      'transaction': {'from': to, 'to': from, 'amount': amount}
     });
 
     final http.Response response =
@@ -63,7 +66,7 @@ class KlipApiClient {
     final responseBody = Map<String, dynamic>.from(json.decode(response.body));
     print(responseBody);
 
-    return 'success';
+    return responseBody;
   }
 
   // Send NFT card to another user

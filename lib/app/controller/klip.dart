@@ -1,3 +1,4 @@
+import 'package:enft/app/controller/user.dart';
 import 'package:get/get.dart';
 
 import 'package:enft/app/data/repository/klip.dart';
@@ -12,6 +13,20 @@ class KlipController extends GetxController {
   late var _klip;
   RxDouble _klaytnPrice = 0.0.obs;
 
+  // sendKlay를 위한 변수
+  // 상대방 주소
+  RxString _sendToAddress = "".obs;
+
+  // 보낼 클레이튼의 양
+  RxDouble _sendAmount = 0.0.obs;
+
+  // sendTicket을 위한 변수
+  // 모든 checkBox의 isChecked를 담을 리스트
+  late RxList<RxBool> _isCheckList;
+
+  // True인 checkBox들의 index를 담을 리스트
+  List<int> _isTrueList = [];
+
   get klip => this._klip.value;
 
   set klip(value) => this._klip.value = value;
@@ -20,6 +35,18 @@ class KlipController extends GetxController {
 
   set klaytnPrice(value) => this._klaytnPrice.value = value;
 
+  get sendToAddress => _sendToAddress.value;
+
+  set sendToAddress(value) => _sendToAddress.value = value;
+
+  get sendAmount => _sendAmount.value;
+
+  set sendAmount(value) => _sendAmount.value = value;
+
+  get isCheckList => _isCheckList;
+
+  get isTrueList => _isTrueList;
+
   // async await가 필요한가?
   // 나중에 try - catch로 error 잡기
   getAddress() async {
@@ -27,9 +54,36 @@ class KlipController extends GetxController {
     this.klaytnPrice = await repository.getKlayKRWPrice();
   }
 
+  initCheckList() {
+    _isCheckList = RxList<RxBool>.filled(
+        UserController.to.user.klip.nfts.length, false.obs,
+        growable: true);
+  }
+
+  sendKlay() async {
+    if (sendAmount > klip.balance || sendToAddress.length < 42) return false;
+
+    try {
+      await repository.sendKlay(
+          klip.address, sendToAddress, sendAmount.toString());
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  // sendTicket
+  sendTicket() {}
+
+  // repository에서 받아온 데이터를 기반으로, controll하는 코드 작성
+  // sendTicket() async {
+  //   await repository.sendTicket();
+  // }
+
   String currencyFormat(int price) {
-    final formatCurrency =
-    NumberFormat.simpleCurrency(locale: "ko_KR", name: "", decimalDigits: 0);
+    final formatCurrency = NumberFormat.simpleCurrency(
+        locale: "ko_KR", name: "", decimalDigits: 0);
     return formatCurrency.format(price);
   }
 }
