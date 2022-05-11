@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:enft/app/data/repository/image.dart';
 
 class ImageController extends GetxController {
+  static ImageController get to => Get.find<ImageController>();
   final ImageRepository repository;
 
   ImageController({required this.repository});

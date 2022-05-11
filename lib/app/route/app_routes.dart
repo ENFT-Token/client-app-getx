@@ -21,6 +21,7 @@ import 'package:enft/app/ui/location/location.dart';
 // after login
 import 'package:enft/app/binding/home.dart';
 import 'package:enft/app/binding/ticket.dart';
+import 'package:enft/app/binding/post.dart';
 import 'package:enft/app/binding/chat.dart';
 import 'package:enft/app/binding/request_ticket.dart';
 
@@ -28,7 +29,10 @@ import 'package:enft/app/binding/request_ticket.dart';
 import 'package:enft/app/ui/home/home.dart';
 import 'package:enft/app/ui/send_klay/send_klay.dart';
 import 'package:enft/app/ui/send_ticket/send_ticket.dart';
+
+// post
 import 'package:enft/app/ui/request_ticket/request_ticket.dart';
+import 'package:enft/app/ui/write_post/write_post.dart';
 
 class AppRoutes implements Routes {
   static final routes = [
@@ -58,17 +62,25 @@ class AppRoutes implements Routes {
 
     // after login pages
     GetPage(name: '/home', page: () => HomePage(), bindings: [
+      UserBinding(),
       HomeBinding(),
       TicketBinding(),
-      UserBinding(),
+      PostBinding(),
       ChatBinding()
     ]),
-    GetPage(name: '/wallet/send_klay',
+    GetPage(
+        name: '/wallet/send_klay',
         page: () => SendKlayPage(),
         bindings: [KlipBinding()]),
-    GetPage(name: '/wallet/send_ticket',
+    GetPage(
+        name: '/wallet/send_ticket',
         page: () => SendTicketPage(),
         bindings: [UserBinding(), KlipBinding()]),
+    GetPage(
+        name: '/post/write',
+        page: () => WritePostPage(),
+        transition: Transition.downToUp,
+        bindings: [ImageBinding()]),
     GetPage(
         name: '/post/gym_name/request_ticket',
         page: () => RequestTicketPage(),

@@ -37,7 +37,7 @@ class Body extends GetView<KlipController> {
                 OutlinedButton(
                     onPressed: () =>
                         Get.toNamed('/post/gym_name/request_ticket'),
-                    child: Text("발급 요청"))
+                    child: Text("발급 요청")),
               ],
             )));
   }

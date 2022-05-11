@@ -24,9 +24,10 @@ class ChatBody extends GetView<ChatController> {
         itemBuilder: (context, index) => ChatCard(
             chat: controller.chatList[index],
             press: () {
-              controller.roomId = UserController.to.user.nickname +
+              controller.roomId = UserController.to.user.content +
                   " " +
                   controller.chatList[index].name;
+
               // 빠르게 채팅방을 바꿀 때, 채팅 내역이 중복되는 현상을 막기 위해서는 tag가 필요하다.
               // 하지만 Get.toNamed()와 MessageBinding()으로는 이러한 문제를 해결할 수가 없었다.
               // 그래서 현재 이렇게 되었다. 근데 UI 로직에 이게 맞나...?? 이런게 항상 고민이다 ;ㅅ;

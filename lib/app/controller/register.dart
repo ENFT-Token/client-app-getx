@@ -34,7 +34,7 @@ class RegisterController extends GetxController {
   initUser() => _user = registerRepository.user.obs;
 
   alreadyNickname() async => isAlreadyNickname =
-      await registerRepository.alreadyNickname(_user.value.nickname);
+      await registerRepository.alreadyNickname(_user.value.content);
 
   Future<bool> register() async {
     registerRepository.user = user;

@@ -48,7 +48,6 @@ class UserController extends GetxController {
     try {
       user = await userRepository.login(loginData[0], klip);
       generateQrDatas();
-      print(user.nickname);
       return true;
     } catch (e) {
       print('hello');

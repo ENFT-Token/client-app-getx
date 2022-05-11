@@ -26,13 +26,12 @@ class TicketPageView extends GetView<TicketController> {
                     (state) =>
                     SizedBox(
                         height: height,
-                        child: UserController.to.qrDataList.first == ""
+                        child: UserController.to.qrDataList.isEmpty
                             ? PageView.builder(
                             onPageChanged: (index) =>
                             controller.selectedIndex = index,
                             controller: controller.pageController,
-                            // itemCount: 3,
-                            itemCount: 3,
+                            itemCount: 1,
                             itemBuilder: (BuildContext context, int index) {
                               return FlipCard(
                                   controller: FlipCardController(),

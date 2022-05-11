@@ -53,7 +53,7 @@ class LocationBody extends GetView<LocationController> {
                         onPressed: () async {
                           RegisterController.to.user.location =
                               controller.location;
-                          RegisterController.to.user.profile = "";
+                          RegisterController.to.user.images = "";
                           if (await RegisterController.to.register() == true) {
                             UserController.to.user = RegisterController.to.user;
                             final isLogin = await UserController.to

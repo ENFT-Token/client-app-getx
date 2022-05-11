@@ -27,7 +27,7 @@ class RegisterProfileBody extends GetView<ImageController> {
           RoundedButton(
               text: "프로필 등록하기",
               onPressed: () {
-                RegisterController.to.user.profile = controller.img;
+                RegisterController.to.user.images = controller.img;
                 Get.toNamed('location');
               })
         ])));

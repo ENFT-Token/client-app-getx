@@ -58,11 +58,11 @@ class RegisterBody extends GetView<RegisterController> {
                     RoundedCheckDuplicateButton(
                         maxLength: 10,
                         hintText: "닉네임을 입력하세요",
-                        onChanged: (value) => controller.user.nickname = value,
+                        onChanged: (value) => controller.user.content = value,
                         onSubmitted: (value) =>
-                            controller.user.nickname = value,
+                            controller.user.content = value,
                         onPressed: () {
-                          if (controller.user.nickname.length < 2) {
+                          if (controller.user.content.length < 2) {
                             openDialog('너무 짧은 닉네임', '닉네임은 2글자 이상이어야 합니다.', [
                               TextButton(
                                 child: const Text('취소'),

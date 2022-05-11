@@ -27,6 +27,10 @@ class KlipRepository {
     //     break;
     //   }
     // }
+    // ios
+    // var address = "0x1e30781a9cfe3322feef25ab41734f64b056e76f";
+
+    // android
     var address = "0xb438de8ac7be89f5f65dcd9d17a5029ee050edf7";
     var balance = double.parse(await klaytnApiClient.getBalance(address));
     List<String> nftTokens = [];

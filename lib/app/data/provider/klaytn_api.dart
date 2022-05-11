@@ -57,6 +57,7 @@ class KlaytnApiClient {
     await authHttp.post(uri, body: body, headers: xChainIdHeaders);
     final responseBody = Map<String, dynamic>.from(json.decode(response.body));
     print(responseBody);
+    if(responseBody['result'] == null) return "0";
     String balance = responseBody['result']['account']['balance'];
     balance = "0"+balance.substring(2, balance.length);
     final returnValue = hex.decode(balance);

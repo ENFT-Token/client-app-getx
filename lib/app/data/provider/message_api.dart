@@ -23,6 +23,7 @@ class MessageApiClient {
 
     final responseBody = Map<String, dynamic>.from(json.decode(response.body));
 
+    if(responseBody['chat'] == null) return [];
     print(responseBody['chat']);
     return responseBody['chat'];
   }

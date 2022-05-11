@@ -28,15 +28,15 @@ class RoundedRegisterButton extends GetView<RegisterController> {
             borderRadius: BorderRadius.circular(29),
             child: ElevatedButton(
                 onPressed:
-                    controller.user.nickname.length < 2 ? () {} : onPressed,
+                    controller.user.content.length < 2 ? () {} : onPressed,
                 style: ButtonStyle(
                     padding: MaterialStateProperty.all(
                         const EdgeInsets.symmetric(
                             vertical: 10, horizontal: 40)),
-                    backgroundColor: controller.user.nickname.length < 2
+                    backgroundColor: controller.user.content.length < 2
                         ? MaterialStateProperty.all(kDisableColor)
                         : MaterialStateProperty.all(kPrimaryColor),
-                    foregroundColor: controller.user.nickname.length < 2
+                    foregroundColor: controller.user.content.length < 2
                         ? MaterialStateProperty.all(kDisableTextColor)
                         : MaterialStateProperty.all(kPrimaryColor)),
                 child: Text(

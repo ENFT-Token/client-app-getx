@@ -7,7 +7,8 @@ import 'package:enft/app/data/repository/chat.dart';
 class ChatBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ChatController>(() =>
-        ChatController(repository: ChatRepository(apiClient: ChatApiClient())));
+    Get.put<ChatController>(
+        ChatController(repository: ChatRepository(apiClient: ChatApiClient())),
+        permanent: true);
   }
 }
