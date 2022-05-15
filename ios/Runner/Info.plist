@@ -69,5 +69,26 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+	<key>LSApplicationQueriesSchemes</key>
+          <array>
+              <string>kakaoc24c92028b2d7fb313288cacae47a466</string>
+              <string>kakaolink</string>
+          </array>
+
+          <key>FlutterDeepLinkingEnabled</key>
+          <true/>
+          <key>CFBundleURLTypes</key>
+          <array>
+              <dict>
+              <key>CFBundleTypeRole</key>
+              <string>Editor</string>
+              <key>CFBundleURLName</key>
+              <string></string>
+              <key>CFBundleURLSchemes</key>
+              <array>
+              <string>kakaotalk</string>
+              </array>
+              </dict>
+          </array>
 </dict>
 </plist>

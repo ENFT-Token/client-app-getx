@@ -15,6 +15,5 @@ class KlipBinding extends Bindings {
               klaytnApiClient: KlaytnApiClient()),
         ),
         permanent: true);
-    await KlipApiClient().initKlipApi();
   }
 }

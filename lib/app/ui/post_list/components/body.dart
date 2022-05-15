@@ -25,7 +25,7 @@ class PostListBody extends StatelessWidget {
       children: <Widget>[
         OutlinedButton(
             onPressed:  () {
-              ChatController.to.roomId = UserController.to.user.content +
+              ChatController.to.roomId = UserController.to.user.nickname +
                   " " +
                   "enft";
               ChatController.to.chatList.add(Chat(

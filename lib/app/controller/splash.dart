@@ -28,7 +28,7 @@ class SplashController extends GetxController {
   }
 
   animation() async {
-    await KlipController.to.getAddress();
+    await KlipController.to.getAddress();// 이때 실행하면 안됨
     final isLogin = await UserController.to.login(KlipController.to.klip);
     Future.delayed(const Duration(milliseconds: 750))
         .then((value) => toggle(isExpanded))

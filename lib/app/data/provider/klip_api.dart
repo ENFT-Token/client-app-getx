@@ -28,15 +28,17 @@ class KlipApiClient {
   String get getRequestKey => _requestKey;
 
   Future<void> initKlipApi() async {
+    print("Curr Init Klip API Key: $_requestKey");
     await prepareRequestKey();
     await getKlayKRWPriceFromBithumb();
+    print("Init Klip API Key: $_requestKey");
   }
 
   // Prepare api
   // Get request key for klip App2App api
   Future<void> prepareRequestKey() async {
     String body = jsonEncode(<String, dynamic>{
-      'bapp': {'name': 'My BApp'},
+      'bapp': {'name': 'ENFT'},
       'callback': {
         'success': 'mybapp://klipwallet/success',
         'fail': 'mybapp://klipwallet/fail'
@@ -116,6 +118,7 @@ class KlipApiClient {
   }
 
   Future<void> createUriLaunch() async {
+    await KlipApiClient().initKlipApi();
     if (Platform.isAndroid) {
       await createIntent();
     } else {

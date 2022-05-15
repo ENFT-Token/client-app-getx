@@ -57,7 +57,7 @@ class ChatInputField extends GetView {
                       child: TextField(
                     textInputAction: TextInputAction.go,
                     onSubmitted: (text) {
-                      controller.sendTextMessage(UserController.to.user.content, text);
+                      controller.sendTextMessage(UserController.to.user.nickname, text);
                     },
                     decoration: InputDecoration(
                         hintText: "메세지를 입력하세요", border: InputBorder.none),
