@@ -11,7 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 // 3 Steps: Prepare -> Request -> Result
 class KlipApiClient {
   String _requestKey = "";
-
+  String _address = "";
   static final KlipApiClient _instance = KlipApiClient._internal();
 
   factory KlipApiClient() => _instance;
@@ -136,26 +136,32 @@ class KlipApiClient {
   // 1분으로 하자.
 
   Future<String> getKlipAddress() async {
-    Uri uri = Uri.parse(
-        'https://a2a-api.klipwallet.com/v2/a2a/result?request_key=$_requestKey');
+    while(true) {
+      if(_address != "") return _address;
+      Uri uri = Uri.parse(
+          'https://a2a-api.klipwallet.com/v2/a2a/result?request_key=$_requestKey');
 
-    final http.Response response = await http.get(uri, headers: headers);
-    final body = Map<String, dynamic>.from(json.decode(response.body));
+      final http.Response response = await http.get(uri, headers: headers);
+      final body = Map<String, dynamic>.from(json.decode(response.body));
 
-    if (body['status'].toString() == 'completed') {
-      final result = Map<String, String>.from(body['result']);
-      print('Get user klip address: ' + result['klaytn_address'].toString());
-      return result['klaytn_address'].toString();
-    } else if (body['status'].toString() == 'canceled') {
-      print('User cancel request');
-      return 'canceled';
-    } else if (body['status'].toString() == 'error') {
-      print('Error getting klip address');
-      return 'error';
-    } else {
-      print(body);
-      print('Request in progress');
-      return 'progress';
+      if (body['status'].toString() == 'completed') {
+        final result = Map<String, String>.from(body['result']);
+        print('Get user klip address: ' + result['klaytn_address'].toString());
+        _address = result['klaytn_address'].toString();
+        return result['klaytn_address'].toString();
+      } else if (body['status'].toString() == 'canceled') {
+        print('User cancel request');
+        // return 'canceled';
+      } else if (body['status'].toString() == 'error') {
+        print('Error getting klip address');
+        // return 'error';
+      } else {
+        print(body);
+        print('Request in progress');
+        // return 'progress';
+      }
+      sleep(const Duration(seconds:1));
+
     }
   }
 
