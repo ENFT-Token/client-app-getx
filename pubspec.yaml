@@ -36,6 +36,8 @@ dependencies:
   # api
   http: ^0.13.4
   http_auth: ^1.0.1
+  async: ^2.8.2
+  dio: ^4.0.6
 
   # deep link
   url_launcher: ^6.0.20
@@ -71,6 +73,8 @@ dependencies:
   socket_io_client: ^2.0.0-beta.4-nullsafety.0
   intl: ^0.17.0
 
+  # kakao
+  kakao_flutter_sdk: ^1.1.0
 
 
 dev_dependencies:

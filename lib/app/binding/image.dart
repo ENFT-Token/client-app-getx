@@ -8,6 +8,6 @@ class ImageBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<ImageController>(() => ImageController(
-        repository: ImageRepository(apiNative: ImageApiNative())));
+        repository: ImageRepository(apiClient: ImageApiClient())));
   }
 }

@@ -11,27 +11,18 @@ class KlipRepository {
   KlipRepository({required this.klipApiClient, required this.klaytnApiClient});
 
   getKlip() async {
+    // 실제 기기 테스트 때 사용
     // await klipApiClient.createUriLaunch();
-    // String status = "";
-    // int i = 0;
-    // while (i < 10) {
-    //   await Future.delayed(const Duration(seconds: 5));
-    //   status = await klipApiClient.getKlipAddress();
-    //   if (status == "progress") {
-    //     i++;
-    //   } else if (status == "") {
-    //     print("error");
-    //     break;
-    //   } else {
-    //     address = status;
-    //     break;
-    //   }
-    // }
+    // var address = await klipApiClient.getKlipAddress();
+
+    // 애뮬레이터 테스트 때 사용하는 코드, 실제 기기 테스트 할 때는 이 줄 아래부터 주석처리
     // ios
     // var address = "0x1e30781a9cfe3322feef25ab41734f64b056e76f";
 
     // android
     var address = "0xb438de8ac7be89f5f65dcd9d17a5029ee050edf7";
+    // 실제 기기 테스트 때는 이 위까지 주석
+
     var balance = double.parse(await klaytnApiClient.getBalance(address));
     List<String> nftTokens = [];
     List<Map<String, dynamic>> nfts = [];

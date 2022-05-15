@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 
 import 'package:enft/app/controller/user.dart';
@@ -20,7 +22,7 @@ class PostController extends GetxController {
   RxString _title = "".obs;
   RxString _content = "".obs;
   RxDouble _cost = 0.0.obs;
-  RxList<String> _images = List<String>.empty(growable: true).obs;
+  RxList<File> _images = List<File>.empty(growable: true).obs;
 
   get postList => _postList.value;
 
@@ -43,15 +45,15 @@ class PostController extends GetxController {
   set images(value) => _images.value;
 
   writePost() async {
+    print(images);
     Map<String, dynamic> data = {
       'title': title,
       'content': content,
       'cost': cost.toString(),
-      'image': images,
       'location': UserController.to.user.location,
     };
 
-    await repository.writePost(data, UserController.to.user.access_token);
+    await repository.writePost(data, images, UserController.to.user.access_token);
   }
 
   getPost() async => postList = repository.getPost();

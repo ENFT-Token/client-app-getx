@@ -8,27 +8,45 @@ import 'package:image_picker/image_picker.dart';
 import 'package:enft/app/data/provider/image_api.dart';
 
 class ImageRepository {
-  final ImageApiNative apiNative;
+  final ImageApiClient apiClient;
 
-  ImageRepository({required this.apiNative});
+  ImageRepository({required this.apiClient});
 
-  pickImgFromGallery() async => await apiNative
+  pickImgFromGallery() async => await apiClient
       .pickImgFromGallery()
-      .then((value) async => await imgToBase64(File(value?.path ?? "")));
+      .then((value) => File(value?.path ?? ""));
 
-  pickImgFromCamera() async => await apiNative
+  pickImgFromCamera() async => await apiClient
       .pickImgFromCamera()
-      .then((value) async => await imgToBase64(File(value?.path ?? "")));
+      .then((value) => File(value?.path ?? ""));
 
   pickMultiImg() async {
-    List<String> imgList = [];
-    final pickedImages = await apiNative.pickMultiImg() ?? [];
+    List<File> imgList = [];
+    final pickedImages = await apiClient.pickMultiImg() ?? [];
     await Future.forEach(pickedImages, (XFile element) async {
-      imgList.add(await imgToBase64(File(element.path)));
+      imgList.add(File(element.path));
     });
 
     return imgList;
   }
+
+  // pickImgFromGallery() async => await apiClient
+  //     .pickImgFromGallery()
+  //     .then((value) async => await imgToBase64(File(value?.path ?? "")));
+  //
+  // pickImgFromCamera() async => await apiClient
+  //     .pickImgFromCamera()
+  //     .then((value) async => await imgToBase64(File(value?.path ?? "")));
+  //
+  // pickMultiImg() async {
+  //   List<String> imgList = [];
+  //   final pickedImages = await apiClient.pickMultiImg() ?? [];
+  //   await Future.forEach(pickedImages, (XFile element) async {
+  //     imgList.add(await imgToBase64(File(element.path)));
+  //   });
+  //
+  //   return imgList;
+  // }
 
   pickOriginProfile() async {
     final originImg = "assets/photos/basic-profile.jpg";
