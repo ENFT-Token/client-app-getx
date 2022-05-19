@@ -28,17 +28,18 @@ class SplashController extends GetxController {
   }
 
   animation() async {
-    await KlipController.to.getAddress();
-    final isLogin = await UserController.to.login(KlipController.to.klip);
+    final isLogin = await UserController.to.login();
+
     Future.delayed(const Duration(milliseconds: 750))
         .then((value) => toggle(isExpanded))
         .then((value) => Future.delayed(const Duration(milliseconds: 1250)))
         .then((value) => toggle(isOpacity))
         .then((value) => Future.delayed(const Duration(seconds: 5)))
         .then((value) {
-      if (isLogin)
+      if (isLogin) {
+        KlipController.to.klip = UserController.to.user.klip;
         Get.offNamed('/home');
-      else
+      } else
         Get.offNamed('/getting_started');
     });
   }

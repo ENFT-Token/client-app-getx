@@ -44,7 +44,6 @@ class TicketPageView extends GetView<TicketController> {
                             })
                             : PageView.builder(
                             onPageChanged: (index) {
-                              print(index);
                               controller.selectedIndex = index;
                             },
                             controller: controller.pageController,

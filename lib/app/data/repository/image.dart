@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:enft/app/data/provider/image_api.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ImageRepository {
   final ImageApiClient apiClient;
@@ -48,13 +50,7 @@ class ImageRepository {
   //   return imgList;
   // }
 
-  pickOriginProfile() async {
-    final originImg = "assets/photos/basic-profile.jpg";
-    ByteData bytes = await rootBundle.load(originImg);
-    var buffer = bytes.buffer;
-    final img = base64.encode(Uint8List.view(buffer));
-    return img;
-  }
+  pickOriginProfile() => "photos/basic-profile.jpg";
 
   // convert image to base64
   Future<String> imgToBase64(File img) async {
@@ -63,5 +59,16 @@ class ImageRepository {
         base64.encode(imgBytes); //convert bytes to base64 string
     // print(base64String);
     return base64String;
+  }
+
+  Future<File> fileFromImageUrl(String imagePath) async {
+    final response = await apiClient.fileFromImageUrl(imagePath);
+    final documentDirectory = await getApplicationDocumentsDirectory();
+
+    final file = File(join(documentDirectory.path, 'imagetest.png'));
+
+    file.writeAsBytesSync(response.bodyBytes);
+
+    return file;
   }
 }

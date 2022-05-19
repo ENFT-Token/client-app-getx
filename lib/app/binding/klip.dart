@@ -16,5 +16,6 @@ class KlipBinding extends Bindings {
         ),
         permanent: true);
     await KlipApiClient().initKlipApi();
+    KlipController.to.initKlip();
   }
 }

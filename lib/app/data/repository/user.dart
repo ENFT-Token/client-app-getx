@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:enft/app/controller/image.dart';
+import 'package:enft/app/controller/klip.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
 import 'package:enft/app/data/model/klip.dart';
@@ -15,7 +19,7 @@ class UserRepository {
       access_token: "",
       nickname: "",
       sex: "남자",
-      profile: "",
+      profile: File(""),
       location: "",
       klip: Klip(
           address: "",
@@ -23,7 +27,7 @@ class UserRepository {
           nftTokens: <String>[],
           nfts: <Map<String, dynamic>>[]));
 
-  login(Map<String, dynamic> data, Klip klip) async {
+  login(Map<String, dynamic> data) async {
     final result = await userApiClient.login(data);
     var fromJson = <String, dynamic>{};
 
@@ -31,16 +35,15 @@ class UserRepository {
     fromJson['nickname'] = result['nickname'];
     fromJson['location'] = result['location'];
     fromJson['sex'] = result['sex'];
-
-    if (result['profile']['data'].isEmpty) {
-      fromJson['profile'] = "";
-    } else {
-      fromJson['profile'] = result['profile']['data'][0];
-    }
+    fromJson['profile'] =
+        await ImageController.to.fileFromImageUrl(result['profile']);
 
     final nftResult = await getNFT(result['access_token']);
-    klip.nftTokens = nftResult['nftTokens'];
-    klip.nfts = nftResult['nfts'];
+    Klip klip = Klip(
+        address: data['address'],
+        balance: KlipController.to.klip.balance,
+        nftTokens: nftResult['nftTokens'],
+        nfts: nftResult['nfts']);
     fromJson['klip'] = klip.toJson();
 
     print(fromJson);
@@ -53,7 +56,6 @@ class UserRepository {
     final result = await userApiClient.getNFT(access_token);
     List<String> nftTokens = [];
     List<Map<String, dynamic>> nfts = [];
-    int j = 0;
     for (int i = 0; i < result.length; i++) {
       nftTokens.add(result[i]);
       nfts.add(Jwt.parseJwt(result[i]));

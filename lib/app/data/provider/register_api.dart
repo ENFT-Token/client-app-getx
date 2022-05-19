@@ -24,6 +24,8 @@ class RegisterApiClient {
       'Content-Type': 'application/json'
     };
 
+    data.removeWhere((key, value) => key == "profile");
+
     final uri =
         Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000/auth/user/register");
 

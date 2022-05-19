@@ -94,17 +94,21 @@ class TicketController extends GetxController
     backgroundGradientController.addListener(() {
       if (backgroundGradientController.status == AnimationStatus.completed) {
         backgroundGradientController.reverse();
+        _backgroundGradientController.refresh();
       } else if (backgroundGradientController.status ==
           AnimationStatus.dismissed) {
         backgroundGradientController.forward();
+        _backgroundGradientController.refresh();
       }
     });
   }
 
   initPageController() {
-    _pageController = PageController(initialPage: selectedIndex, viewportFraction: 0.8).obs;
+    _pageController =
+        PageController(initialPage: selectedIndex, viewportFraction: 0.8).obs;
     pageController.addListener(() {
       currPageValue = pageController.page;
+      _pageController.refresh();
     });
   }
 }

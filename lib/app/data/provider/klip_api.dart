@@ -132,7 +132,7 @@ class KlipApiClient {
   // 만약에 클립 화면에서 1시간 있으면?
   // 1분으로 하자.
 
-  Future<String> getKlipAddress() async {
+  Future getKlipAddress() async {
     Uri uri = Uri.parse(
         'https://a2a-api.klipwallet.com/v2/a2a/result?request_key=$_requestKey');
 
@@ -142,17 +142,20 @@ class KlipApiClient {
     if (body['status'].toString() == 'completed') {
       final result = Map<String, String>.from(body['result']);
       print('Get user klip address: ' + result['klaytn_address'].toString());
-      return result['klaytn_address'].toString();
+      return {
+        'address': result['klaytn_address'].toString(),
+        'status': 'success'
+      };
     } else if (body['status'].toString() == 'canceled') {
       print('User cancel request');
-      return 'canceled';
+      return {'result': true, 'status': 'canceled'};
     } else if (body['status'].toString() == 'error') {
       print('Error getting klip address');
-      return 'error';
+      return {'result': true, 'status': 'error'};
     } else {
       print(body);
       print('Request in progress');
-      return 'progress';
+      return {'result': true, 'status': 'progress'};
     }
   }
 

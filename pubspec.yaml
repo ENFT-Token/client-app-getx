@@ -39,8 +39,11 @@ dependencies:
   async: ^2.8.2
   dio: ^4.0.6
 
+  # permission
+  permission_handler: ^9.1.0
+
   # deep link
-  url_launcher: ^6.0.20
+  url_launcher: ^6.0.15
   android_intent_plus: ^3.1.0
 
   # ui
@@ -54,9 +57,10 @@ dependencies:
   # image
   image_picker: ^0.8.4+11
   qr_flutter: ^4.0.0
+  path_provider: ^2.0.8
 
   # gps
-  location: ^4.3.0
+  location: ^4.4.0
 
   # platform
   platform: ^3.1.0

@@ -24,6 +24,7 @@ class ChatBody extends GetView<ChatController> {
         itemBuilder: (context, index) => ChatCard(
             chat: controller.chatList[index],
             press: () {
+              // roomId = user1.nickname + user2.nickname
               controller.roomId = UserController.to.user.nickname +
                   " " +
                   controller.chatList[index].name;

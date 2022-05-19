@@ -49,9 +49,8 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.enft"
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 19
         targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         manifestPlaceholders += [NAVER_MAP_API_KEY_ID: NAVER_MAP_API_KEY_ID]
     }

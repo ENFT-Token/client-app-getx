@@ -4,12 +4,11 @@ import 'package:get/get.dart';
 
 import 'package:enft/app/controller/ticket.dart';
 
-
 class Ticket extends GetView<TicketController> {
-  const Ticket({Key? key, required this.index, required this.detail})
+  Ticket({Key? key, required this.index, required this.detail})
       : super(key: key);
 
-  final int index;
+  late int index;
   final Widget detail;
 
   @override
@@ -18,11 +17,8 @@ class Ticket extends GetView<TicketController> {
     final height = width * 1.618;
     final double _scaleFactor = 0.8;
 
-    controller.index = index;
-
-    print(index);
-
-    return Obx(() {
+    return Obx(
+      () {
         if (index == controller.currPageValue.floor()) {
           var currScale =
               1.0 - (controller.currPageValue - index) * (1.0 - _scaleFactor);

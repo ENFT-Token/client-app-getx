@@ -52,10 +52,10 @@ class RoundedDropDown extends GetView<RegisterController> {
                                   value: e,
                                 ))
                             .toList(),
-                        value: controller.user.cost,
+                        value: controller.user.sex,
                         onChanged: (value) {
-                          controller.user.cost = value;
-                          print(controller.user.cost);
+                          controller.user.sex = value;
+                          print(controller.user.sex);
                         },
                       )),
                 )))));

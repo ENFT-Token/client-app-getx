@@ -29,7 +29,7 @@ class ProfileButton extends GetView<ImageController> {
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.grey.shade300),
                     image: DecorationImage(
-                        image: MemoryImage(base64Decode(controller.img)),
+                        image: FileImage(controller.img),
                         fit: BoxFit.cover)))),
             Positioned(
                 child: Container(

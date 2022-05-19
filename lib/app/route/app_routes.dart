@@ -39,7 +39,7 @@ class AppRoutes implements Routes {
     GetPage(
         name: Routes.INITIAL,
         page: () => SplashPage(),
-        bindings: [SplashBinding(), KlipBinding(), UserBinding()]),
+        bindings: [SplashBinding(), KlipBinding(), UserBinding(), ImageBinding()]),
 
     // Register pages
     GetPage(

@@ -28,44 +28,48 @@ class BackTicket extends StatelessWidget {
 
     return Ticket(
         index: index,
-        detail: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          SizedBox(
-            height: kDefaultPadding,
-          ),
-          Expanded(
-              child: Align(
-            alignment: Alignment.topRight,
-            child: Text("ENFT",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40.0,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 4.0)),
-          )),
-          Row(
-            children: [
+        detail: Container(
+            margin: EdgeInsets.symmetric(horizontal: size.width * 0.15),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              SizedBox(
+                height: kDefaultPadding,
+              ),
               Expanded(
-                  child: buildColumnTextItem(
-                      "등록날짜", startDate.replaceAll('-', '.'), false)),
-              buildColumnTextItem("만료날짜", endDate.replaceAll('-', '.'), false),
-            ],
-          ),
-          SizedBox(
-            height: kDefaultPadding * 2,
-          ),
-          buildColumnTextItem("남은기간", during, true),
-          SizedBox(
-            height: kDefaultPadding * 3,
-          ),
-          Divider(
-            thickness: 1,
-            color: Colors.black,
-          ),
-          SizedBox(
-            height: height * 0.01,
-          ),
-          BottomTicket(data: qrData),
-        ]));
+                  child: Align(
+                alignment: Alignment.topRight,
+                child: Text("ENFT",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 4.0)),
+              )),
+              Row(
+                children: [
+                  Expanded(
+                      child: buildColumnTextItem(
+                          "등록날짜", startDate.replaceAll('-', '.'), false)),
+                  buildColumnTextItem(
+                      "만료날짜", endDate.replaceAll('-', '.'), false),
+                ],
+              ),
+              SizedBox(
+                height: kDefaultPadding * 2,
+              ),
+              buildColumnTextItem("남은기간", during, true),
+              SizedBox(
+                height: kDefaultPadding * 3,
+              ),
+              Divider(
+                thickness: 1,
+                color: Colors.black,
+              ),
+              SizedBox(
+                height: height * 0.01,
+              ),
+              BottomTicket(data: qrData),
+            ])));
   }
 
   Widget buildColumnTextItem(String title, String text, bool isBool) {

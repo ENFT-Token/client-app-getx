@@ -22,12 +22,12 @@ class BottomTicket extends StatelessWidget {
                 Text("전자출입\nQR 코드",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 26.0,
+                        fontSize: size.width*0.06,
                         fontWeight: FontWeight.bold)),
                 Text("오늘도 안전한\n편리한 헬스장",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16.0,
+                      fontSize: size.width*0.0375,
                     )),
               ],
             )),

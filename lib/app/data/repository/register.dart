@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 
 import 'package:dbcrypt/dbcrypt.dart';
@@ -19,7 +21,7 @@ class RegisterRepository {
       access_token: "",
       nickname: "",
       sex: "남자",
-      profile: "",
+      profile: File(""),
       location: "",
       klip: Klip(
           address: "",

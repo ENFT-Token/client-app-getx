@@ -39,14 +39,14 @@ class UserController extends GetxController {
     _user = userRepository.user.obs;
   }
 
-  login(Klip klip) async {
+  login() async {
     if (sqfliteRepository.api.db == null)
       await sqfliteRepository.api.init('enft.db', 'user');
     final loginData = await sqfliteRepository.getData('user');
 
     print(loginData);
     try {
-      user = await userRepository.login(loginData[0], klip);
+      user = await userRepository.login(loginData[0]);
       generateQrDatas();
       return true;
     } catch (e) {

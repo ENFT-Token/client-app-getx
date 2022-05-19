@@ -1,3 +1,4 @@
+import 'package:enft/app/controller/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' as foundation;
@@ -7,6 +8,9 @@ import 'package:get/get.dart';
 import 'package:enft/app/controller/user.dart';
 import 'package:enft/app/controller/location.dart';
 import 'package:enft/app/controller/register.dart';
+import 'package:enft/app/controller/klip.dart';
+
+import 'package:enft/app/data/model/klip.dart';
 
 import 'package:enft/app/ui/loading_hud/loading_hud.dart';
 import 'package:enft/app/ui/location/components/location_list.dart';
@@ -53,14 +57,15 @@ class LocationBody extends GetView<LocationController> {
                         onPressed: () async {
                           RegisterController.to.user.location =
                               controller.location;
-                          RegisterController.to.user.images = "";
+                          RegisterController.to.user.profile = ImageController.to.img;
                           if (await RegisterController.to.register() == true) {
                             UserController.to.user = RegisterController.to.user;
-                            final isLogin = await UserController.to
-                                .login(UserController.to.user.klip);
-                            if (isLogin)
+                            final isLogin = await UserController.to.login();
+                            if (isLogin) {
+                              KlipController.to.klip = Klip.fromJson(
+                                  UserController.to.user.klip.toJson());
                               Get.offAllNamed('/home');
-                            else {
+                            } else {
                               openDialog("에러", "다시 시도해주세요.", [
                                 TextButton(
                                   child: const Text('취소'),

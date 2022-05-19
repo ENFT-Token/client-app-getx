@@ -10,29 +10,52 @@ class KlipRepository {
 
   KlipRepository({required this.klipApiClient, required this.klaytnApiClient});
 
+  initKlip() => Klip(
+      address: "",
+      balance: 0.0,
+      nftTokens: <String>[],
+      nfts: <Map<String, dynamic>>[]).obs;
+
   getKlip() async {
     // 실제 기기 테스트 때 사용
-    // await klipApiClient.createUriLaunch();
-    // var address = await klipApiClient.getKlipAddress();
-
+    await klipApiClient.createUriLaunch();
+    int i = 0;
+    String address = "";
+    await Future.doWhile(() async {
+      i++;
+      await Future.delayed(const Duration(seconds: 3));
+      final result = await klipApiClient.getKlipAddress();
+      if (result['status'] == "success") {
+        address = result['address'];
+        return false;
+      }
+      if (i == 10) {
+        return false;
+      }
+      return true;
+    });
     // 애뮬레이터 테스트 때 사용하는 코드, 실제 기기 테스트 할 때는 이 줄 아래부터 주석처리
     // ios
     // var address = "0x1e30781a9cfe3322feef25ab41734f64b056e76f";
 
     // android
-    var address = "0xb438de8ac7be89f5f65dcd9d17a5029ee050edf7";
+    // var address = "0xb438de8ac7be89f5f65dcd9d17a5029ee050edf7";
     // 실제 기기 테스트 때는 이 위까지 주석
 
-    var balance = double.parse(await klaytnApiClient.getBalance(address));
-    List<String> nftTokens = [];
-    List<Map<String, dynamic>> nfts = [];
+    if (address != "") {
+      var balance = double.parse(await klaytnApiClient.getBalance(address));
+      List<String> nftTokens = [];
+      List<Map<String, dynamic>> nfts = [];
 
-    return Klip.fromJson({
-      'address': address,
-      'balance': balance,
-      'nftTokens': nftTokens,
-      'nfts': nfts,
-    }).obs;
+      return Klip.fromJson({
+        'address': address,
+        'balance': balance,
+        'nftTokens': nftTokens,
+        'nfts': nfts,
+      }).obs;
+    } else {
+      return null;
+    }
   }
 
   sendKlay(String from, String to, String amount) async =>

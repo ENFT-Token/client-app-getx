@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+
 import 'package:path/path.dart';
 
 class PostApiClient {
@@ -16,22 +18,26 @@ class PostApiClient {
     try {
       dio.options.contentType = 'multipart/form-data';
       dio.options.maxRedirects.isFinite;
-      dio.options.headers = {'Authorization': 'Bearer $access_token'};
+      dio.options.headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Bearer $access_token'
+      };
 
       List files = [];
       await Future.forEach(images, (element) async {
-        files.add(await MultipartFile.fromFile((element as File).path));
+        String fileName = (element as File).path.split('/').last;
+        files.add(await MultipartFile.fromFile((element as File).path,
+            filename: fileName,
+            contentType: MediaType("image", fileName.split('.').last)));
       });
       data['images'] = files;
       var formData = FormData.fromMap(data);
-      print(formData.files);
-      print(formData.fields);
+
       var response = await dio.post(
         dotenv.env['SERVER_ADDRESS']! + ":3000/board",
         data: formData,
       );
-      print(response.statusCode);
-      print('성공적으로 업로드했습니다');
+
       return response.data;
     } catch (e) {
       print(e);

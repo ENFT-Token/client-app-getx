@@ -37,9 +37,17 @@ class GettingStartedBody extends GetView<KlipController> {
               LoadingHud loadingHud = LoadingHud(context: context);
               loadingHud.showHud();
               await controller.getAddress();
-              RegisterController.to.user.klip = controller.klip;
-              loadingHud.hideHud();
-              Get.toNamed('register');
+              if (controller.klip != null) {
+                RegisterController.to.user.klip = controller.klip;
+                loadingHud.hideHud();
+                Get.toNamed('register');
+              } else {
+                loadingHud.hideHud();
+                controller.openDialog(
+                    "오류가 발생했어요", "지갑 정보를 가져오지 못 했어요! 다시 시도해주세요", [
+                  TextButton(onPressed: () => Get.back(), child: Text("확인"))
+                ]);
+              }
             }),
           ],
         ),

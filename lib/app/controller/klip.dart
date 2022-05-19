@@ -1,8 +1,15 @@
-import 'package:enft/app/controller/user.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' as foundation;
+
+import 'package:intl/intl.dart';
+
 import 'package:get/get.dart';
 
+import 'package:enft/app/controller/user.dart';
+import 'package:enft/app/data/model/klip.dart';
 import 'package:enft/app/data/repository/klip.dart';
-import 'package:intl/intl.dart';
+
 
 class KlipController extends GetxController {
   static KlipController get to => Get.find<KlipController>();
@@ -10,7 +17,7 @@ class KlipController extends GetxController {
 
   KlipController({required this.repository});
 
-  late var _klip;
+  late Rx<Klip> _klip;
   RxDouble _klaytnPrice = 0.0.obs;
 
   // sendKlay를 위한 변수
@@ -49,6 +56,8 @@ class KlipController extends GetxController {
 
   // async await가 필요한가?
   // 나중에 try - catch로 error 잡기
+  initKlip() async => _klip = repository.initKlip();
+
   getAddress() async {
     this._klip = await repository.getKlip();
     this.klaytnPrice = await repository.getKlayKRWPrice();
@@ -85,5 +94,13 @@ class KlipController extends GetxController {
     final formatCurrency = NumberFormat.simpleCurrency(
         locale: "ko_KR", name: "", decimalDigits: 0);
     return formatCurrency.format(price);
+  }
+
+  void openDialog(String title, String content, List<Widget> actions) {
+    Get.dialog(foundation.defaultTargetPlatform == foundation.TargetPlatform.iOS
+        ? CupertinoAlertDialog(
+        title: Text(title), content: Text(content), actions: actions)
+        : AlertDialog(
+        title: Text(title), content: Text(content), actions: actions));
   }
 }

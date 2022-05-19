@@ -20,10 +20,10 @@ class KlaytnApiClient {
   };
   final Map<String, String> xChainIdHeaders = <String, String>{
     // real net
-    // 'x-chain-id': '8217',
+    'x-chain-id': '8217',
 
     // test net
-    'x-chain-id': '1001',
+    //'x-chain-id': '1001',
     'Content-type': 'application/json'
   };
   // Get latest block number
@@ -49,8 +49,8 @@ class KlaytnApiClient {
     String blockNumber = await getBlockNumber();
     String body = jsonEncode(<String, dynamic>{
       'jsonrpc': '2.0',
-      'method': 'klay_getAccount',
-      'params': [userAddress, blockNumber],
+      'method': 'klay_getBalance',
+      'params': [userAddress, "latest"],
       'id': 1
     });
     final http.Response response =
@@ -58,7 +58,7 @@ class KlaytnApiClient {
     final responseBody = Map<String, dynamic>.from(json.decode(response.body));
     print(responseBody);
     if(responseBody['result'] == null) return "0";
-    String balance = responseBody['result']['account']['balance'];
+    String balance = responseBody['result'];
     balance = "0"+balance.substring(2, balance.length);
     final returnValue = hex.decode(balance);
     double value = 0;

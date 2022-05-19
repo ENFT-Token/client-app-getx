@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:enft/app/data/model/klip.dart';
 
 class User {
@@ -5,7 +7,7 @@ class User {
   late String nickname;
   late String sex;
   late Klip klip;
-  late String profile;
+  late File profile;
   late String location;
 
   User({access_token, nickname, sex, klip, profile, location}) {
