@@ -8,6 +8,7 @@ import 'package:enft/app/data/model/post.dart';
 import 'package:enft/app/data/repository/post.dart';
 
 class PostController extends GetxController {
+  static PostController get to => Get.find<PostController>();
   final PostRepository repository;
 
   PostController({required this.repository});
@@ -56,5 +57,5 @@ class PostController extends GetxController {
     await repository.writePost(data, images, UserController.to.user.access_token);
   }
 
-  getPost() async => postList = repository.getPost();
+  getPost() async => postList = await repository.getPost();
 }

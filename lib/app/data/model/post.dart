@@ -4,7 +4,7 @@ class Post {
   late String title;
   late String content;
   late String cost;
-  // late List<String> images;
+  late List<String> images;
   late User user;
 
   Post({title, content, cost, images, user}) {
@@ -19,7 +19,7 @@ class Post {
     title = json['title'];
     content = json['content'];
     cost = json['cost'];
-    // images = json['images'];
+    images = json['images'];
     user = User.fromJson(json['user']);
   }
 
@@ -29,7 +29,7 @@ class Post {
     data['content'] = content;
     data['cost'] = cost;
     // data['location'] = user.location;
-    // data['images'] = images;
+    data['images'] = images;
     data['access_token'] = user.access_token;
 
     return data;

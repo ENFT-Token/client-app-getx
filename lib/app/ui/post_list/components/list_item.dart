@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:enft/app/constant/constant.dart';
 import 'package:flutter/material.dart';
 
 import 'package:enft/app/ui/post_list/components/description.dart';
@@ -13,7 +16,7 @@ class CustomListItem extends StatelessWidget {
     required this.onTap,
   }) : super(key: key);
 
-  final Widget thumbnail;
+  final File? thumbnail;
   final String title;
   final String position;
   final String readDuration;
@@ -40,9 +43,27 @@ class CustomListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   AspectRatio(
-                    aspectRatio: 1.0,
-                    child: thumbnail,
-                  ),
+                      aspectRatio: 1.0,
+                      child: thumbnail != null
+                          ? Card(
+                              elevation: 0,
+                              child: Image.file(
+                                thumbnail!,
+                                fit: BoxFit.contain,
+                              ))
+                          : Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4)),
+                              ),
+                              child: Padding(
+                                  padding:
+                                      const EdgeInsets.all(kDefaultPadding),
+                                  child: Image.asset(
+                                    'assets/photos/post_default_image.png',
+                                    fit: BoxFit.contain,
+                                  )))),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),

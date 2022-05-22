@@ -7,9 +7,10 @@ import 'package:enft/app/data/repository/post.dart';
 
 class PostBinding extends Bindings {
   @override
-  void dependencies() {
+  void dependencies() async {
     Get.put(
         PostController(repository: PostRepository(apiClient: PostApiClient())),
         permanent: true);
+    await PostController.to.getPost();
   }
 }
