@@ -11,7 +11,11 @@ class PostListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: buildAppBar(), body: PostListBody(), floatingActionButton: buildFloatingActionButton(context),);
+    return Scaffold(
+      appBar: buildAppBar(),
+      body: PostListBody(),
+      floatingActionButton: buildFloatingActionButton(context),
+    );
   }
 
   AppBar buildAppBar() {
@@ -28,8 +32,14 @@ class PostListPage extends StatelessWidget {
 
   FloatingActionButton buildFloatingActionButton(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () => Get.toNamed('/post/write')
+      onPressed: () => Get.toNamed('/post/write'),
+      child: Column(
+        children: [
+          Text("he"),
+          Text("qweqw"),
+          OutlinedButton(onPressed: () {}, child: Text("btn"))
+        ],
+      ),
     );
   }
-
 }
