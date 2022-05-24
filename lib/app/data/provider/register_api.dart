@@ -43,13 +43,12 @@ class RegisterApiClient {
 
   Future<bool> alreadyNickname(String nickname) async {
     final uri = Uri.parse(
-        dotenv.env['SERVER_ADDRESS']! + ":3000/user/nickname?nickname=testjsh");
-
+        dotenv.env['SERVER_ADDRESS']! + ":3000/user/nickname?nickname=${nickname}");
     final http.Response response = await http.get(uri, headers: headers);
-
     final responseBody = Map<String, dynamic>.from(json.decode(response.body));
-
-    return responseBody['result'];
+    print(nickname );
+    print(responseBody['usable']);
+    return responseBody['usable'];
   }
 
   Future<Map<String, dynamic>> alreadyAccount(String address) async {
@@ -59,7 +58,6 @@ class RegisterApiClient {
     final http.Response response = await http.get(uri, headers: headers);
 
     final responseBody = Map<String, dynamic>.from(json.decode(response.body));
-
     return responseBody;
   }
 // Map<String, dynamic> userJson(Map<String, dynamic> responseBody) {
