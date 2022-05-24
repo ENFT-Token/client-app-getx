@@ -13,16 +13,16 @@ import 'package:enft/app/ui/request_ticket/components/body.dart';
 import '../../controller/gym_explore.dart';
 
 class RequestTicketPage extends GetView {
-  String place = Get.arguments["tag"];
 
   @override
   Widget build(BuildContext context) {
     final controller =
         Get.find<RequestTicketController>(tag: Get.arguments['tag']);
+    String place = Get.arguments["tag"];
     return Scaffold(
       appBar: buildAppBar(),
       body: RequestTicketBody(),
-      bottomNavigationBar: buildBottomNavigationBar(controller),
+      bottomNavigationBar: buildBottomNavigationBar(controller, place),
     );
   }
 
@@ -37,7 +37,8 @@ class RequestTicketPage extends GetView {
     );
   }
 
-  BottomAppBar buildBottomNavigationBar(RequestTicketController controller) {
+  BottomAppBar buildBottomNavigationBar(
+      RequestTicketController controller, String place) {
     return BottomAppBar(
         color: Colors.white,
         elevation: 0,
