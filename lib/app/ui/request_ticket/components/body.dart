@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:enft/app/controller/user.dart';
 import 'package:flutter/material.dart';
 
@@ -62,12 +64,12 @@ class RequestTicketBody extends GetView {
                 "requestDay": klayInfo.month * 30,
               });
               print(response.statusCode);
-              print(response.body);
+              Map<String, dynamic> body = jsonDecode(response.body);
               if(response.statusCode == 201) {
                 Get.toNamed("/home");
               }
               else {
-                print("실패");
+                Get.snackbar('Fail',body["message"], snackPosition: SnackPosition.TOP);
               }
             },
           style: ElevatedButton.styleFrom(
