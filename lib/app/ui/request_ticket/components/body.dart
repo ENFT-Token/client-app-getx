@@ -66,7 +66,7 @@ class RequestTicketBody extends GetView {
               print(response.statusCode);
               Map<String, dynamic> body = jsonDecode(response.body);
               if(response.statusCode == 201) {
-                Get.toNamed("/home");
+                Get.back();
               }
               else {
                 Get.snackbar('Fail',body["message"], snackPosition: SnackPosition.TOP);
