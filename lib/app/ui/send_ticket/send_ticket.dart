@@ -7,8 +7,7 @@ import 'package:enft/app/ui/send_ticket/components/body.dart';
 class SendTicketPage extends GetView {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(appBar: buildAppBar(), body: SendTicketBody()));
+    return Scaffold(appBar: buildAppBar(), body: SendTicketBody());
   }
 
   AppBar buildAppBar() {
