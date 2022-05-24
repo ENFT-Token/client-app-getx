@@ -5,8 +5,7 @@ import 'package:get/get.dart';
 import 'package:enft/app/controller/ticket.dart';
 
 class Ticket extends GetView<TicketController> {
-  Ticket({Key? key, required this.index, required this.detail})
-      : super(key: key);
+  Ticket({required this.index, required this.detail});
 
   late int index;
   final Widget detail;

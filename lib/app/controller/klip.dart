@@ -10,7 +10,6 @@ import 'package:enft/app/controller/user.dart';
 import 'package:enft/app/data/model/klip.dart';
 import 'package:enft/app/data/repository/klip.dart';
 
-
 class KlipController extends GetxController {
   static KlipController get to => Get.find<KlipController>();
   final KlipRepository repository;
@@ -27,14 +26,15 @@ class KlipController extends GetxController {
   // 보낼 클레이튼의 양
   RxDouble _sendAmount = 0.0.obs;
   RxDouble _sendFee = 0.0.obs;
-  TextEditingController sendAmountController = TextEditingController(text: "0.00");
+  TextEditingController sendAmountController =
+      TextEditingController(text: "0.00");
 
   // sendTicket을 위한 변수
   // 모든 checkBox의 isChecked를 담을 리스트
   late RxList<RxBool> _isCheckList;
 
   // True인 checkBox들의 index를 담을 리스트
-  List<int> _isTrueList = [];
+  RxList<int> _isTrueList = List<int>.empty(growable: true).obs;
 
   get klip => this._klip.value;
 
@@ -58,9 +58,9 @@ class KlipController extends GetxController {
   set sendFee(value) => _sendFee.value = value;
 
   // seendNFT
-  get isCheckList => _isCheckList;
+  get isCheckList => _isCheckList.value;
 
-  get isTrueList => _isTrueList;
+  get isTrueList => _isTrueList.value;
 
   // async await가 필요한가?
   // 나중에 try - catch로 error 잡기
@@ -72,8 +72,8 @@ class KlipController extends GetxController {
   }
 
   initCheckList() {
-    _isCheckList = RxList<RxBool>.filled(
-        UserController.to.user.klip.nfts.length, false.obs,
+    _isCheckList = RxList<RxBool>.generate(
+        UserController.to.user.klip.nfts.length, (index) => false.obs,
         growable: true);
   }
 
@@ -107,8 +107,8 @@ class KlipController extends GetxController {
   void openDialog(String title, String content, List<Widget> actions) {
     Get.dialog(foundation.defaultTargetPlatform == foundation.TargetPlatform.iOS
         ? CupertinoAlertDialog(
-        title: Text(title), content: Text(content), actions: actions)
+            title: Text(title), content: Text(content), actions: actions)
         : AlertDialog(
-        title: Text(title), content: Text(content), actions: actions));
+            title: Text(title), content: Text(content), actions: actions));
   }
 }

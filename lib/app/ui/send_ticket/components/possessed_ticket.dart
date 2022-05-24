@@ -22,14 +22,15 @@ class PossessedTicket extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.only(top: kDefaultPadding),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(place),
+            Text(place, style: TextStyle(fontSize: 14)),
+            SizedBox(width: kDefaultPadding),
+            Text(startDate, style: TextStyle(fontSize: 14)),
             SizedBox(width: kDefaultPadding,),
-            Text(startDate),
+            Text(endDate, style: TextStyle(fontSize: 14)),
             SizedBox(width: kDefaultPadding,),
-            Text(endDate),
-            SizedBox(width: kDefaultPadding,),
-            Text(during)
+            Text(during, style: TextStyle(fontSize: 14))
           ],
         ));
   }
