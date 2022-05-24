@@ -42,7 +42,7 @@ class Description extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            Get.toNamed("/post/gym_name/request_ticket");
+            Get.toNamed("/post/request_ticket/${title}");
           },
           style: ElevatedButton.styleFrom(
               primary: Colors.lightGreen,

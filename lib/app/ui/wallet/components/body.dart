@@ -34,10 +34,10 @@ class Body extends GetView<KlipController> {
                       Get.toNamed('/wallet/send_ticket');
                     },
                     child: Text("티켓 전송")),
-                OutlinedButton(
-                    onPressed: () =>
-                        Get.toNamed('/post/gym_name/request_ticket'),
-                    child: Text("발급 요청")),
+                // OutlinedButton(
+                //     onPressed: () =>
+                //         Get.toNamed('/post/gym_name/request_ticket'),
+                //     child: Text("발급 요청")),
               ],
             )));
   }
