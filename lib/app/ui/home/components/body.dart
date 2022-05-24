@@ -1,3 +1,4 @@
+import 'package:enft/app/ui/gym_explore/gym_explore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ class HomeBody extends GetView<HomeController> {
   List<Widget> pages = [
     const TicketPage(),
     WalletPage(),
+    GymExplorePage(),
     PostListPage(),
     ChatPage(),
     Container(),

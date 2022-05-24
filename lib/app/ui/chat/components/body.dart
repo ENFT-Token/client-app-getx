@@ -33,7 +33,7 @@ class ChatBody extends GetView<ChatController> {
               // 하지만 Get.toNamed()와 MessageBinding()으로는 이러한 문제를 해결할 수가 없었다.
               // 그래서 현재 이렇게 되었다. 근데 UI 로직에 이게 맞나...?? 이런게 항상 고민이다 ;ㅅ;
               // 해야하긴 하는데.. 흠... 분리는 못하고... 이래서 오픈소스에 새로운 기능을 추가하려고 기여하나...?
-              Get.to(() => MessagePage(),
+              Get.to(MessagePage(),
                   arguments: {'index': index, 'roomId': controller.roomId, 'tag': controller.roomId},
                   binding: BindingsBuilder(() {
                 Get.put<MessageController>(

@@ -1,3 +1,4 @@
+import 'package:enft/app/ui/gym_explore/gym_explore.dart';
 import 'package:get/get.dart';
 
 import 'package:enft/app/route/routes.dart';
@@ -34,12 +35,14 @@ import 'package:enft/app/ui/send_ticket/send_ticket.dart';
 import 'package:enft/app/ui/request_ticket/request_ticket.dart';
 import 'package:enft/app/ui/write_post/write_post.dart';
 
+import '../binding/gym_explore.dart';
+
 class AppRoutes implements Routes {
   static final routes = [
     GetPage(
         name: Routes.INITIAL,
         page: () => SplashPage(),
-        bindings: [SplashBinding(), KlipBinding(), UserBinding(), ImageBinding()]),
+        bindings: [SplashBinding(), KlipBinding(), UserBinding(), ImageBinding(), GymExploreBinding()]),
 
     // Register pages
     GetPage(
@@ -65,8 +68,9 @@ class AppRoutes implements Routes {
       UserBinding(),
       HomeBinding(),
       TicketBinding(),
+      GymExploreBinding(),
       PostBinding(),
-      ChatBinding()
+      ChatBinding(),
     ]),
     GetPage(
         name: '/wallet/send_klay',
@@ -82,8 +86,11 @@ class AppRoutes implements Routes {
         transition: Transition.downToUp,
         bindings: [ImageBinding()]),
     GetPage(
-        name: '/post/gym_name/request_ticket',
+        name: '/post/request_ticket',
         page: () => RequestTicketPage(),
-        bindings: [RequestTicketBinding()])
+        bindings: [RequestTicketBinding()]),
+    GetPage(name: '/gym_explore', page: () => GymExplorePage(), bindings: [
+      GymExploreBinding(),
+    ]),
   ];
 }

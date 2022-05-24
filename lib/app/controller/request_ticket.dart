@@ -1,3 +1,4 @@
+import 'package:enft/app/controller/gym_explore.dart';
 import 'package:get/get.dart';
 
 import 'package:enft/app/data/repository/request_ticket.dart';
@@ -19,12 +20,8 @@ import 'package:enft/app/data/repository/request_ticket.dart';
 class RequestTicketController extends GetxController {
   late final RequestTicketRepository repository;
 
-  RequestTicketController({required this.repository});
-
-  @override
-  onInit() async {
-    getTicketTerms();
-    getGymNames();
+  RequestTicketController({klayInfoList, required this.repository}) {
+    this.klayInfoList = klayInfoList;
   }
 
   // 이 변수는 테스트용 변수입니다.
@@ -32,35 +29,37 @@ class RequestTicketController extends GetxController {
 
   // 이 변수들은 실제로 사용 될 변수입니다.
   RxString _selectGymName = "".obs;
-  RxInt _selectTicketTerm = 0.obs;
-  List<int> _ticketTerms = [];
+  Rx<KlayData> _selectKlayInfo = KlayData(month: 0, klay: 0).obs;
+  RxList<KlayData> _klayInfoList = List<KlayData>.empty(growable: true).obs;
   RxDouble _paymentKlay = 0.0.obs;
 
   get gymNames => _gymNames;
 
-  get ticketTerms => _ticketTerms;
+  get klayInfoList => _klayInfoList.value;
+
+  set klayInfoList(value) => _klayInfoList.value = value;
 
   get selectGymName => _selectGymName.value;
 
   set selectGymName(value) => _selectGymName.value = value;
 
-  get selectTicketTerm => _selectTicketTerm.value;
+  get selectKlayInfo => _selectKlayInfo.value;
 
-  set selectTicketTerm(value) => _selectTicketTerm.value = value;
+  set selectKlayInfo(value) => _selectKlayInfo.value = value;
 
   get paymentKlay => _paymentKlay.value;
 
   set paymentKlay(value) => _paymentKlay.value = value;
 
-  // 실제 사용할 함수입니다.
-  getTicketTerms() {
-    _ticketTerms = repository.getTicketTerms();
-    selectTicketTerm = ticketTerms[0];
-  }
-
-  // 테스트용 함수입니다.
-  getGymNames() {
-    _gymNames = repository.getGymNames();
-    selectGymName = gymNames[0];
-  }
+// 실제 사용할 함수입니다.
+// getTicketTerms() {
+//   _klayInfoList = repository.getTicketTerms();
+//   selectKlayInfo = klayInfoList[0];
+// }
+//
+// // 테스트용 함수입니다.
+// getGymNames() {
+//   _gymNames = repository.getGymNames();
+//   selectGymName = gymNames[0];
+// }
 }

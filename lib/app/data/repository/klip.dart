@@ -58,6 +58,7 @@ class KlipRepository {
     }
   }
 
+  getBalance(String address) async => double.parse(await klaytnApiClient.getBalance(address));
   sendKlay(String from, String to, String amount) async =>
       await klipApiClient.sendKlay(from, to, amount);
 
