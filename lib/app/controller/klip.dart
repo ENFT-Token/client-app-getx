@@ -63,6 +63,8 @@ class KlipController extends GetxController {
     this.klaytnPrice = await repository.getKlayKRWPrice();
   }
 
+  getBalance(String address) async => await repository.getBalance(address);
+
   initCheckList() {
     _isCheckList = RxList<RxBool>.filled(
         UserController.to.user.klip.nfts.length, false.obs,

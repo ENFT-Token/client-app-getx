@@ -35,8 +35,11 @@ class SplashController extends GetxController {
         .then((value) => Future.delayed(const Duration(milliseconds: 1250)))
         .then((value) => toggle(isOpacity))
         .then((value) => Future.delayed(const Duration(seconds: 5)))
-        .then((value) {
+        .then((value) async {
       if (isLogin) {
+        double balance = await KlipController.to.getBalance(UserController.to.user.klip.address);
+        UserController.to.user.klip.balance = balance;
+        print("balance ${UserController.to.user.klip.balance}");
         KlipController.to.klip = UserController.to.user.klip;
         Get.offNamed('/home');
       } else {
