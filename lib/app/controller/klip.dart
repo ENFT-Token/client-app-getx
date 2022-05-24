@@ -26,6 +26,8 @@ class KlipController extends GetxController {
 
   // 보낼 클레이튼의 양
   RxDouble _sendAmount = 0.0.obs;
+  RxDouble _sendFee = 0.0.obs;
+  TextEditingController sendAmountController = TextEditingController(text: "0.00");
 
   // sendTicket을 위한 변수
   // 모든 checkBox의 isChecked를 담을 리스트
@@ -42,6 +44,7 @@ class KlipController extends GetxController {
 
   set klaytnPrice(value) => this._klaytnPrice.value = value;
 
+  // sendKlay
   get sendToAddress => _sendToAddress.value;
 
   set sendToAddress(value) => _sendToAddress.value = value;
@@ -50,6 +53,11 @@ class KlipController extends GetxController {
 
   set sendAmount(value) => _sendAmount.value = value;
 
+  get sendFee => _sendFee.value;
+
+  set sendFee(value) => _sendFee.value = value;
+
+  // seendNFT
   get isCheckList => _isCheckList;
 
   get isTrueList => _isTrueList;
