@@ -28,15 +28,6 @@ class SendKlayPage extends GetView<KlipController> {
         "클레이 전송",
         style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
       ),
-      actions: [
-        TextButton(
-            // 이 부분에 발급 요청 함수 작성
-            onPressed: () async => await controller.sendKlay(),
-            child: Text(
-              "완료",
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ))
-      ],
     );
   }
 
@@ -61,7 +52,7 @@ class SendKlayPage extends GetView<KlipController> {
                     Text(
                       "전송 총액",
                       style: TextStyle(
-                        color: kSystemGray,
+                        color: Colors.grey,
                         fontSize: 12,
                       ),
                     ),
@@ -82,7 +73,7 @@ class SendKlayPage extends GetView<KlipController> {
                               Text("KLAY")
                             ])),
                     Text("전송 수수료 0.0 KLAY",
-                        style: TextStyle(color: kSystemGray, fontSize: 12))
+                        style: TextStyle(color: Colors.grey, fontSize: 12))
                   ],
                 )),
                 // Expanded(
@@ -90,14 +81,25 @@ class SendKlayPage extends GetView<KlipController> {
                 //         style: const TextStyle(
                 //             fontWeight: FontWeight.bold, fontSize: 18))),
                 OutlinedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     bool isTransferable = (controller.sendAmount == 0 ||
                             (controller.sendAmount + controller.sendFee) >
                                 UserController.to.user.klip.balance)
                         ? false
                         : true;
+
+                    isTransferable = true; // TODO: 잔고 못가져오는 것을 인한 임시 true
                     if (isTransferable) {
                       print("전송 가능");
+                      print(controller.sendToAddress);
+                      print(controller.sendAmount);
+                      final status = await controller.sendKlay(controller.sendToAddress, controller.sendAmount);
+                      if(status) { // succ
+                          Get.back();
+                      }
+                      else {
+                        Get.snackbar('Fail',"전송 실패", snackPosition: SnackPosition.TOP);
+                      }
                     } else {
                       controller.openDialog("잔고 부족", "클레이가 충분하지 않습니다.", [
                         TextButton(

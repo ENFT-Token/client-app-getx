@@ -79,13 +79,12 @@ class KlipController extends GetxController {
         growable: true);
   }
 
-  sendKlay() async {
-    if (sendAmount > klip.balance || sendToAddress.length < 42) return false;
-
+  sendKlay(String targetAddress, double amount) async {
+    //   if (sendAmount > klip.balance || ㄹtargetAddress.length < 42) return false;
+    if (targetAddress.length < 42) return false;
     try {
-      await repository.sendKlay(
-          klip.address, sendToAddress, sendAmount.toString());
-      return true;
+      return await repository.sendKlay(
+          targetAddress, amount.toString());
     } catch (e) {
       print(e);
       return false;

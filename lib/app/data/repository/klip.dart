@@ -58,9 +58,29 @@ class KlipRepository {
     }
   }
 
-  getBalance(String address) async => double.parse(await klaytnApiClient.getBalance(address));
-  sendKlay(String from, String to, String amount) async =>
-      await klipApiClient.sendKlay(from, to, amount);
+  getBalance(String address) async => double.parse("0.0"); // TODO: getBalance 없앰. 나중에 내가 추가함.
+
+
+
+  sendKlay(String to, String amount) async {
+    await klipApiClient.sendKlay(to, amount);
+    await klipApiClient.createUriLaunch();
+    int i = 0;
+    await Future.doWhile(() async {
+      i++;
+      await Future.delayed(const Duration(seconds: 3));
+      final result = await klipApiClient.getKlipPolling();
+      if (result['status'] == "success") {
+        return true; // TODO: 폴링 추가 처리 해야함. sendKlay의  return이 되주지 않음.
+      }
+      if (i == 10) {
+        return false;
+      }
+      return true;
+    });
+    return false;
+  }
+
 
   // Klip 관련이면 lib/data/provider/klip_api.dart에 함수 작성
   // KAS 관련이면 lib/data/provider/klaytn_api.dart에 함수 작성

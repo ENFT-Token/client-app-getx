@@ -36,7 +36,7 @@ class KlipApiClient {
   // Get request key for klip App2App api
   Future<void> prepareRequestKey() async {
     String body = jsonEncode(<String, dynamic>{
-      'bapp': {'name': 'My BApp'},
+      'bapp': {'name': 'ENFT'},
       'callback': {
         'success': 'mybapp://klipwallet/success',
         'fail': 'mybapp://klipwallet/fail'
@@ -53,19 +53,19 @@ class KlipApiClient {
   }
 
   // Send klay to another user
-  Future sendKlay(String from, String to, String amount) async {
-    print(from);
+  Future sendKlay(String to, String amount) async {
+    print('data  ${to}, amount: ${amount}');
     String body = jsonEncode(<String, dynamic>{
-      'bapp': {'name': 'My BApp'},
+      'bapp': {'name': 'ENFT'},
       'type': 'send_klay',
-      'transaction': {'from': to, 'to': from, 'amount': amount}
+      'transaction': {'to': to, 'amount': amount}
     });
 
     final http.Response response =
         await http.post(prepareUri, body: body, headers: headers);
     final responseBody = Map<String, dynamic>.from(json.decode(response.body));
     print(responseBody);
-
+    _requestKey = responseBody['request_key'].toString();
     return responseBody;
   }
 
@@ -131,7 +131,6 @@ class KlipApiClient {
   // 백그라운드에 잇을때 폴링이 되나?
   // 만약에 클립 화면에서 1시간 있으면?
   // 1분으로 하자.
-
   Future getKlipAddress() async {
     Uri uri = Uri.parse(
         'https://a2a-api.klipwallet.com/v2/a2a/result?request_key=$_requestKey');
@@ -156,6 +155,30 @@ class KlipApiClient {
       print(body);
       print('Request in progress');
       return {'result': true, 'status': 'progress'};
+    }
+  }
+
+  // 공용 폴링 (sendKlay에서 사용)
+  Future getKlipPolling() async {
+    Uri uri = Uri.parse(
+        'https://a2a-api.klipwallet.com/v2/a2a/result?request_key=$_requestKey');
+
+    final http.Response response = await http.get(uri, headers: headers);
+    final body = Map<String, dynamic>.from(json.decode(response.body));
+
+    if (body['status'].toString() == 'completed') {
+      return {
+        'status': 'success'
+      };
+    } else if (body['status'].toString() == 'canceled') {
+      return {'status': 'canceled'};
+    } else if (body['status'].toString() == 'error') {
+      print('Error getting klip address');
+      return {'status': 'error'};
+    } else {
+      print(body);
+      print('Request in progress');
+      return { 'status': 'progress'};
     }
   }
 

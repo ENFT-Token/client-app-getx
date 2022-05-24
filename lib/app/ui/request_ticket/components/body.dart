@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:enft/app/controller/klip.dart';
 import 'package:enft/app/controller/user.dart';
+import 'package:enft/app/data/repository/klip.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -9,6 +11,7 @@ import 'package:enft/app/controller/request_ticket.dart';
 import 'package:enft/app/ui/request_ticket/components/rounded_drop_down.dart';
 
 import '../../../controller/gym_explore.dart';
+import '../../../data/provider/klip_api.dart';
 
 class RequestTicketBody extends GetView {
   @override
@@ -58,6 +61,7 @@ class RequestTicketBody extends GetView {
         ElevatedButton(
           onPressed: () async {
               KlayData klayInfo = controller.selectKlayInfo;
+
               print(place);
               final response =  await UserController.to.RequestAuth("POST", "/user/approve", data: {
                 "requestPlace": place,
