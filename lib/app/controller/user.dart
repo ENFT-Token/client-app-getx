@@ -49,9 +49,8 @@ class UserController extends GetxController {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $access_token'
     };
-    print("선규 리퀘스트");
     if(method == "POST") {
-      final uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000/" + url);
+      final uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + url);
       if(data == null) {
         response = await http.post(uri,headers: headers);
       }

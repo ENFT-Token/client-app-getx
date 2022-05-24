@@ -1,10 +1,10 @@
+import 'package:enft/app/controller/user.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import 'package:enft/app/controller/request_ticket.dart';
 import 'package:enft/app/ui/request_ticket/components/rounded_drop_down.dart';
-import 'package:enft/app/ui/request_ticket/components/rounded_decimal_input_field.dart';
 
 import '../../../controller/gym_explore.dart';
 
@@ -12,7 +12,6 @@ class RequestTicketBody extends GetView {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<RequestTicketController>(tag: Get.arguments['tag']);
-
     String place = Get.arguments["tag"];
 
     return Center(
@@ -53,7 +52,33 @@ class RequestTicketBody extends GetView {
                 print(controller.selectKlayInfo.klay.toString());
               },
             ))),
-        Obx(() => Text('${controller.selectKlayInfo.klay} KLAY'))
+        Obx(() => Text('${controller.selectKlayInfo.klay} KLAY')),
+        ElevatedButton(
+          onPressed: () async {
+              KlayData klayInfo = controller.selectKlayInfo;
+              print(place);
+              final response =  await UserController.to.RequestAuth("POST", "/user/approve", data: {
+                "requestPlace": place,
+                "requestDay": klayInfo.month * 30,
+              });
+              print(response.statusCode);
+              print(response.body);
+              if(response.statusCode == 201) {
+                Get.toNamed("/home");
+              }
+              else {
+                print("실패");
+              }
+            },
+          style: ElevatedButton.styleFrom(
+              primary: Colors.lightGreen,
+              shape: RoundedRectangleBorder(
+                // shape : 버튼의 모양을 디자인 하는 기능
+                borderRadius: BorderRadius.circular(5),
+              ),
+              elevation: 0.0),
+          child: Text("발급 요청"),
+        ),
         // RoundedDecimalInputField(
         //     hintText: "클레이(KLAY)를 입력하세요",
         //     onChanged: (value) {

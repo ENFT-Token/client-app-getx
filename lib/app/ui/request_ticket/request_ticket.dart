@@ -10,18 +10,9 @@ class RequestTicketPage extends StatelessWidget {
     return SafeArea(
         child: Scaffold(appBar: buildAppBar(), body: RequestTicketBody()));
   }
-
   AppBar buildAppBar() {
     return AppBar(
-      actions: [
-        TextButton(
-          // 이 부분에 발급 요청 함수 작성
-            onPressed: () {},
-            child: Text(
-              "완료",
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ))
-      ],
+      actions: [],
     );
   }
 }

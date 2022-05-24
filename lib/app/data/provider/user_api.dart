@@ -25,7 +25,7 @@ class UserApiClient {
 
     final responseBody = Map<String, dynamic>.from(json.decode(response.body));
 
-    print("login");
+    print("login api");
     print(responseBody);
 
     return responseBody;

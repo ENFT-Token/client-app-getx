@@ -41,11 +41,10 @@ class UserRepository {
     final nftResult = await getNFT(result['access_token']);
     Klip klip = Klip(
         address: data['address'],
-        balance: KlipController.to.klip.balance,
+        balance: 0.0,
         nftTokens: nftResult['nftTokens'],
         nfts: nftResult['nfts']);
     fromJson['klip'] = klip.toJson();
-
     user = User.fromJson(fromJson);
     return user;
   }
