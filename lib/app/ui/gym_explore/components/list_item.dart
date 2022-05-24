@@ -4,6 +4,7 @@ import 'package:enft/app/constant/constant.dart';
 import 'package:enft/app/controller/gym_explore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/get.dart';
 
 import 'description.dart';
 
@@ -59,9 +60,10 @@ class CustomListItem extends StatelessWidget {
                         klayInfo: klayInfo
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
+
             ),
           )
         ],

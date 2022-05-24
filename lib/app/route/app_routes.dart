@@ -86,7 +86,7 @@ class AppRoutes implements Routes {
         transition: Transition.downToUp,
         bindings: [ImageBinding()]),
     GetPage(
-        name: '/post/request_ticket/:place',
+        name: '/post/request_ticket',
         page: () => RequestTicketPage(),
         bindings: [RequestTicketBinding()]),
     GetPage(name: '/gym_explore', page: () => GymExplorePage(), bindings: [

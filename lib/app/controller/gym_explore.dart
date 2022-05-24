@@ -1,12 +1,17 @@
 import 'dart:convert';
 
+import 'package:enft/app/controller/request_ticket.dart';
 import 'package:enft/app/controller/user.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
+import '../data/provider/request_ticket_api.dart';
 import '../data/provider/user_api.dart';
 
 import 'package:http/http.dart' as http;
+
+import '../data/repository/request_ticket.dart';
+import '../ui/request_ticket/request_ticket.dart';
 
 class KlayData {
   int month;
@@ -52,6 +57,21 @@ class GymExploreController extends GetxController {
     return true;
   }
 
+  ToRequestTicketPage(String tag, List<KlayData> klayInfo) {
+    Get.to(RequestTicketPage(), arguments: {'tag': tag},
+        binding: BindingsBuilder(() {
+          Get.put(
+              RequestTicketController(
+                  klayInfoList: klayInfo,
+                  repository: RequestTicketRepository(
+                      requestTicketApi: RequestTicketApi())),
+              tag: tag);
+          final requestTicketController =
+          Get.find<RequestTicketController>(tag: tag);
+          requestTicketController.selectKlayInfo =
+          requestTicketController.klayInfoList[0];
+        }));
+  }
     //
     // final result = await userApiClient.login(data);
     // var fromJson = <String, dynamic>{};

@@ -1,11 +1,17 @@
+import 'package:enft/app/data/provider/request_ticket_api.dart';
 import 'package:flutter/material.dart';
 
-import 'package:enft/app/constant/constant.dart';
 import 'package:get/get.dart';
 
+import 'package:enft/app/constant/constant.dart';
+import 'package:enft/app/controller/request_ticket.dart';
 import '../../../controller/gym_explore.dart';
 
-class Description extends StatelessWidget {
+import 'package:enft/app/data/repository/request_ticket.dart';
+
+import '../../request_ticket/request_ticket.dart';
+
+class Description extends GetView<GymExploreController> {
   const Description({
     Key? key,
     required this.title,
@@ -41,17 +47,14 @@ class Description extends StatelessWidget {
           ),
         ),
         ElevatedButton(
-          onPressed: () {
-            Get.toNamed("/post/request_ticket/${title}");
-          },
+          onPressed: () => controller.ToRequestTicketPage(title, klayInfo),
           style: ElevatedButton.styleFrom(
               primary: Colors.lightGreen,
               shape: RoundedRectangleBorder(
                 // shape : 버튼의 모양을 디자인 하는 기능
-                  borderRadius: BorderRadius.circular(5),
+                borderRadius: BorderRadius.circular(5),
               ),
-              elevation: 0.0
-          ),
+              elevation: 0.0),
           child: Text("티켓 발급하러 가기"),
         ),
         // B(
