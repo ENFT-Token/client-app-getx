@@ -61,7 +61,7 @@ class RegisterBody extends GetView<RegisterController> {
                         onChanged: (value) => controller.user.nickname = value,
                         onSubmitted: (value) =>
                             controller.user.nickname = value,
-                        onPressed: () {
+                        onPressed: () async {
                           if (controller.user.nickname.length < 2) {
                             openDialog('너무 짧은 닉네임', '닉네임은 2글자 이상이어야 합니다.', [
                               TextButton(
@@ -71,10 +71,11 @@ class RegisterBody extends GetView<RegisterController> {
                             ]);
                             return;
                           }
-
+                          await controller.alreadyNickname(controller.user.nickname);
+                          print(controller.isAlreadyNickname);
                           if (!controller.isAlreadyNickname) {
                             openDialog(
-                              '중복되는 닉네임',
+                              '닉네임 중복 체크',
                               '이미 존재하는 닉네임입니다.',
                               [
                                 TextButton(
@@ -85,8 +86,19 @@ class RegisterBody extends GetView<RegisterController> {
                             );
                             return;
                           }
-
-                          controller.alreadyNickname();
+                          else {
+                            openDialog(
+                              '닉네임 중복 체크',
+                              '사용 가능한 닉네임입니다.',
+                              [
+                                TextButton(
+                                  child: const Text('취소'),
+                                  onPressed: () => Get.back(),
+                                )
+                              ],
+                            );
+                            return;
+                          }
                         }),
                     RoundedDropDown(values: ['남자', '여자']),
                     RoundedRegisterButton(
