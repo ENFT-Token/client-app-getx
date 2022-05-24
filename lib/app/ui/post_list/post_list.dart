@@ -1,3 +1,4 @@
+import 'package:enft/app/ui/post_list/components/test_overlap.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -9,11 +10,17 @@ import 'package:enft/app/ui/write_post/write_post.dart';
 class PostListPage extends StatelessWidget {
   const PostListPage({Key? key}) : super(key: key);
 
+  final bool isTrue = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: PostListBody(),
+      body: isTrue
+          ? Stack(
+              children: [TestOverlap(), PostListBody()],
+            )
+          : PostListBody(),
       floatingActionButton: buildFloatingActionButton(context),
     );
   }
@@ -36,8 +43,6 @@ class PostListPage extends StatelessWidget {
       child: Column(
         children: [
           Text("he"),
-          Text("qweqw"),
-          OutlinedButton(onPressed: () {}, child: Text("btn"))
         ],
       ),
     );
