@@ -20,19 +20,19 @@ class RoundedDropDown extends GetView<RegisterController> {
     // total height = margin 20 + hint 20
 
     return Container(
-        margin: EdgeInsets.symmetric(vertical: 10),
-        width: size.width * 0.8,
+        //margin: EdgeInsets.symmetric(vertical: 10),
+        width: size.width,
         decoration: BoxDecoration(
-          color: kPrimaryLightColor,
-          borderRadius: BorderRadius.circular(29.0),
+          color: kSubItemColor,
+          borderRadius: BorderRadius.circular(5),
           border: Border.all(
-              color: kPrimaryLightColor, style: BorderStyle.solid, width: 0.80),
+              color: kSubItemColor, style: BorderStyle.solid, width: 0.80),
         ),
         child: ClipRRect(
-            borderRadius: BorderRadius.circular(29),
+            borderRadius: BorderRadius.circular(5),
             child: Theme(
                 data: ThemeData(
-                  canvasColor: kPrimaryLightColor,
+                  canvasColor: kSubItemColor,
                   primaryColor: Colors.white,
                   // primaryColor: kPrimaryLightColor,
                 ),

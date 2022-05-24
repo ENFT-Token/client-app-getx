@@ -1,13 +1,8 @@
-import 'dart:io';
-
-import 'package:enft/app/constant/constant.dart';
 import 'package:enft/app/controller/gym_explore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:get/get.dart';
 
 import 'description.dart';
-
 
 class CustomListItem extends StatelessWidget {
   const CustomListItem({
@@ -45,25 +40,22 @@ class CustomListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   AspectRatio(
-                      aspectRatio: 1.0,
-                      child:  Card(
-                          elevation: 0,
-                          child: Image.network('${dotenv.env['SERVER_ADDRESS']!}${thumbnail}',fit:BoxFit.contain)
-                      ),
+                    aspectRatio: 1.0,
+                    child: Card(
+                        elevation: 0,
+                        child: Image.network(
+                            '${dotenv.env['SERVER_ADDRESS']!}${thumbnail}',
+                            fit: BoxFit.contain)),
                   ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
                       child: Description(
-                        title: title,
-                        location: location,
-                        klayInfo: klayInfo
-                      ),
+                          title: title, location: location, klayInfo: klayInfo),
                     ),
                   ),
                 ],
               ),
-
             ),
           )
         ],

@@ -79,12 +79,21 @@ class KlipController extends GetxController {
         growable: true);
   }
 
+  addToTrueList(int index) {
+    isTrueList.add(index);
+    _isTrueList.refresh();
+  }
+
+  removeFromTrueList(int index) {
+    isTrueList.remove(index);
+    _isTrueList.refresh();
+  }
+
   sendKlay(String targetAddress, double amount) async {
     //   if (sendAmount > klip.balance || ㄹtargetAddress.length < 42) return false;
     if (targetAddress.length < 42) return false;
     try {
-      return await repository.sendKlay(
-          targetAddress, amount.toString());
+      return await repository.sendKlay(targetAddress, amount.toString());
     } catch (e) {
       print(e);
       return false;

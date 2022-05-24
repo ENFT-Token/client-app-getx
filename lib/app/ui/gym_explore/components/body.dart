@@ -14,7 +14,6 @@ import 'list_item.dart';
 class GymExploreBody extends GetView<GymExploreController> {
   @override
   Widget build(BuildContext context) {
-    print('asd ${controller.list[0].place}');
     return ListView(
         children: List.generate(controller.list.length, (index) {
           return CustomListItem(

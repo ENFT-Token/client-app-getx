@@ -87,7 +87,7 @@ class SendTicketBody extends GetView {
                                       if (KlipController.to.isTrueList
                                               .contains(index) !=
                                           true) {
-                                        KlipController.to.isTrueList.add(index);
+                                        KlipController.to.addToTrueList(index);
                                       }
                                     } else {
                                       KlipController
@@ -95,8 +95,7 @@ class SendTicketBody extends GetView {
                                       if (KlipController.to.isTrueList
                                               .contains(index) ==
                                           true) {
-                                        KlipController.to.isTrueList
-                                            .remove(index);
+                                        KlipController.to.removeFromTrueList(index);
                                       }
                                     }
                                   })),
