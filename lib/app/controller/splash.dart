@@ -39,8 +39,12 @@ class SplashController extends GetxController {
       if (isLogin) {
         KlipController.to.klip = UserController.to.user.klip;
         Get.offNamed('/home');
-      } else
-        Get.offNamed('/getting_started');
+      } else {
+        KlipController.to.klip = UserController.to.user.klip;
+        Get.offNamed('/home');
+        //      Get.offNamed('/getting_started');
+
+      }
     });
   }
 

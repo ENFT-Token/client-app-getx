@@ -1,26 +1,27 @@
 import 'dart:io';
 
 import 'package:enft/app/constant/constant.dart';
+import 'package:enft/app/controller/gym_explore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'package:enft/app/ui/post_list/components/description.dart';
+import 'description.dart';
+
 
 class CustomListItem extends StatelessWidget {
   const CustomListItem({
     Key? key,
     required this.thumbnail,
     required this.title,
-    required this.position,
-    required this.readDuration,
-    required this.price,
+    required this.location,
+    required this.klayInfo,
     required this.onTap,
   }) : super(key: key);
 
-  final File? thumbnail;
+  final String thumbnail;
   final String title;
-  final String position;
-  final String readDuration;
-  final String price;
+  final String location;
+  final List<KlayData> klayInfo;
   final Function() onTap;
 
   @override
@@ -44,34 +45,18 @@ class CustomListItem extends StatelessWidget {
                 children: <Widget>[
                   AspectRatio(
                       aspectRatio: 1.0,
-                      child: thumbnail != null
-                          ? Card(
+                      child:  Card(
                           elevation: 0,
-                          child: Image.file(
-                            thumbnail!,
-                            fit: BoxFit.contain,
-                          ))
-                          : Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(4)),
-                          ),
-                          child: Padding(
-                              padding:
-                              const EdgeInsets.all(kDefaultPadding),
-                              child: Image.asset(
-                                'assets/photos/post_default_image.png',
-                                fit: BoxFit.contain,
-                              )))),
+                          child: Image.network('${dotenv.env['SERVER_ADDRESS']!}${thumbnail}',fit:BoxFit.contain)
+                      ),
+                  ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
                       child: Description(
                         title: title,
-                        position: position,
-                        readDuration: readDuration,
-                        price: price,
+                        location: location,
+                        klayInfo: klayInfo
                       ),
                     ),
                   )

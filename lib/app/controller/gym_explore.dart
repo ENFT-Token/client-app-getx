@@ -1,13 +1,56 @@
+import 'dart:convert';
+
+import 'package:enft/app/controller/user.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
+import '../data/provider/user_api.dart';
+
+import 'package:http/http.dart' as http;
+
+class KlayData {
+  int month;
+  int klay;
+  KlayData({required this.month, required this.klay});
+  factory KlayData.fromJson(Map<dynamic, dynamic> parsedJson) {
+      return KlayData(
+        month: parsedJson['month'],
+        klay: parsedJson['klay'],
+    );
+  }
+}
+
+class GymData {
+  String place;
+  String location;
+  String cover_img;
+  List<KlayData> list;
+
+  GymData({required this.place,required this.location, required this.cover_img, required this.list});
+  factory GymData.fromJson(Map<dynamic, dynamic> parsedJson) {
+      return GymData(
+      place: parsedJson['place'],
+      location: parsedJson['location'],
+      cover_img: parsedJson['cover_img'],
+      list: List<KlayData>.from(parsedJson['list'].map((model)=> KlayData.fromJson(model)))
+      );
+  }
+}
+
 class GymExploreController extends GetxController {
-  @override
-  void onInit() {
-    Get.put(
-        GymExploreController(),
-        permanent: true);
+  static GymExploreController get to => Get.find<GymExploreController>();
+
+  List<GymData> list = <GymData>[].obs;
+  Future<bool> init() async {
     print("GYM 입성");
+    http.Response response  =  await UserController.to.RequestAuth("GET","/user/healthList");
+    print(response.statusCode);
+    if(response.statusCode == 200) {
+      Iterable l  = json.decode(response.body);
+      list = List<GymData>.from(l.map((model)=> GymData.fromJson(model))).obs;
+    }
+    return true;
+  }
 
     //
     // final result = await userApiClient.login(data);
@@ -30,6 +73,5 @@ class GymExploreController extends GetxController {
     // return responseBody;
     //
 
-    super.onInit();
-  }
+
 }

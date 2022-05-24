@@ -46,9 +46,7 @@ class UserRepository {
         nfts: nftResult['nfts']);
     fromJson['klip'] = klip.toJson();
 
-    print(fromJson);
     user = User.fromJson(fromJson);
-
     return user;
   }
 
@@ -61,7 +59,6 @@ class UserRepository {
       nfts.add(Jwt.parseJwt(result[i]));
       calDuringTicket(nfts[i], result[i]);
     }
-
     return {'nftTokens': nftTokens, 'nfts': nfts};
   }
 
