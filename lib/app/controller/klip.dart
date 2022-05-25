@@ -77,6 +77,7 @@ class KlipController extends GetxController {
     double balance = await repository.getBalance(address);
     UserController.to.user.klip.balance = balance;
     this._klip.value.balance = balance;
+    _klip.refresh();
   }
 
 
