@@ -43,7 +43,7 @@ class KlipRepository {
     // 실제 기기 테스트 때는 이 위까지 주석
 
     if (address != "") {
-      var balance = double.parse(await klaytnApiClient.getBalance(address));
+      double balance = await klaytnApiClient.getBalance(address);
       List<String> nftTokens = [];
       List<Map<String, dynamic>> nfts = [];
 
@@ -58,7 +58,7 @@ class KlipRepository {
     }
   }
 
-  getBalance(String address) async => double.parse("0.0"); // TODO: getBalance 없앰. 나중에 내가 추가함.
+  getBalance(String address) async => await klaytnApiClient.getBalance(address);
 
   waitPolling() async {
     bool status = false;

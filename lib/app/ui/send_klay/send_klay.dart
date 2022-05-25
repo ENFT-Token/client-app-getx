@@ -89,7 +89,6 @@ class SendKlayPage extends GetView<KlipController> {
                         ? false
                         : true;
 
-                    isTransferable = true; // TODO: 잔고 못가져오는 것을 인한 임시 true
                     if (isTransferable) {
                       print("전송 가능");
                       print(controller.sendToAddress);
@@ -97,7 +96,8 @@ class SendKlayPage extends GetView<KlipController> {
                       final status = await controller.sendKlay(controller.sendToAddress, controller.sendAmount);
                       print('final ${status}');
                       if(status) { // succ
-                          Get.snackbar('Succ',"전송 성공", snackPosition: SnackPosition.TOP);
+                        await KlipController.to.setBalance(UserController.to.user.klip.address);
+                        Get.snackbar('Succ',"전송 성공", snackPosition: SnackPosition.TOP);
                       }
                       else {
                         Get.snackbar('Fail',"전송 실패", snackPosition: SnackPosition.TOP);

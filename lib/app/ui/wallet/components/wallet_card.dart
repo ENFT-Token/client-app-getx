@@ -50,7 +50,7 @@ class WalletCard extends GetView<KlipController> {
                   height: kDefaultPadding,
                 ),
                 Text(
-                  controller.klip.balance.toStringAsFixed(2),
+                  controller.klip.balance.toString(),
                   style: const TextStyle(fontSize: 24, color: Colors.white),
                 ),
                 Text("( ≈ $KRWBalance KRW)",

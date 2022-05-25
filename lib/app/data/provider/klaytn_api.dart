@@ -44,7 +44,7 @@ class KlaytnApiClient {
   // Get user wallet balance
   // input: userAddress, latest block number
   // response: {"jsonrpc": "2.0", "id":1, "result": Balance string, peb}
-  Future<String> getBalance(String userAddress) async {
+  Future<double> getBalance(String userAddress) async {
     Uri uri = Uri.parse(basicUri + '/klaytn');
     String blockNumber = await getBlockNumber();
     String body = jsonEncode(<String, dynamic>{
@@ -56,16 +56,13 @@ class KlaytnApiClient {
     final http.Response response =
     await authHttp.post(uri, body: body, headers: xChainIdHeaders);
     final responseBody = Map<String, dynamic>.from(json.decode(response.body));
-    print(responseBody);
-    if(responseBody['result'] == null) return "0";
-    String balance = responseBody['result'];
-    balance = "0"+balance.substring(2, balance.length);
-    final returnValue = hex.decode(balance);
-    double value = 0;
-    for (int i = returnValue.length - 1; i >= 0; i--) {
-      value = value + returnValue[i] * pow(16.0, (returnValue.length - 1 - i)*2);
-    }
-    return (value / pow(10.0, 18)).toStringAsFixed(2);
+    print(responseBody['result']);
+    print(responseBody['result'].runtimeType);
+    if(responseBody['result'] == null) return 0.0;
+
+    double PEB = 1000000000000000000; // KLAY PEB
+    double balance = int.parse(responseBody['result'].substring(2), radix:16) / PEB;
+    return balance;
   }
 
   // Look up user NFTs
