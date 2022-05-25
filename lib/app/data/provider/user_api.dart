@@ -43,6 +43,7 @@ class UserApiClient {
 
     final responseBody = List<String>.from(json.decode(response.body));
 
+    print(response.body);
     return responseBody;
   }
 

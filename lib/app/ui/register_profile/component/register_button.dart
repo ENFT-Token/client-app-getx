@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:enft/app/ui/register/components/rounded_button.dart';
+import 'package:enft/app/ui/register_profile/component/rounded_button.dart';
 
 class RegisterButton extends StatelessWidget {
   @override

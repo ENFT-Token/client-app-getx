@@ -13,7 +13,7 @@ class EnftApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'ENFT',
       theme: ThemeData(
-        primaryColor: Colors.blue,
+        primaryColor: Colors.lightGreen,
       ),
       initialRoute: AppRoutes.routes.first.toString(),
       initialBinding: SplashBinding(),

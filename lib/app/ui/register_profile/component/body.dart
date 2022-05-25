@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:enft/app/controller/register.dart';
 import 'package:enft/app/controller/image.dart';
 
-import 'package:enft/app/ui/register/components/rounded_button.dart';
+import 'package:enft/app/ui/register_profile/component/rounded_button.dart';
 import 'package:enft/app/ui/register_profile/component/profile_button.dart';
 
 class RegisterProfileBody extends GetView<ImageController> {

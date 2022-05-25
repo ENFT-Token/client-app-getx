@@ -66,6 +66,8 @@ class KlipController extends GetxController {
   // 나중에 try - catch로 error 잡기
   initKlip() async => _klip = repository.initKlip();
 
+  refreshKlip() => _klip.refresh();
+
   getAddress() async {
     this._klip = await repository.getKlip();
     this.klaytnPrice = await repository.getKlayKRWPrice();
@@ -76,7 +78,11 @@ class KlipController extends GetxController {
   setBalance(String address) async {
     double balance = await repository.getBalance(address);
     UserController.to.user.klip.balance = balance;
-    this._klip.value.balance = balance;
+    klip.balance = balance;
+    print('setbalance');
+    print(balance);
+    print(klip.balance);
+    UserController.to.refreshUser();
     _klip.refresh();
   }
 

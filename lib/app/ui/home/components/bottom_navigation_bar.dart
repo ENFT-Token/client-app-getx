@@ -1,3 +1,4 @@
+import 'package:enft/app/constant/constant.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -11,7 +12,7 @@ class HomeBottomNavigationBar extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Obx(() => BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xffc6d84b),
+        backgroundColor: kPrimaryColor,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.black54,
         selectedFontSize: 14,

@@ -14,16 +14,16 @@ class WalletCard extends GetView<KlipController> {
   final Function() sendKlay;
 
   const WalletCard({
-    Key? key,
     required this.klaytnBalance,
     required this.klaytnPrice,
     required this.receiveKlay,
     required this.sendKlay,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    final KRWBalance = controller.currencyFormat((klaytnBalance * klaytnPrice).floor());
+    final KRWBalance =
+        controller.currencyFormat((klaytnBalance * klaytnPrice).floor());
     return Card(
         color: kPrimaryColor,
         child: Padding(
@@ -49,10 +49,10 @@ class WalletCard extends GetView<KlipController> {
                 const SizedBox(
                   height: kDefaultPadding,
                 ),
-                Obx(() => Text(
-                  controller.klip.balance.toString(),
+                Text(
+                  klaytnBalance.toStringAsFixed(2),
                   style: const TextStyle(fontSize: 24, color: Colors.white),
-                )),
+                ),
                 Text("( ≈ $KRWBalance KRW)",
                     style: TextStyle(fontSize: 14, color: Colors.white38))
               ],

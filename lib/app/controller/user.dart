@@ -34,6 +34,8 @@ class UserController extends GetxController {
 
   set user(value) => this._user.value = value;
 
+  refreshUser() => _user.refresh();
+
   get qrDataList => this._qrDataList;
 
   set qrDataList(value) => this._qrDataList = value;
@@ -43,33 +45,31 @@ class UserController extends GetxController {
     _user = userRepository.user.obs;
   }
 
-  Future<http.Response> RequestAuth(String method,String url, {Map<String, dynamic>? data}) async {
+  Future<http.Response> RequestAuth(String method, String url,
+      {Map<String, dynamic>? data}) async {
     late final http.Response response;
     Map<String, String> headers = <String, String>{
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $access_token'
     };
-    if(method == "POST") {
+    if (method == "POST") {
       final uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + url);
-      if(data == null) {
-        response = await http.post(uri,headers: headers);
-      }
-      else {
+      if (data == null) {
+        response = await http.post(uri, headers: headers);
+      } else {
         final body = json.encode(data);
-        response = await http.post(uri,headers: headers,body:body);
+        response = await http.post(uri, headers: headers, body: body);
       }
-
-    }
-    else if(method == "GET") {
-      Uri uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + url);;
-      if(data != null)
-        uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + url).replace(queryParameters: data);
+    } else if (method == "GET") {
+      Uri uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + url);
+      ;
+      if (data != null)
+        uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + url)
+            .replace(queryParameters: data);
       response = await http.get(uri, headers: headers);
     }
     return response;
   }
-
-
 
   login() async {
     if (sqfliteRepository.api.db == null)

@@ -8,6 +8,8 @@ import 'package:enft/app/controller/user.dart';
 
 import 'package:enft/app/ui/send_klay/components/body.dart';
 
+import '../loading_hud/loading_hud.dart';
+
 class SendKlayPage extends GetView<KlipController> {
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class SendKlayPage extends GetView<KlipController> {
       appBar: buildAppBar(),
       backgroundColor: Colors.grey[50],
       body: SendKlayBody(),
-      bottomNavigationBar: buildBottomNavigationBar(),
+      bottomNavigationBar: buildBottomNavigationBar(context),
     );
   }
 
@@ -32,7 +34,7 @@ class SendKlayPage extends GetView<KlipController> {
     );
   }
 
-  BottomAppBar buildBottomNavigationBar() {
+  BottomAppBar buildBottomNavigationBar(BuildContext context) {
     return BottomAppBar(
         color: Colors.grey[50],
         elevation: 0,
@@ -93,15 +95,22 @@ class SendKlayPage extends GetView<KlipController> {
                       print("전송 가능");
                       print(controller.sendToAddress);
                       print(controller.sendAmount);
-                      final status = await controller.sendKlay(controller.sendToAddress, controller.sendAmount);
+                      LoadingHud loadingHud = LoadingHud(context: context);
+                      loadingHud.showHud();
+                      final status = await controller.sendKlay(
+                          controller.sendToAddress, controller.sendAmount);
                       print('final ${status}');
-                      if(status) { // succ
-                        await KlipController.to.setBalance(UserController.to.user.klip.address);
-                        Get.snackbar('Succ',"전송 성공", snackPosition: SnackPosition.TOP);
+                      if (status) {
+                        // succ
+                        await controller
+                            .setBalance(UserController.to.user.klip.address);
+                        Get.snackbar('Succ', "전송 성공",
+                            snackPosition: SnackPosition.TOP);
+                      } else {
+                        Get.snackbar('Fail', "전송 실패",
+                            snackPosition: SnackPosition.TOP);
                       }
-                      else {
-                        Get.snackbar('Fail',"전송 실패", snackPosition: SnackPosition.TOP);
-                      }
+                      loadingHud.hideHud();
                     } else {
                       controller.openDialog("잔고 부족", "클레이가 충분하지 않습니다.", [
                         TextButton(

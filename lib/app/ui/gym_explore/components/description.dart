@@ -57,7 +57,7 @@ class Description extends GetView<GymExploreController> {
         ElevatedButton(
           onPressed: () => controller.ToRequestTicketPage(title, klayInfo),
           style: ElevatedButton.styleFrom(
-              primary: Colors.lightGreen,
+              primary: kPrimaryColor,
               shape: RoundedRectangleBorder(
                 // shape : 버튼의 모양을 디자인 하는 기능
                 borderRadius: BorderRadius.circular(5),
@@ -65,23 +65,6 @@ class Description extends GetView<GymExploreController> {
               elevation: 0.0),
           child: Text("티켓 발급하러 가기"),
         ),
-        // B(
-        //   '${klayInfo[0].month}개월 - ${klayInfo[0].klay} KLAY',
-        //   maxLines: 2,
-        //   overflow: TextOverflow.ellipsis,
-        //   style: const TextStyle(
-        //     fontSize: 12.0,
-        //     color: Colors.black45,
-        //   ),
-        // ),
-        // Text(
-        //   price,
-        //   style: const TextStyle(
-        //     fontSize: 16.0,
-        //     fontWeight: FontWeight.bold,
-        //     color: Colors.black87,
-        //   ),
-        // ),
       ],
     );
   }

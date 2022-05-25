@@ -48,6 +48,7 @@ class KlipApiClient {
         await http.post(prepareUri, body: body, headers: headers);
     final responseBody = Map<String, dynamic>.from(json.decode(response.body));
 
+    print("request_key");
     print(responseBody['request_key'].toString());
     _requestKey = responseBody['request_key'].toString();
   }
@@ -55,6 +56,7 @@ class KlipApiClient {
   // Send klay to another user
   Future sendKlay(String to, String amount) async {
     print('data  ${to}, amount: ${amount}');
+    print(_requestKey);
     String body = jsonEncode(<String, dynamic>{
       'bapp': {'name': 'ENFT'},
       'type': 'send_klay',

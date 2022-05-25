@@ -61,8 +61,9 @@ class SendKlayBody extends GetView<KlipController> {
                       FilteringTextInputFormatter.allow(
                           RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$')),
                     ],
-                    onChanged: (value) =>
-                        controller.sendAmount = double.parse(value),
+                    onChanged: (value) {
+                      controller.sendAmount = double.parse(value);
+                    },
                     onSubmitted: (value) =>
                         controller.sendAmount = double.parse(value),
                     decoration: InputDecoration(
@@ -101,14 +102,14 @@ class SendKlayBody extends GetView<KlipController> {
                     child: Row(
                       children: [
                         Expanded(
-                            child: Text(
-                          UserController.to.user.klip.balance
-                              .toStringAsFixed(2),
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                          ),
-                        )),
+                            child: Obx(() => Text(
+                                  UserController.to.user.klip.balance
+                                      .toStringAsFixed(2),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                  ),
+                                ))),
                         Text(
                           "KLAY",
                           style: TextStyle(

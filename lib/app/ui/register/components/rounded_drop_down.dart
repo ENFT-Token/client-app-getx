@@ -23,10 +23,10 @@ class RoundedDropDown extends GetView<RegisterController> {
         margin: EdgeInsets.symmetric(vertical: 10),
         width: size.width * 0.8,
         decoration: BoxDecoration(
-          color: kPrimaryLightColor,
+          color: kSubItemColor,
           borderRadius: BorderRadius.circular(29.0),
           border: Border.all(
-              color: kPrimaryLightColor, style: BorderStyle.solid, width: 0.80),
+              color: kSubItemColor, style: BorderStyle.solid, width: 0.80),
         ),
         child: ClipRRect(
             borderRadius: BorderRadius.circular(29),

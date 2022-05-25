@@ -48,7 +48,7 @@ class TicketPageView extends GetView<TicketController> {
                             },
                             controller: controller.pageController,
                             // itemCount: 3,
-                            itemCount: UserController.to.qrDataList.length,
+                            itemCount: UserController.to.user.klip.nfts.length,
                             itemBuilder: (BuildContext context, int index) {
                               return FlipCard(
                                 controller: FlipCardController(),

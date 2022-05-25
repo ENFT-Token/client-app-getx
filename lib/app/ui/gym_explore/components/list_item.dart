@@ -11,14 +11,12 @@ class CustomListItem extends StatelessWidget {
     required this.title,
     required this.location,
     required this.klayInfo,
-    required this.onTap,
   }) : super(key: key);
 
   final String thumbnail;
   final String title;
   final String location;
   final List<KlayData> klayInfo;
-  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +58,6 @@ class CustomListItem extends StatelessWidget {
           )
         ],
       ),
-      onTap: onTap,
     );
   }
 }

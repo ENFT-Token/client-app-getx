@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 // Color
-const Color kPrimaryColor = Color(0xffBADBFF);
-const Color kPrimaryLightColor = Color(0x99E7F29D);
+const Color kPrimaryColor = Colors.lightGreen;
+Color kPrimaryLightColor = Colors.lightGreen.shade400;
 const Color kSystemGray = Color(0xff8E8E93);
 const Color kSubItemColor = Color(0xffF2F2F2);
 const Color kWarningBackgroundColor = Color(0xffFAF7EC);
