@@ -16,20 +16,20 @@ class PossessedTicket extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int index = place.indexOf("헬스장");
-    final gymName =
-        place.substring(0, index) + "\n" + place.substring(index, place.length);
+    // int index = place.indexOf("헬스장");
+    // final gymName =
+    //     place.substring(0, index) + "\n" + place.substring(index, place.length);
     return Padding(
         padding: const EdgeInsets.only(top: kDefaultPadding),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(place, style: TextStyle(fontSize: 14)),
+            Expanded(child: Text(place, style: TextStyle(fontSize: 14))),
             SizedBox(width: kDefaultPadding),
-            Text(startDate, style: TextStyle(fontSize: 14)),
-            SizedBox(width: kDefaultPadding,),
-            Text(endDate, style: TextStyle(fontSize: 14)),
-            SizedBox(width: kDefaultPadding,),
+            Expanded(child: Text(endDate, style: TextStyle(fontSize: 14))),
+            SizedBox(
+              width: kDefaultPadding,
+            ),
             Text(during, style: TextStyle(fontSize: 14))
           ],
         ));

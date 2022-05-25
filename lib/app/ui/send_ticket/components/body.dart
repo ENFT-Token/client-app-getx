@@ -15,6 +15,7 @@ import 'package:enft/app/ui/send_klay/components/warning_text.dart';
 class SendTicketBody extends GetView<KlipController> {
   @override
   Widget build(BuildContext context) {
+    print("length ${UserController.to.user.klip.nfts.length}");
     return Padding(
         padding: const EdgeInsets.all(kDefaultPadding),
         child: Column(
@@ -54,6 +55,29 @@ class SendTicketBody extends GetView<KlipController> {
             ),
             SizedBox(height: kDefaultPadding / 4),
             Text("전송 할 이용권을 선택해주세요", style: TextStyle(color: kSystemGray)),
+            SizedBox(height: kDefaultPadding / 2),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                    child: Row(
+                  children: [
+                    Expanded(
+                        child: Text("헬스장 이름", style: TextStyle(fontSize: 14))),
+                    SizedBox(width: kDefaultPadding),
+                    Expanded(
+                        child: Text("만료 날짜", style: TextStyle(fontSize: 14))),
+                    SizedBox(
+                      width: kDefaultPadding,
+                    ),
+                    Text("남은 기간", style: TextStyle(fontSize: 14)),
+                  ],
+                )),
+                SizedBox(
+                  width: kDefaultPadding * 2.4,
+                ),
+              ],
+            ),
             Divider(),
             Expanded(
                 child: Obx(() => ListView.separated(
@@ -95,7 +119,8 @@ class SendTicketBody extends GetView<KlipController> {
                                       if (KlipController.to.isTrueList
                                               .contains(index) ==
                                           true) {
-                                        KlipController.to.removeFromTrueList(index);
+                                        KlipController.to
+                                            .removeFromTrueList(index);
                                       }
                                     }
                                   })),
