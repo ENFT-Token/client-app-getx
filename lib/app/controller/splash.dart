@@ -38,12 +38,12 @@ class SplashController extends GetxController {
         .then((value) async {
       if (isLogin) {
         await KlipController.to.setBalance(UserController.to.user.klip.address);
+        KlipController.to.klip = UserController.to.user.klip;
         Get.offNamed('/home');
       } else {
         Get.offNamed('/getting_started');
       }
     });
   }
-
   void toggle(var value) => value.value = !value.value;
 }

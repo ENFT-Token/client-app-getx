@@ -19,15 +19,15 @@ class Body extends GetView<KlipController> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                WalletCard(
+                Obx(() => WalletCard(
                     klaytnBalance: controller.klip.balance,
                     klaytnPrice: controller.klaytnPrice,
                     receiveKlay: () {},
-                    sendKlay: () {}),
+                    sendKlay: () {})),
                 OutlinedButton(
                     onPressed: () =>
                         Get.toNamed('/wallet/send_klay'),
-                    child: Text("클립 전송")),
+                    child: Text("클레이튼 송금")),
                 OutlinedButton(
                     onPressed: () {
                       controller.initCheckList();

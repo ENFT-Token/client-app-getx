@@ -74,8 +74,9 @@ class KlipController extends GetxController {
   getBalance(String address) async => await repository.getBalance(address);
 
   setBalance(String address) async {
-    UserController.to.user.klip.balance = await repository.getBalance(address);
-    KlipController.to.klip = UserController.to.user.klip;
+    double balance = await repository.getBalance(address);
+    UserController.to.user.klip.balance = balance;
+    this._klip.value.balance = balance;
   }
 
 
@@ -96,7 +97,7 @@ class KlipController extends GetxController {
   }
 
   sendKlay(String targetAddress, double amount) async {
-    if (amount > klip.balance || targetAddress.length < 42) return false;
+    if (targetAddress.length < 42) return false;
     try {
       return await repository.sendKlay(targetAddress, amount.toString());
     } catch (e) {

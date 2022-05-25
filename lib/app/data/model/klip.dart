@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class Klip {
   late String address;
   late double balance;

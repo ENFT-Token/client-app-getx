@@ -106,15 +106,15 @@ class RequestTicketBody extends GetView {
                         vertical: kDefaultPadding * 1.25),
                     child: Row(
                       children: [
-                        Expanded(
+                        Obx(() => Expanded(
                             child: Text(
-                          UserController.to.user.klip.balance
-                              .toStringAsFixed(2),
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                          ),
-                        )),
+                              UserController.to.user.klip.balance
+                                  .toStringAsFixed(2),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
+                            ))),
                         Text(
                           "KLAY",
                           style: TextStyle(
