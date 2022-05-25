@@ -12,7 +12,7 @@ import 'package:enft/app/ui/send_klay/components/text_field_container.dart';
 import 'package:enft/app/ui/send_klay/components/text_field_with_title.dart';
 import 'package:enft/app/ui/send_klay/components/warning_text.dart';
 
-class SendTicketBody extends GetView {
+class SendTicketBody extends GetView<KlipController> {
   @override
   Widget build(BuildContext context) {
     return Padding(

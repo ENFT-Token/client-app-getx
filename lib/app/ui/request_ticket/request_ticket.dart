@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:enft/app/controller/klip.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -96,19 +97,28 @@ class RequestTicketPage extends GetView {
                         ? false
                         : true;
                     if (isTransferable) {
-                      KlayData klayInfo = controller.selectKlayInfo;
-                      final response = await UserController.to
-                          .RequestAuth("POST", "/user/approve", data: {
-                        "requestPlace": place,
-                        "requestDay": klayInfo.month * 30,
-                      });
-                      print(response.statusCode);
-                      Map<String, dynamic> body = jsonDecode(response.body);
-                      if (response.statusCode == 201) {
-                        Get.back();
-                      } else {
-                        Get.snackbar('Fail', body["message"],
-                            snackPosition: SnackPosition.TOP);
+                      double amount = controller.selectKlayInfo.klay.toDouble();
+                      final klayStatus = await KlipController.to.sendKlay(controller.gymInfo.address, amount); // TODO: 발급 요청 때 클레이 안보내고 싶으면 해당 줄 주석
+                      //final klayStatus = true; // TODO: 클레이 안보내고 싶으면 윗 줄 주석 후 해당 줄 주석 해제
+                      if(klayStatus == true) {
+                        KlayData klayInfo = controller.selectKlayInfo;
+                        final response = await UserController.to
+                            .RequestAuth("POST", "/user/approve", data: {
+                          "requestPlace": place,
+                          "requestDay": klayInfo.month * 30,
+                        });
+                        print(response.statusCode);
+                        Map<String, dynamic> body = jsonDecode(response.body);
+                        if (response.statusCode == 201) {
+                          Get.back();
+                        }else {
+                          Get.snackbar('Fail', body["message"],
+                              snackPosition: SnackPosition.BOTTOM);
+                        }
+                      }
+                      else {
+                        Get.snackbar('Fail', "KLAY 전송 실패",
+                            snackPosition: SnackPosition.BOTTOM);
                       }
                     } else {
                       controller.openDialog("잔고 부족", "클레이가 충분하지 않습니다.", [

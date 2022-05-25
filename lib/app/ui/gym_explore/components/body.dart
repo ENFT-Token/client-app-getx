@@ -16,12 +16,13 @@ class GymExploreBody extends GetView<GymExploreController> {
   Widget build(BuildContext context) {
     return ListView(
         children: List.generate(controller.list.length, (index) {
-      return CustomListItem(
-        thumbnail: controller.list[index].cover_img,
-        title: controller.list[index].place,
-        location: controller.list[index].location,
-        klayInfo: controller.list[index].list,
-      );
-    }));
+          return CustomListItem(
+            thumbnail: controller.list[index].cover_img,
+            title: controller.list[index].place,
+            location: controller.list[index].location,
+            klayInfo: controller.list[index].list,
+            gymInfo: controller.list[index],
+          );
+        }));
   }
 }

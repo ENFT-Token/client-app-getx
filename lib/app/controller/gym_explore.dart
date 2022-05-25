@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:enft/app/controller/request_ticket.dart';
 import 'package:enft/app/controller/user.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import '../data/provider/request_ticket_api.dart';
 import '../data/provider/user_api.dart';
@@ -28,13 +27,15 @@ class KlayData {
 class GymData {
   String place;
   String location;
+  String address;
   String cover_img;
   List<KlayData> list;
 
-  GymData({required this.place,required this.location, required this.cover_img, required this.list});
+  GymData({required this.place,required this.location,required this.address, required this.cover_img, required this.list});
   factory GymData.fromJson(Map<dynamic, dynamic> parsedJson) {
       return GymData(
       place: parsedJson['place'],
+      address: parsedJson['address'],
       location: parsedJson['location'],
       cover_img: parsedJson['cover_img'],
       list: List<KlayData>.from(parsedJson['list'].map((model)=> KlayData.fromJson(model)))
@@ -45,7 +46,7 @@ class GymData {
 class GymExploreController extends GetxController {
   static GymExploreController get to => Get.find<GymExploreController>();
 
-  List<GymData> list = <GymData>[].obs;
+  RxList<GymData> list = <GymData>[].obs;
   Future<bool> init() async {
     print("GYM 입성");
     http.Response response  =  await UserController.to.RequestAuth("GET","/user/healthList");
@@ -57,12 +58,13 @@ class GymExploreController extends GetxController {
     return true;
   }
 
-  ToRequestTicketPage(String tag, List<KlayData> klayInfo) {
+  ToRequestTicketPage(String tag, List<KlayData> klayInfo, GymData gymInfo) {
     Get.to(RequestTicketPage(), arguments: {'tag': tag},
         binding: BindingsBuilder(() {
           Get.put(
               RequestTicketController(
                   klayInfoList: klayInfo,
+                  gymInfo: gymInfo,
                   repository: RequestTicketRepository(
                       requestTicketApi: RequestTicketApi())),
               tag: tag);
