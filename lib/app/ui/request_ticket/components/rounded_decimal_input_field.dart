@@ -26,7 +26,7 @@ class RoundedDecimalInputField extends StatelessWidget {
         // 음수가 아닌 소수만 입력 가능
         // 앞이 0인 정수 불가
         FilteringTextInputFormatter.allow(
-            RegExp(r'^[0-9]+(\\.[0-9]{1,2})?$')),
+            RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$')),
       ],
       onChanged: onChanged,
       onSubmitted: onSubmitted,
