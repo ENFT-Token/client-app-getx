@@ -1,4 +1,5 @@
 import 'package:enft/app/controller/klip.dart';
+import 'package:enft/app/ui/loading_hud/loading_hud.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +15,7 @@ class SendTicketPage extends GetView<KlipController> {
       appBar: buildAppBar(),
       backgroundColor: Colors.grey[50],
       body: SendTicketBody(),
-      bottomNavigationBar: buildBottomNavigationBar(),
+      bottomNavigationBar: buildBottomNavigationBar(context),
     );
   }
 
@@ -37,7 +38,7 @@ class SendTicketPage extends GetView<KlipController> {
     );
   }
 
-  BottomAppBar buildBottomNavigationBar() {
+  BottomAppBar buildBottomNavigationBar(BuildContext context) {
     return BottomAppBar(
         color: Colors.grey[50],
         elevation: 0,
@@ -99,6 +100,9 @@ class SendTicketPage extends GetView<KlipController> {
                    }
                    int i = 0;
                    int succIdx = 0;
+                   LoadingHud loadingHud = LoadingHud(context: context);
+
+                   loadingHud.showHud();
                    await Future.doWhile(() async {
                       if(i == controller.isTrueList.length) return false;
                       final idx = controller.isTrueList[i];
@@ -116,10 +120,11 @@ class SendTicketPage extends GetView<KlipController> {
                    });
                    if(succIdx > 0) {
                      Get.snackbar("안내","티켓 ${succIdx}개 전송 완료.", snackPosition: SnackPosition.BOTTOM);
-                     // TODO: 티켓 리로드 해야함.
+                     UserController.to.refreshUser();
                    } else {
                      Get.snackbar("안내","티켓 전송 실패.", snackPosition: SnackPosition.BOTTOM);
                    }
+                   loadingHud.hideHud();
                    // final response = await UserController.to
                    //     .RequestAuth("POST", "/user/transferNFT", data: {
                    //   "to": place,
