@@ -24,8 +24,11 @@ class FrontTicket extends StatelessWidget {
     double height = size.height;
 
     int placeIndex = place.indexOf("헬스장");
-    final name =
-        place.substring(0, placeIndex) + "\n" + place.substring(placeIndex, place.length);
+    final name = placeIndex == -1
+        ? place
+        : place.substring(0, placeIndex) +
+            "\n" +
+            place.substring(placeIndex, place.length);
 
     return Ticket(
         index: index,
