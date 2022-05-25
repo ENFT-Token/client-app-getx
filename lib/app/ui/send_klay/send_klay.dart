@@ -97,10 +97,10 @@ class SendKlayPage extends GetView<KlipController> {
                       print('final ${status}');
                       if(status) { // succ
                         await KlipController.to.setBalance(UserController.to.user.klip.address);
-                        Get.snackbar('Succ',"전송 성공", snackPosition: SnackPosition.TOP);
+                        Get.snackbar('Succ',"전송 성공", snackPosition: SnackPosition.BOTTOM);
                       }
                       else {
-                        Get.snackbar('Fail',"전송 실패", snackPosition: SnackPosition.TOP);
+                        Get.snackbar('Fail',"전송 실패", snackPosition: SnackPosition.BOTTOM);
                       }
                     } else {
                       controller.openDialog("잔고 부족", "클레이가 충분하지 않습니다.", [

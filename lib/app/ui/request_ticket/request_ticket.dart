@@ -108,7 +108,7 @@ class RequestTicketPage extends GetView {
                         Get.back();
                       } else {
                         Get.snackbar('Fail', body["message"],
-                            snackPosition: SnackPosition.TOP);
+                            snackPosition: SnackPosition.BOTTOM);
                       }
                     } else {
                       controller.openDialog("잔고 부족", "클레이가 충분하지 않습니다.", [

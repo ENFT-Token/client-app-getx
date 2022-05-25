@@ -25,15 +25,15 @@ class SendTicketPage extends GetView<KlipController> {
       elevation: 0,
       centerTitle: true,
       title: Text("이용권 전송"),
-      // actions: [
-      //   TextButton(
-      //       // 이 부분에 sendTicket 함수 작성
-      //       onPressed: () async => await KlipController.to.sendTicket(),
-      //       child: Text(
-      //         "완료",
-      //         style: TextStyle(color: Colors.white, fontSize: 20),
-      //       ))
-      // ],
+      actions: [
+        TextButton(
+            // 이 부분에 sendTicket 함수 작성
+            onPressed: () async => await KlipController.to.sendTicket(),
+            child: Text(
+              "완료",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ))
+      ],
     );
   }
 
@@ -87,20 +87,45 @@ class SendTicketPage extends GetView<KlipController> {
                   ],
                 )),
                 OutlinedButton(
-                  onPressed: () {
-                    // bool isTransferable = (controller.sendAmount == 0 ||
-                    //     (controller.sendAmount + controller.sendFee) >
-                    //         UserController.to.user.klip.balance)
-                    //     ? false
-                    //     : true;
-                    // if (isTransferable) {
-                    //   print("전송 가능");
-                    // } else {
-                    //   controller.openDialog("", "클레이가 충분하지 않습니다.", [
-                    //     TextButton(
-                    //         onPressed: () => Get.back(), child: Text("확인"))
-                    //   ]);
-                    // }
+                  onPressed: () async {
+                  //  KlipController.to.sendTicket()
+                   print("ASDASD");
+                   print(KlipController.to.sendToAddress);
+                   print(UserController.to.user.klip.nfts);
+                   print(UserController.to.user.klip.nftTokens);
+                   if(controller.isTrueList.length == 0) {
+                     Get.snackbar("안내","선택된 티켓이 없습니다.", snackPosition: SnackPosition.BOTTOM);
+                     return;
+                   }
+                   int i = 0;
+                   int succIdx = 0;
+                   await Future.doWhile(() async {
+                      if(i == controller.isTrueList.length) return false;
+                      final idx = controller.isTrueList[i];
+                       final response = await UserController.to
+                           .RequestAuth("POST", "/user/transferNFT", data: {
+                         "to": KlipController.to.sendToAddress,
+                         "nft": UserController.to.user.klip.nftTokens[idx],
+                       });
+                       print(response.body);
+                       if(response.statusCode == 201) {
+                         succIdx++;
+                       }
+                      i++;
+                      return true;
+                   });
+                   if(succIdx > 0) {
+                     Get.snackbar("안내","티켓 ${succIdx}개 전송 완료.", snackPosition: SnackPosition.BOTTOM);
+                     // TODO: 티켓 리로드 해야함.
+                   } else {
+                     Get.snackbar("안내","티켓 전송 실패.", snackPosition: SnackPosition.BOTTOM);
+                   }
+                   // final response = await UserController.to
+                   //     .RequestAuth("POST", "/user/transferNFT", data: {
+                   //   "to": place,
+                   //   "requestDay": klayInfo.month * 30,
+                   // });
+
                   },
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.symmetric(
