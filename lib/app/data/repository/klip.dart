@@ -60,25 +60,36 @@ class KlipRepository {
 
   getBalance(String address) async => double.parse("0.0"); // TODO: getBalance 없앰. 나중에 내가 추가함.
 
-
-
-  sendKlay(String to, String amount) async {
-    await klipApiClient.sendKlay(to, amount);
-    await klipApiClient.createUriLaunch();
+  waitPolling() async {
+    bool status = false;
     int i = 0;
     await Future.doWhile(() async {
       i++;
       await Future.delayed(const Duration(seconds: 3));
       final result = await klipApiClient.getKlipPolling();
+      print(i);
+      print(result);
       if (result['status'] == "success") {
-        return true; // TODO: 폴링 추가 처리 해야함. sendKlay의  return이 되주지 않음.
+        status = true;
+        return false;
+      }
+      else if (result['status'] == "canceled") {
+        status = false;
+        return false;
       }
       if (i == 10) {
+        status = false;
         return false;
       }
       return true;
     });
-    return false;
+    return status;
+  }
+
+  sendKlay(String to, String amount) async {
+    await klipApiClient.sendKlay(to, amount);
+    await klipApiClient.createUriLaunch();
+    return await waitPolling();
   }
 
 

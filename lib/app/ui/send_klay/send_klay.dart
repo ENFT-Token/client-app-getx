@@ -95,8 +95,9 @@ class SendKlayPage extends GetView<KlipController> {
                       print(controller.sendToAddress);
                       print(controller.sendAmount);
                       final status = await controller.sendKlay(controller.sendToAddress, controller.sendAmount);
+                      print('final ${status}');
                       if(status) { // succ
-                          Get.back();
+                          Get.snackbar('Succ',"전송 성공", snackPosition: SnackPosition.TOP);
                       }
                       else {
                         Get.snackbar('Fail',"전송 실패", snackPosition: SnackPosition.TOP);
