@@ -20,7 +20,6 @@ import '../../message/message.dart';
 class PostListBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return ListView(
       children: <Widget>[
         // OutlinedButton(

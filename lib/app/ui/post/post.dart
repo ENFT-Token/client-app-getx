@@ -16,7 +16,6 @@
 //
 //   @override
 //   Widget build(BuildContext context) {
-//     // TODO: implement build
 //     return Scaffold(
 //         bottomNavigationBar: buildBottomNavigationBar(),
 //         body: PostBody(post: post, user: user));

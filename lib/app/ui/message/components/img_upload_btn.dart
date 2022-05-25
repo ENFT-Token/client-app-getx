@@ -16,7 +16,6 @@ class ImgUploadBtn extends GetView<ImageController> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return IconButton(
       onPressed: () async => await controller.pickMultiImg(),
       icon: Icon(iconData,

@@ -61,7 +61,6 @@ class FlipCardState extends State<FlipCard>
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return GestureDetector(
         onDoubleTap: flipCard,
         child: AnimatedBuilder(

@@ -10,7 +10,6 @@
 //
 //   @override
 //   Widget build(BuildContext context) {
-//     // TODO: implement build
 //     return Padding(
 //         padding: const EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
 //         child: Row(
