@@ -11,7 +11,7 @@ class GymExplorePage extends GetView<GymExploreController>{
   Widget build(BuildContext context) {
     return FutureBuilder(future: controller.init(), builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
       if(snapshot.hasData) {
-        return Scaffold(body: GymExploreBody());
+        return Scaffold(backgroundColor: Colors.grey[50], body: GymExploreBody());
       } else if (snapshot.hasError) {
         return Center(child: Text("Error"));
       } else {

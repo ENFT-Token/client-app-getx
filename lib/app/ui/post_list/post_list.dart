@@ -41,16 +41,14 @@ class PostListPage extends GetView<PostController> {
       title: Row(
         children: [
           Expanded(
-            child: TextButton(
-                onPressed: () => Get.toNamed('location'),
-                style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all(Colors.black)),
+            child: GestureDetector(
+                onTap: () => Get.toNamed('location'),
                 child: Row(
                   children: [
                     Obx(() => Text(
                           UserController.to.user.location.split(" ").last,
                           style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold),
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         )),
                     Icon(Icons.keyboard_arrow_down_rounded)
                   ],
@@ -59,10 +57,9 @@ class PostListPage extends GetView<PostController> {
           IconButton(onPressed: () {}, icon: Icon(Icons.search))
         ],
       ),
-      automaticallyImplyLeading: false,
       foregroundColor: Colors.black,
       backgroundColor: Colors.grey[50],
-      elevation: 0.2,
+      elevation: 0.5,
     );
   }
 

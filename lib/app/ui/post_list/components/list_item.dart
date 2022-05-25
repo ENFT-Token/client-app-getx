@@ -45,15 +45,17 @@ class CustomListItem extends StatelessWidget {
                   AspectRatio(
                       aspectRatio: 1.0,
                       child: thumbnail != null
-                          ? Card(
-                              elevation: 0,
-                              child: Image.file(
-                                thumbnail!,
-                                fit: BoxFit.contain,
-                              ))
+                          ? Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8)),
+                                  image: DecorationImage(
+                                      image: FileImage(thumbnail!),
+                                      fit: BoxFit.contain)))
                           : Container(
                               decoration: BoxDecoration(
-                                color: Colors.grey[200],
+                                color: Colors.grey[100],
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(4)),
                               ),
