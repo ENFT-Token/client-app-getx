@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:enft/app/controller/user.dart';
@@ -16,14 +17,21 @@ class PostController extends GetxController {
   // post는 들어갈 때마다 새로 초기화 해줘야 되니까 재생성 되어야한다.
   // PostList는 새로 초기화 안해줘도 된다.
 
-  @override
-  onInit() {}
-
+  RxBool _isPostPage = true.obs;
+  RxBool _isFloatingDialOpen = false.obs;
   RxList<Post> _postList = List<Post>.empty(growable: true).obs;
   RxString _title = "".obs;
   RxString _content = "".obs;
   RxDouble _cost = 0.0.obs;
   RxList<File> _images = List<File>.empty(growable: true).obs;
+
+  get isPostPage => _isPostPage.value;
+
+  set isPostPage(value) => _isPostPage.value = value;
+
+  get isFloatingDialOpen => _isFloatingDialOpen;
+
+  set isFloatingDialOpen(value) => _isFloatingDialOpen.value = value;
 
   get postList => _postList.value;
 
@@ -54,7 +62,8 @@ class PostController extends GetxController {
       'location': UserController.to.user.location,
     };
 
-    await repository.writePost(data, images, UserController.to.user.access_token);
+    await repository.writePost(
+        data, images, UserController.to.user.access_token);
   }
 
   getPost() async => postList = await repository.getPost();

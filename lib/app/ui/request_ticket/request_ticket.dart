@@ -20,6 +20,7 @@ class RequestTicketPage extends GetView {
     String place = Get.arguments["tag"];
     return Scaffold(
       appBar: buildAppBar(),
+      backgroundColor: Colors.grey[50],
       body: RequestTicketBody(),
       bottomNavigationBar: buildBottomNavigationBar(controller, place),
     );
@@ -27,7 +28,7 @@ class RequestTicketPage extends GetView {
 
   AppBar buildAppBar() {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[50],
       foregroundColor: Colors.black,
       elevation: 0,
       centerTitle: true,
@@ -39,7 +40,7 @@ class RequestTicketPage extends GetView {
   BottomAppBar buildBottomNavigationBar(
       RequestTicketController controller, String place) {
     return BottomAppBar(
-        color: Colors.white,
+        color: Colors.grey[50],
         elevation: 0,
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           const Divider(

@@ -26,26 +26,34 @@ class Description extends GetView<GymExploreController> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        const Padding(padding: EdgeInsets.only(bottom: kDefaultPadding)),
-        Text(
-          title,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            fontWeight: FontWeight.normal,
-          ),
+        SizedBox(
+          height: kDefaultPadding / 2,
         ),
-        Text(
-          location,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            fontSize: 12.0,
-            color: Colors.black45,
-          ),
-        ),
+        Expanded(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            Text(
+              location,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 12.0,
+                color: Colors.black45,
+              ),
+            ),
+          ],
+        )),
         ElevatedButton(
           onPressed: () => controller.ToRequestTicketPage(title, klayInfo),
           style: ElevatedButton.styleFrom(

@@ -13,7 +13,6 @@ class HomeBody extends GetView<HomeController> {
   List<Widget> pages = [
     const TicketPage(),
     WalletPage(),
-    GymExplorePage(),
     PostListPage(),
     ChatPage(),
     Container(),

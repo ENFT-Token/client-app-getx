@@ -12,6 +12,7 @@ class SendTicketPage extends GetView<KlipController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
+      backgroundColor: Colors.grey[50],
       body: SendTicketBody(),
       bottomNavigationBar: buildBottomNavigationBar(),
     );
@@ -19,7 +20,7 @@ class SendTicketPage extends GetView<KlipController> {
 
   AppBar buildAppBar() {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[50],
       foregroundColor: Colors.black,
       elevation: 0,
       centerTitle: true,
@@ -38,7 +39,7 @@ class SendTicketPage extends GetView<KlipController> {
 
   BottomAppBar buildBottomNavigationBar() {
     return BottomAppBar(
-        color: Colors.white,
+        color: Colors.grey[50],
         elevation: 0,
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           const Divider(

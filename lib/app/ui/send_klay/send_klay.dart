@@ -13,6 +13,7 @@ class SendKlayPage extends GetView<KlipController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
+      backgroundColor: Colors.grey[50],
       body: SendKlayBody(),
       bottomNavigationBar: buildBottomNavigationBar(),
     );
@@ -21,7 +22,7 @@ class SendKlayPage extends GetView<KlipController> {
   AppBar buildAppBar() {
     return AppBar(
       elevation: 0,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[50],
       foregroundColor: Colors.black,
       centerTitle: true,
       title: Text(
@@ -33,7 +34,7 @@ class SendKlayPage extends GetView<KlipController> {
 
   BottomAppBar buildBottomNavigationBar() {
     return BottomAppBar(
-        color: Colors.white,
+        color: Colors.grey[50],
         elevation: 0,
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           const Divider(

@@ -9,8 +9,6 @@ class HomeController extends GetxController {
     BottomNavigationBarItem(icon: Icon(Icons.smartphone_rounded), label: '이용권'),
     BottomNavigationBarItem(
         icon: Icon(Icons.account_balance_wallet_rounded), label: '지갑'),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.place), label: '헬스장'),
     BottomNavigationBarItem(icon: Icon(Icons.view_list_rounded), label: '게시글'),
     BottomNavigationBarItem(icon: Icon(Icons.chat_rounded), label: '채팅'),
     BottomNavigationBarItem(icon: Icon(Icons.people), label: '내 정보'),
