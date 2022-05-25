@@ -65,13 +65,14 @@ class RegisterBody extends GetView<RegisterController> {
                           if (controller.user.nickname.length < 2) {
                             openDialog('너무 짧은 닉네임', '닉네임은 2글자 이상이어야 합니다.', [
                               TextButton(
-                                child: const Text('취소'),
+                                child: const Text('확인'),
                                 onPressed: () => Get.back(),
                               )
                             ]);
                             return;
                           }
-                          await controller.alreadyNickname(controller.user.nickname);
+                          await controller
+                              .alreadyNickname(controller.user.nickname);
                           print(controller.isAlreadyNickname);
                           if (!controller.isAlreadyNickname) {
                             openDialog(
@@ -79,20 +80,19 @@ class RegisterBody extends GetView<RegisterController> {
                               '이미 존재하는 닉네임입니다.',
                               [
                                 TextButton(
-                                  child: const Text('취소'),
+                                  child: const Text('확인'),
                                   onPressed: () => Get.back(),
                                 )
                               ],
                             );
                             return;
-                          }
-                          else {
+                          } else {
                             openDialog(
                               '닉네임 중복 체크',
                               '사용 가능한 닉네임입니다.',
                               [
                                 TextButton(
-                                  child: const Text('취소'),
+                                  child: const Text('확인'),
                                   onPressed: () => Get.back(),
                                 )
                               ],
@@ -103,11 +103,14 @@ class RegisterBody extends GetView<RegisterController> {
                     RoundedDropDown(values: ['남자', '여자']),
                     RoundedRegisterButton(
                       onPressed: () {
-                        // if (!controller.isAlreadyNickname) {
-                        //   openDialog('중복체크', '닉네임 중복체크를 해주세요');
-                        //   return;
-                        // }
-                        Get.toNamed('/register_profile');
+                        if (!controller.isAlreadyNickname) {
+                          openDialog('중복체크', '닉네임 중복체크를 해주세요', [
+                            TextButton(
+                                onPressed: () => Get.back(), child: Text("확인"))
+                          ]);
+                          return;
+                        } else
+                          Get.toNamed('/register_profile');
                       },
                       text: '회원가입',
                     ),

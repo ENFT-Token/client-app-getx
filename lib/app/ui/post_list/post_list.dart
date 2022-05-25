@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import 'package:enft/app/ui/post_list/components/body.dart';
 
+import '../../controller/user.dart';
 import '../gym_explore/gym_explore.dart';
 
 class PostListPage extends GetView<PostController> {
@@ -38,7 +39,25 @@ class PostListPage extends GetView<PostController> {
   AppBar buildAppBar() {
     return AppBar(
       title: Row(
-        children: [],
+        children: [
+          Expanded(
+            child: TextButton(
+                onPressed: () => Get.toNamed('location'),
+                style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.all(Colors.black)),
+                child: Row(
+                  children: [
+                    Obx(() => Text(
+                          UserController.to.user.location.split(" ").last,
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
+                        )),
+                    Icon(Icons.keyboard_arrow_down_rounded)
+                  ],
+                )),
+          ),
+          IconButton(onPressed: () {}, icon: Icon(Icons.search))
+        ],
       ),
       automaticallyImplyLeading: false,
       foregroundColor: Colors.black,

@@ -45,9 +45,6 @@ class UserRepository {
         nftTokens: nftResult['nftTokens'],
         nfts: nftResult['nfts']);
     fromJson['klip'] = klip.toJson();
-
-    print('fromJson nfts ${nftResult['nfts']}');
-    print('fromJson nfts length ${nftResult['nfts'].length}');
     user = User.fromJson(fromJson);
     return user;
   }

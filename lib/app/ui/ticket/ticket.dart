@@ -7,6 +7,15 @@ class TicketPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(body: TicketBody()));
+    return Scaffold(appBar: buildAppBar(), body: TicketBody());
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.grey[50],
+      foregroundColor: Colors.black,
+      elevation: 0.5,
+      title: Row(children: [Text("이용권")]),
+    );
   }
 }

@@ -4,10 +4,14 @@ import 'package:get/get.dart';
 
 import 'package:enft/app/controller/location.dart';
 
-class LocationList extends GetView<LocationController> {
-  const LocationList({Key? key, required this.onPressed}) : super(key: key);
+import '../../../controller/image.dart';
+import '../../../controller/klip.dart';
+import '../../../controller/register.dart';
+import '../../../controller/user.dart';
+import '../../../data/model/klip.dart';
 
-  final Function() onPressed;
+class LocationList extends GetView<LocationController> {
+  const LocationList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +28,86 @@ class LocationList extends GetView<LocationController> {
           Obx(() => controller.locationList.first == ''
               ? Container()
               : ListView(shrinkWrap: true, children: <Widget>[
-                  for (var address in controller.locationList)
+                  for (int i = 0; i < controller.locationList.length; i++)
                     Column(
                       children: [
                         Row(
                           children: [
                             TextButton(
-                                onPressed: onPressed,
+                                onPressed: () {
+                                  controller.location =
+                                      controller.locationList[i];
+                                  if (UserController.to.user.nickname == "") {
+                                    controller
+                                        .openDialog("회원가입", "계속해서 진행하시겠습니까?", [
+                                      TextButton(
+                                        child: const Text('취소'),
+                                        onPressed: () => Get.back(),
+                                      ),
+                                      TextButton(
+                                          child: const Text('확인',
+                                              style:
+                                                  TextStyle(color: Colors.red)),
+                                          onPressed: () async {
+                                            RegisterController
+                                                    .to.user.location =
+                                                controller.locationList[i];
+                                            RegisterController.to.user.profile =
+                                                ImageController.to.img;
+                                            if (await RegisterController.to
+                                                    .register() ==
+                                                true) {
+                                              UserController.to.user =
+                                                  RegisterController.to.user;
+                                              final isLogin =
+                                                  await UserController.to
+                                                      .login();
+                                              if (isLogin) {
+                                                KlipController.to.klip =
+                                                    Klip.fromJson(UserController
+                                                        .to.user.klip
+                                                        .toJson());
+                                                Get.offAllNamed('/home');
+                                              } else {
+                                                controller.openDialog(
+                                                    "에러", "다시 시도해주세요.", [
+                                                  TextButton(
+                                                    child: const Text('확인'),
+                                                    onPressed: () => Get.back(),
+                                                  )
+                                                ]);
+                                              }
+                                            } else {
+                                              controller.openDialog(
+                                                  "에러", "다시 시도해주세요.", [
+                                                TextButton(
+                                                  child: const Text('확인'),
+                                                  onPressed: () => Get.back(),
+                                                )
+                                              ]);
+                                            }
+                                          })
+                                    ]);
+                                  } else {
+                                    controller.openDialog(
+                                        "현재 위치 변경", "계속해서 진행하시겠습니까?", [
+                                      TextButton(
+                                          onPressed: () => Get.back(),
+                                          child: Text("취소")),
+                                      TextButton(
+                                          onPressed: () {
+                                            UserController.to.user.location =
+                                                controller.locationList[i];
+                                            Get.back();
+                                            Get.back();
+                                          },
+                                          child: Text(
+                                            "변경",
+                                            style: TextStyle(color: Colors.red),
+                                          )),
+                                    ]);
+                                  }
+                                },
                                 style: ButtonStyle(
                                     alignment: Alignment.centerLeft,
                                     // <-- had to set alignment
@@ -42,7 +119,7 @@ class LocationList extends GetView<LocationController> {
                                     minimumSize: MaterialStateProperty.all(Size(
                                         MediaQuery.of(context).size.width - 32,
                                         40))),
-                                child: Text(address,
+                                child: Text(controller.locationList[i],
                                     style:
                                         const TextStyle(color: Colors.black))),
                           ],
