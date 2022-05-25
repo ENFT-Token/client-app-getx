@@ -10,6 +10,7 @@ class CustomListItem extends StatelessWidget {
     required this.thumbnail,
     required this.title,
     required this.location,
+    required this.gymInfo,
     required this.klayInfo,
     required this.onTap,
   }) : super(key: key);
@@ -18,6 +19,7 @@ class CustomListItem extends StatelessWidget {
   final String title;
   final String location;
   final List<KlayData> klayInfo;
+  final GymData gymInfo;
   final Function() onTap;
 
   @override
@@ -51,7 +53,7 @@ class CustomListItem extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
                       child: Description(
-                          title: title, location: location, klayInfo: klayInfo),
+                          title: title, location: location, klayInfo: klayInfo,gymInfo: gymInfo),
                     ),
                   ),
                 ],

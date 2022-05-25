@@ -21,6 +21,7 @@ class GymExploreBody extends GetView<GymExploreController> {
             title: controller.list[index].place,
             location: controller.list[index].location,
             klayInfo: controller.list[index].list,
+            gymInfo: controller.list[index],
             onTap: () {
               // Navigator.push(
               //     context, MaterialPageRoute(builder: (context) => PostPage(post: postList[0], user: userList[0])));

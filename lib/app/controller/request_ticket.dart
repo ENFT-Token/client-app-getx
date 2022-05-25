@@ -10,8 +10,9 @@ import 'package:enft/app/data/repository/request_ticket.dart';
 class RequestTicketController extends GetxController {
   late final RequestTicketRepository repository;
 
-  RequestTicketController({klayInfoList, required this.repository}) {
+  RequestTicketController({klayInfoList, gymInfo, required this.repository}) {
     this.klayInfoList = klayInfoList;
+    this.gymInfo = gymInfo;
   }
 
   // 이 변수는 테스트용 변수입니다.
@@ -21,9 +22,16 @@ class RequestTicketController extends GetxController {
   RxString _selectGymName = "".obs;
   Rx<KlayData> _selectKlayInfo = KlayData(month: 0, klay: 0).obs;
   RxList<KlayData> _klayInfoList = List<KlayData>.empty(growable: true).obs;
+  Rx<GymData> _gymInfo = GymData(place: "", location: "", address: "", cover_img: "", list: []).obs;
   RxDouble _paymentKlay = 0.0.obs;
 
   get gymNames => _gymNames;
+
+
+  get gymInfo => _gymInfo.value;
+
+  set gymInfo(value) => _gymInfo.value = value;
+
 
   get klayInfoList => _klayInfoList.value;
 

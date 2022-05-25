@@ -16,11 +16,14 @@ class Description extends GetView<GymExploreController> {
     Key? key,
     required this.title,
     required this.klayInfo,
+    required this.gymInfo,
     required this.location,
   }) : super(key: key);
 
   final String location;
   final String title;
+
+  final GymData gymInfo;
   final List<KlayData> klayInfo;
 
   @override
@@ -55,7 +58,7 @@ class Description extends GetView<GymExploreController> {
           ],
         )),
         ElevatedButton(
-          onPressed: () => controller.ToRequestTicketPage(title, klayInfo),
+          onPressed: () => controller.ToRequestTicketPage(title, klayInfo,gymInfo),
           style: ElevatedButton.styleFrom(
               primary: Colors.lightGreen,
               shape: RoundedRectangleBorder(
