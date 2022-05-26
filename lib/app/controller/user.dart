@@ -127,11 +127,11 @@ class UserController extends GetxController {
     }
 
     // getRemainQrData,refreshQrData 용 샘플 테스트 코드 - 개발 완료되면 지워야 함.
-    Timer(Duration(seconds: 10), () {
-      print("0번째 티켓 남은 시간 : ${getRemainQrData(0)}");
-      print("0번째 티켓 리프레쉬 합니다.");
-      refreshQrData(0);
-      print("0번째 티켓  남은 시간 : ${getRemainQrData(0)}");
-    });
+    // Timer(Duration(seconds: 10), () {
+    //   print("0번째 티켓 남은 시간 : ${getRemainQrData(0)}");
+    //   print("0번째 티켓 리프레쉬 합니다.");
+    //   refreshQrData(0);
+    //   print("0번째 티켓  남은 시간 : ${getRemainQrData(0)}");
+    // });
   }
 }

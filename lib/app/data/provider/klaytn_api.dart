@@ -43,10 +43,10 @@ class KlaytnApiClient {
     this.contractAddress = await getContractAddress();
 
     // 테스트 코드
-    final nftHistory = await getHistory("baobab", "0x5530580E722f5dDEeeFb34b45fA8c5cb382dD789","nft");
-    print("nftHistory ${nftHistory}");
-    final klayHistory = await getHistory("mainnet", "0x5530580E722f5dDEeeFb34b45fA8c5cb382dD789","klay");
-    print("klayHistory ${klayHistory}");
+    // final nftHistory = await getHistory("baobab", "0x5530580E722f5dDEeeFb34b45fA8c5cb382dD789","nft");
+    // print("nftHistory ${nftHistory}");
+    // final klayHistory = await getHistory("mainnet", "0x5530580E722f5dDEeeFb34b45fA8c5cb382dD789","klay");
+    // print("klayHistory ${klayHistory}");
   }
 
   /**
