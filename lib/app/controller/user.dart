@@ -85,7 +85,19 @@ class UserController extends GetxController {
     }
   }
 
+  void refreshQrData(int idx) {
+    final map = {
+      'address': user.klip.address,
+      'nftToken': user.klip.nftTokens[idx]
+    };
+    final jwt = JWT(map);
+    String token = jwt.sign(SecretKey('ENFT'),expiresIn: Duration(seconds: 30));
+    qrDataList[idx] = token;
+  }
+
+
   void generateQrDatas() {
+    qrDataList = [];
     for (int i = 0; i < user.klip.nftTokens.length; i++) {
       final map = {
         'address': user.klip.address,
