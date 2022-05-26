@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:enft/app/ui/send_ticket/components/body.dart';
 
 import '../../constant/constant.dart';
+import '../../controller/ticket.dart';
 import '../../controller/user.dart';
 
 class SendTicketPage extends GetView<KlipController> {
@@ -89,48 +90,51 @@ class SendTicketPage extends GetView<KlipController> {
                 )),
                 OutlinedButton(
                   onPressed: () async {
-                  //  KlipController.to.sendTicket()
-                   print("ASDASD");
-                   print(KlipController.to.sendToAddress);
-                   print(UserController.to.user.klip.nfts);
-                   print(UserController.to.user.klip.nftTokens);
-                   if(controller.isTrueList.length == 0) {
-                     Get.snackbar("안내","선택된 티켓이 없습니다.", snackPosition: SnackPosition.BOTTOM);
-                     return;
-                   }
-                   int i = 0;
-                   int succIdx = 0;
-                   LoadingHud loadingHud = LoadingHud(context: context);
+                    //  KlipController.to.sendTicket()
+                    print("ASDASD");
+                    print(KlipController.to.sendToAddress);
+                    print(UserController.to.user.klip.nfts);
+                    print(UserController.to.user.klip.nftTokens);
+                    if (controller.isTrueList.length == 0) {
+                      Get.snackbar("안내", "선택된 티켓이 없습니다.",
+                          snackPosition: SnackPosition.BOTTOM);
+                      return;
+                    }
+                    int i = 0;
+                    int succIdx = 0;
+                    LoadingHud loadingHud = LoadingHud(context: context);
 
-                   loadingHud.showHud();
-                   await Future.doWhile(() async {
-                      if(i == controller.isTrueList.length) return false;
+                    loadingHud.showHud();
+                    await Future.doWhile(() async {
+                      if (i == controller.isTrueList.length) return false;
                       final idx = controller.isTrueList[i];
-                       final response = await UserController.to
-                           .RequestAuth("POST", "/user/transferNFT", data: {
-                         "to": KlipController.to.sendToAddress,
-                         "nft": UserController.to.user.klip.nftTokens[idx],
-                       });
-                       print(response.body);
-                       if(response.statusCode == 201) {
-                         succIdx++;
-                       }
+                      final response = await UserController.to
+                          .RequestAuth("POST", "/user/transferNFT", data: {
+                        "to": KlipController.to.sendToAddress,
+                        "nft": UserController.to.user.klip.nftTokens[idx],
+                      });
+                      print(response.body);
+                      if (response.statusCode == 201) {
+                        succIdx++;
+                      }
                       i++;
                       return true;
-                   });
-                   if(succIdx > 0) {
-                     Get.snackbar("안내","티켓 ${succIdx}개 전송 완료.", snackPosition: SnackPosition.BOTTOM);
-                     UserController.to.refreshUser();
-                   } else {
-                     Get.snackbar("안내","티켓 전송 실패.", snackPosition: SnackPosition.BOTTOM);
-                   }
-                   loadingHud.hideHud();
-                   // final response = await UserController.to
-                   //     .RequestAuth("POST", "/user/transferNFT", data: {
-                   //   "to": place,
-                   //   "requestDay": klayInfo.month * 30,
-                   // });
-
+                    });
+                    if (succIdx > 0) {
+                      Get.snackbar("안내", "티켓 ${succIdx}개 전송 완료.",
+                          snackPosition: SnackPosition.BOTTOM);
+                      UserController.to.refreshUser();
+                      TicketController.to.refreshPageController();
+                    } else {
+                      Get.snackbar("안내", "티켓 전송 실패.",
+                          snackPosition: SnackPosition.BOTTOM);
+                    }
+                    loadingHud.hideHud();
+                    // final response = await UserController.to
+                    //     .RequestAuth("POST", "/user/transferNFT", data: {
+                    //   "to": place,
+                    //   "requestDay": klayInfo.month * 30,
+                    // });
                   },
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.symmetric(

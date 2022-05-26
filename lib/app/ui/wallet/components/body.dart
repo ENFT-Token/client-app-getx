@@ -19,24 +19,10 @@ class Body extends GetView<KlipController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Obx(() => WalletCard(
-                    klaytnBalance:
-                    UserController.to.user.klip.balance,
-                    klaytnPrice: controller.klaytnPrice,
-                    receiveKlay: () {},
-                    sendKlay: () {})),
-                OutlinedButton(
-                    onPressed: () => Get.toNamed('/wallet/send_klay'),
-                    child: Text("클레이튼 송금")),
-                OutlinedButton(
-                    onPressed: () {
-                      controller.initCheckList();
-                      Get.toNamed('/wallet/send_ticket');
-                    },
-                    child: Text("티켓 전송")),
-                // OutlinedButton(
-                //     onPressed: () =>
-                //         Get.toNamed('/post/gym_name/request_ticket'),
-                //     child: Text("발급 요청")),
+                      klaytnBalance: UserController.to.user.klip.balance,
+                      klaytnPrice: controller.klaytnPrice,
+                    )),
+                // TODO: 코인 기록 리스트 뷰 만들기
               ],
             )));
   }

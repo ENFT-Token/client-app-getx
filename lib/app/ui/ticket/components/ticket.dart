@@ -55,6 +55,7 @@ class Ticket extends GetView<TicketController> {
                       builder: (_, child) {
                         return Stack(alignment: Alignment.center, children: [
                           ShaderMask(
+                            // TODO: 이미지 변경하기
                             child: Image(
                               image:
                                   AssetImage("assets/backgrounds/ticket.png"),

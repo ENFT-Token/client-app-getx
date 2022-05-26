@@ -8,6 +8,8 @@ import 'package:enft/app/constant/constant.dart';
 
 class TicketController extends GetxController
     with GetTickerProviderStateMixin, StateMixin {
+  static TicketController get to => Get.find<TicketController>();
+
   // Background gradient animation
   late Rx<AnimationController> _backgroundGradientController;
   late Rx<Animation<Color?>> _backgroundGradientAnimationForward;
@@ -37,6 +39,8 @@ class TicketController extends GetxController
       _backgroundGradientAnimationReverse.value;
 
   get pageController => _pageController.value;
+
+  refreshPageController() => _pageController.refresh();
 
   get selectedIndex => _selectedIndex.value;
 
@@ -105,7 +109,7 @@ class TicketController extends GetxController
 
   initPageController() {
     _pageController =
-        PageController(initialPage: selectedIndex, viewportFraction: 0.8).obs;
+        PageController(initialPage: selectedIndex, viewportFraction: 0.9).obs;
     pageController.addListener(() {
       currPageValue = pageController.page;
       _pageController.refresh();

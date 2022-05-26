@@ -74,8 +74,8 @@ class UserRepository {
         .toString());
 
     if (_toDay.toString().substring(0, 10) == data['end_date'])
-      data['during'] = "D-day";
+      data['during'] = "만료";
     else
-      data['during'] = "D-" + ((difference - 1) * (-1)).toString();
+      data['during'] = ((difference - 1) * (-1)).toString();
   }
 }
