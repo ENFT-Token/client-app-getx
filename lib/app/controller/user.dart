@@ -2,11 +2,9 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 
-import 'package:enft/app/data/model/klip.dart';
-
+import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:enft/app/data/repository/user.dart';
 import 'package:enft/app/data/repository/sqflite.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -93,8 +91,11 @@ class UserController extends GetxController {
         'address': user.klip.address,
         'nftToken': user.klip.nftTokens[i]
       };
-
-      qrDataList.add(json.encode(map));
+      // Create a json web token
+      final jwt = JWT(map);
+      String token = jwt.sign(SecretKey('ENFT'),expiresIn: Duration(seconds: 30));
+      print(token);
+      qrDataList.add(token);
     }
   }
 }
