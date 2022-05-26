@@ -80,6 +80,7 @@ dependencies:
 
   # kakao
   kakao_flutter_sdk: ^1.1.0
+  dart_jsonwebtoken: ^2.4.1
 
 
 dev_dependencies:
