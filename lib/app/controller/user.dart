@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:enft/app/data/repository/user.dart';
 import 'package:enft/app/data/repository/sqflite.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
 class UserController extends GetxController {
   static UserController get to => Get.find<UserController>();
@@ -85,6 +87,20 @@ class UserController extends GetxController {
     }
   }
 
+
+  // idx에 해당하는 QR의 남은 초 반환
+  int getRemainQrData(int idx) {
+    final jwtToken = qrDataList[idx];
+    Map<String, dynamic> payload = Jwt.parseJwt(jwtToken);
+    DateTime now = DateTime.now();
+    DateTime expiredDate = DateTime.fromMillisecondsSinceEpoch(payload['exp'] * 1000);
+    int difference = int.parse(
+        expiredDate.difference(now).inSeconds.toString());
+    return difference;
+  }
+
+
+  // idx에 해당하는 qr 시간을 30초로 재갱신
   void refreshQrData(int idx) {
     final map = {
       'address': user.klip.address,
@@ -95,7 +111,7 @@ class UserController extends GetxController {
     qrDataList[idx] = token;
   }
 
-
+  // 모든 데이터 QR 생성 (30초로 시작)
   void generateQrDatas() {
     qrDataList = [];
     for (int i = 0; i < user.klip.nftTokens.length; i++) {
@@ -109,5 +125,13 @@ class UserController extends GetxController {
       print(token);
       qrDataList.add(token);
     }
+
+    // getRemainQrData,refreshQrData 용 샘플 테스트 코드 - 개발 완료되면 지워야 함.
+    Timer(Duration(seconds: 10), () {
+      print("0번째 티켓 남은 시간 : ${getRemainQrData(0)}");
+      print("0번째 티켓 리프레쉬 합니다.");
+      refreshQrData(0);
+      print("0번째 티켓  남은 시간 : ${getRemainQrData(0)}");
+    });
   }
 }
