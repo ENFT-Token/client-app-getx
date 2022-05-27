@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
-
 import 'package:enft/app/constant/constant.dart';
 
 class IconButtonBox extends StatelessWidget {
-  IconButtonBox({required this.onTap, required this.description});
+  IconButtonBox(
+      {required this.onTap, required this.icon, required this.description});
 
   final Function() onTap;
+  final Widget icon;
   final String description;
 
   @override
@@ -17,13 +17,13 @@ class IconButtonBox extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 55,
-              width: 55,
-              padding: const EdgeInsets.all(kDefaultPadding),
-              decoration: BoxDecoration(
-                  color: kWalletIconBoxColor,
-                  borderRadius: BorderRadius.all(Radius.circular(16))),
-            ),
+                height: 55,
+                width: 55,
+                padding: const EdgeInsets.all(kDefaultPadding / 1.25),
+                decoration: BoxDecoration(
+                    color: kWalletIconBoxColor,
+                    borderRadius: BorderRadius.all(Radius.circular(16))),
+                child: icon),
             const SizedBox(height: kDefaultPadding / 2),
             Text(
               description,

@@ -37,13 +37,17 @@ class SplashController extends GetxController {
         .then((value) => Future.delayed(const Duration(seconds: 5)))
         .then((value) async {
       if (isLogin) {
-        await KlipController.to.setBalance(UserController.to.user.klip.address);
         KlipController.to.klip = UserController.to.user.klip;
+        await KlipController.to.setBalance(UserController.to. user.klip.address);
+        await KlipController.to.getHistory("baobob", "nft", 10);
+        await KlipController.to.getHistory("mainnet", "klay", 10);
+        print(KlipController.to.klipTransactionList);
         Get.offNamed('/home');
       } else {
         Get.offNamed('/getting_started');
       }
     });
   }
+
   void toggle(var value) => value.value = !value.value;
 }

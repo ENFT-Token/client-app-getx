@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import 'package:enft/app/controller/user.dart';
 import 'package:enft/app/data/model/klip.dart';
+import 'package:enft/app/data/model/klip_transaction.dart';
 import 'package:enft/app/data/repository/klip.dart';
 
 class KlipController extends GetxController {
@@ -18,6 +19,8 @@ class KlipController extends GetxController {
 
   late Rx<Klip> _klip;
   RxDouble _klaytnPrice = 0.0.obs;
+  RxList<KlipTransaction> _klipTransactionList =
+      List<KlipTransaction>.empty(growable: true).obs;
 
   // sendKlay를 위한 변수
   // 상대방 주소
@@ -43,6 +46,10 @@ class KlipController extends GetxController {
   get klaytnPrice => this._klaytnPrice.value;
 
   set klaytnPrice(value) => this._klaytnPrice.value = value;
+
+  get klipTransactionList => this._klipTransactionList.value;
+
+  set klipTransactionList(value) => this._klipTransactionList.value = value;
 
   // sendKlay
   get sendToAddress => _sendToAddress.value;
@@ -88,7 +95,6 @@ class KlipController extends GetxController {
     _klip.refresh();
   }
 
-
   initCheckList() {
     _isCheckList = RxList<RxBool>.generate(
         UserController.to.user.klip.nfts.length, (index) => false.obs,
@@ -105,7 +111,19 @@ class KlipController extends GetxController {
     _isTrueList.refresh();
   }
 
-  getHistory(String network, String address, String kind) async => repository.getHistory(network, address, kind);
+  getHistory(String network, String kind, int size) async {
+    if (klipTransactionList.isEmpty) {
+      klipTransactionList =
+          await repository.getHistory(network, klip.address, kind, size);
+    } else {
+      final result =
+          await repository.getHistory(network, klip.address, kind, size);
+      result.forEach((element) => klipTransactionList.add(element));
+    }
+    _klipTransactionList.value
+        .sort((a, b) => b.transactionTime.compareTo(a.transactionTime));
+  }
+
   sendKlay(String targetAddress, double amount) async {
     if (targetAddress.length < 42) return false;
     try {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:get/get.dart';
 
 import 'package:enft/app/constant/constant.dart';
@@ -17,12 +19,36 @@ class ButtonBox extends StatelessWidget {
               KlipController.to.initCheckList();
               Get.toNamed('/wallet/send_ticket');
             },
+            icon: SvgPicture.asset(
+              'assets/icons/NFT.svg',
+              width: 44,
+              height: 44,
+              color: Colors.white,
+              fit: BoxFit.fill,
+            ),
             description: "NFT 전송"),
 
         // TODO: 코인 입금 페이지 만들기
-        IconButtonBox(onTap: () => {}, description: "코인 입금"),
         IconButtonBox(
-            onTap: () => Get.toNamed('/wallet/send_klay'), description: "코인 출금")
+            onTap: () => {},
+            icon: SvgPicture.asset(
+              'assets/icons/deposit.svg',
+              width: 44,
+              height: 44,
+              color: Colors.white,
+              fit: BoxFit.fill,
+            ),
+            description: "코인 입금"),
+        IconButtonBox(
+            onTap: () => Get.toNamed('/wallet/send_klay'),
+            icon: SvgPicture.asset(
+              'assets/icons/withdraw.svg',
+              width: 44,
+              height: 44,
+              color: Colors.white,
+              fit: BoxFit.fill,
+            ),
+            description: "코인 출금")
       ],
     );
   }

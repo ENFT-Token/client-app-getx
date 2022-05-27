@@ -9,7 +9,7 @@ class KlayBox extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
             vertical: kDefaultPadding / 1.5, horizontal: kDefaultPadding * 2),
         decoration: BoxDecoration(
-            color: kWalletBackgroundColor,
+            color: kWalletKlayBoxBackgroundColor,
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: const Text(
           "클레이 KLAY",

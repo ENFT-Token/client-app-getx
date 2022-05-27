@@ -28,9 +28,9 @@ class WalletCard extends GetView<KlipController> {
 
     return Stack(children: [
       Container(
-          height: 316,
+          height: 284,
           width: size.width,
-          constraints: BoxConstraints(minHeight: 316),
+          constraints: BoxConstraints(minHeight: 284),
           decoration: BoxDecoration(
               color: kWalletBackgroundColor,
               borderRadius: BorderRadius.all(Radius.circular(22)))),
@@ -46,12 +46,12 @@ class WalletCard extends GetView<KlipController> {
             children: [
               KlayBox(),
               const SizedBox(
-                height: kDefaultPadding * 2,
+                height: kDefaultPadding,
               ),
               BalanceBox(),
               Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: kDefaultPadding,
+                      vertical: kDefaultPadding / 2,
                       horizontal: kDefaultPadding * 2),
                   child: Divider(
                     color: kSubItemColor,

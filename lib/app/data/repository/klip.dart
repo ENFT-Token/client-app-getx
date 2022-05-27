@@ -1,3 +1,4 @@
+import 'package:enft/app/data/model/klip_transaction.dart';
 import 'package:get/get.dart';
 
 import 'package:enft/app/data/model/klip.dart';
@@ -98,8 +99,16 @@ class KlipRepository {
   // controller - repository - apiClient 로 data가 연결되어 있음
   // sendTicket() async => await klipApiClient.sendCard(contract, from, to, cardId);
 
-  getHistory(String network, String address, String kind) async =>
-      await klaytnApiClient.getHistory(network, address, kind);
+  getHistory(String network, String address, String kind, int size) async {
+    final result =
+        await klaytnApiClient.getHistory(network, address, kind, size);
+
+    List<KlipTransaction> response =
+        List<KlipTransaction>.empty(growable: true);
+    result
+        .forEach((element) => response.add(KlipTransaction.fromJson(element)));
+    return response;
+  }
 
   getKlayKRWPrice() async => await klipApiClient.getKlayKRWPriceFromBithumb();
 }

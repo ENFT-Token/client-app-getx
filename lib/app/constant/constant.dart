@@ -5,10 +5,14 @@ import 'package:intl/intl.dart';
 // Color
 const Color kPrimaryColor = Color(0xff6EF81F);
 const Color kTicketMainTextColor = Color(0xff6EF81F);
+
+// Wallet
 const Color kWalletKlaytnColor = Color(0xff272B40);
 const Color kWalletBackgroundColor = Color(0xff272B40);
+const Color kWalletKlayBoxBackgroundColor = Color(0xff141724);
 const Color kWalletIconBoxColor = Color(0xff373C58);
 const Color kWalletIconTextColor = Color(0xff7D8198);
+
 Color kPrimaryLightColor = Colors.lightGreen.shade400;
 const Color kSystemGray = Color(0xff8E8E93);
 const Color kSubItemColor = Color(0xffF2F2F2);
