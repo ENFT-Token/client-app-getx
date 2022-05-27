@@ -9,11 +9,11 @@ class KlayBox extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
             vertical: kDefaultPadding / 1.5, horizontal: kDefaultPadding * 2),
         decoration: BoxDecoration(
-            color: Colors.blue,
+            color: kWalletBackgroundColor,
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: const Text(
           "클레이 KLAY",
-          style: TextStyle(fontSize: 20, color: Colors.white70),
+          style: TextStyle(fontSize: 20, color: Colors.white),
         ));
   }
 }

@@ -6,11 +6,14 @@ class NotificationBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(kDefaultPadding * 2),
+        padding: const EdgeInsets.symmetric(
+            vertical: kDefaultPadding * 2, horizontal: kDefaultPadding),
         child: Container(
             padding: const EdgeInsets.symmetric(
                 horizontal: kDefaultPadding * 1.5, vertical: kDefaultPadding),
-            decoration: BoxDecoration(color: Colors.white),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(8))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

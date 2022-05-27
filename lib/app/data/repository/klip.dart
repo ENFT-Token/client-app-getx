@@ -72,8 +72,7 @@ class KlipRepository {
       if (result['status'] == "success") {
         status = true;
         return false;
-      }
-      else if (result['status'] == "canceled") {
+      } else if (result['status'] == "canceled") {
         status = false;
         return false;
       }
@@ -92,13 +91,15 @@ class KlipRepository {
     return await waitPolling();
   }
 
-
   // Klip 관련이면 lib/data/provider/klip_api.dart에 함수 작성
   // KAS 관련이면 lib/data/provider/klaytn_api.dart에 함수 작성
   // ApiClient에서는 단순 api 요청 이후 바로 response 돌려줌
   // 받게 된 응답은 이 repository class에서 전처리를 하고, controller에게 데이터를 보내줌
   // controller - repository - apiClient 로 data가 연결되어 있음
   // sendTicket() async => await klipApiClient.sendCard(contract, from, to, cardId);
+
+  getHistory(String network, String address, String kind) async =>
+      await klaytnApiClient.getHistory(network, address, kind);
 
   getKlayKRWPrice() async => await klipApiClient.getKlayKRWPriceFromBithumb();
 }

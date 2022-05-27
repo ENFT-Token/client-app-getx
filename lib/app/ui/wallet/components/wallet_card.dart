@@ -32,13 +32,13 @@ class WalletCard extends GetView<KlipController> {
           width: size.width,
           constraints: BoxConstraints(minHeight: 316),
           decoration: BoxDecoration(
-              color: kPrimaryColor,
+              color: kWalletBackgroundColor,
               borderRadius: BorderRadius.all(Radius.circular(22)))),
       Positioned(
           left: -37.5,
           top: -37.5,
           child: SvgPicture.asset('assets/logos/klaytn-klay-logo.svg',
-              width: 250, height: 250, color: Colors.indigo)),
+              width: 250, height: 250, color: Colors.black26)),
       Padding(
           padding: const EdgeInsets.symmetric(vertical: kDefaultPadding),
           child: Column(

@@ -113,7 +113,7 @@ class SendTicketPage extends GetView<KlipController> {
                         "to": KlipController.to.sendToAddress,
                         "nft": UserController.to.user.klip.nftTokens[idx],
                       });
-                      print(response.body);
+
                       if (response.statusCode == 201) {
                         succIdx++;
                       }
@@ -121,9 +121,15 @@ class SendTicketPage extends GetView<KlipController> {
                       return true;
                     });
                     if (succIdx > 0) {
+                      for(int i = 0; i < controller.isTrueList.length; i++) {
+                        UserController.to.user.klip.nfts.removeAt(controller.isTrueList[i]);
+                        UserController.to.user.klip.nftTokens.removeAt(controller.isTrueList[i]);
+                        controller.isCheckList.removeAt(controller.isTrueList[i]);
+                      }
+                      controller.isTrueList = List<int>.empty(growable: true);
                       Get.snackbar("안내", "티켓 ${succIdx}개 전송 완료.",
                           snackPosition: SnackPosition.BOTTOM);
-                      UserController.to.refreshUser();
+                      UserController.to.updateKlip(UserController.to.user.klip);
                       TicketController.to.refreshPageController();
                     } else {
                       Get.snackbar("안내", "티켓 전송 실패.",

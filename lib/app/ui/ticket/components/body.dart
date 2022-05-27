@@ -10,6 +10,11 @@ class TicketBody extends StatelessWidget {
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [WelcomeBox(), TicketPageView(), NotificationBox()]);
+        children: [
+          WelcomeBox(),
+          // TODO: 페이지뷰에서 이전 화면과 다음 화면이 안 보임
+          Expanded(child: TicketPageView()),
+          NotificationBox()
+        ]);
   }
 }

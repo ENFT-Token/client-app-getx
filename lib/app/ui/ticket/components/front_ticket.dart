@@ -25,9 +25,9 @@ class FrontTicket extends StatelessWidget {
     return Ticket(
         index: index,
         detail: Container(
-          margin: EdgeInsets.symmetric(horizontal: width * 0.15),
+          margin: EdgeInsets.symmetric(horizontal: width * 0.2),
           child: Padding(
-              padding: const EdgeInsets.all(kDefaultPadding),
+              padding: const EdgeInsets.symmetric(vertical: kDefaultPadding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -35,13 +35,13 @@ class FrontTicket extends StatelessWidget {
                       child: Column(children: [
                     Text("ENFT",
                         style: TextStyle(
-                            color: Colors.lightGreenAccent,
-                            fontSize: 40.0,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 4.0)),
+                          color: kTicketMainTextColor,
+                          fontSize: 45.0,
+                          fontWeight: FontWeight.bold,
+                        )),
                     Text(
                       "WORK OUT",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white, fontSize: 16),
                     )
                   ])),
                   Row(

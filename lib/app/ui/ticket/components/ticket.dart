@@ -1,3 +1,4 @@
+import 'package:enft/app/constant/constant.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -12,9 +13,9 @@ class Ticket extends GetView<TicketController> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width * 0.8;
-    final height = width * 1.618;
-    final double _scaleFactor = 0.8;
+    final width = MediaQuery.of(context).size.width * 0.675;
+    final height = MediaQuery.of(context).size.height;
+    final double _scaleFactor = 0.9;
 
     return Obx(
       () {
@@ -50,36 +51,41 @@ class Ticket extends GetView<TicketController> {
               transform: controller.matrix,
               child: Opacity(
                   opacity: controller.currOpacity,
-                  child: AnimatedBuilder(
-                      animation: controller.backgroundGradientController,
-                      builder: (_, child) {
-                        return Stack(alignment: Alignment.center, children: [
-                          ShaderMask(
-                            // TODO: 이미지 변경하기
-                            child: Image(
-                              image:
-                                  AssetImage("assets/backgrounds/ticket.png"),
-                              width: width,
-                              height: height,
-                            ),
-                            shaderCallback: (Rect bounds) {
-                              return LinearGradient(
-                                  begin: Alignment.bottomLeft,
-                                  end: Alignment.topRight,
-                                  colors: [
-                                    controller
-                                        .backgroundGradientAnimationForward
-                                        .value,
-                                    controller
-                                        .backgroundGradientAnimationReverse
-                                        .value
-                                  ]).createShader(bounds);
-                            },
-                            blendMode: BlendMode.srcATop,
-                          ),
-                          detail
-                        ]);
-                      })));
+                  child: Stack(alignment: Alignment.center, children: [
+                    Image(
+                      image: AssetImage("assets/backgrounds/ticket.jpg"),
+                      width: width,
+                      height: height,
+                      fit: BoxFit.cover,
+                    ),
+                    Positioned(
+                        top: height * 0.05,
+                        left: width * 0.15,
+                        child: RotationTransition(
+                          turns: AlwaysStoppedAnimation(15 / 360),
+                          child: Text("HEALTH",
+                              style: TextStyle(
+                                color: Colors.white10,
+                                fontSize: height * 0.2,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: -(width * 0.064),
+                              )),
+                        )),
+                    Positioned(
+                        top: height * 0.1625,
+                        left: -(width * 0.3),
+                        child: RotationTransition(
+                          turns: AlwaysStoppedAnimation(15 / 360),
+                          child: Text("FITNESS",
+                              style: TextStyle(
+                                color: Colors.white10,
+                                fontSize: height * 0.2,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: -(width * 0.065),
+                              )),
+                        )),
+                    detail
+                  ])));
         }, onLoading: CircularProgressIndicator());
       },
     );

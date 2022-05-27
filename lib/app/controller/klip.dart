@@ -62,6 +62,8 @@ class KlipController extends GetxController {
 
   get isTrueList => _isTrueList.value;
 
+  set isTrueList(value) => _isTrueList.value = value;
+
   // async await가 필요한가?
   // 나중에 try - catch로 error 잡기
   initKlip() async => _klip = repository.initKlip();
@@ -103,6 +105,7 @@ class KlipController extends GetxController {
     _isTrueList.refresh();
   }
 
+  getHistory(String network, String address, String kind) async => repository.getHistory(network, address, kind);
   sendKlay(String targetAddress, double amount) async {
     if (targetAddress.length < 42) return false;
     try {

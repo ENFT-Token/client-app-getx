@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 // Color
-const Color kPrimaryColor = Colors.lightGreen;
+const Color kPrimaryColor = Color(0xff6EF81F);
+const Color kTicketMainTextColor = Color(0xff6EF81F);
+const Color kWalletKlaytnColor = Color(0xff272B40);
+const Color kWalletBackgroundColor = Color(0xff272B40);
+const Color kWalletIconBoxColor = Color(0xff373C58);
+const Color kWalletIconTextColor = Color(0xff7D8198);
 Color kPrimaryLightColor = Colors.lightGreen.shade400;
 const Color kSystemGray = Color(0xff8E8E93);
 const Color kSubItemColor = Color(0xffF2F2F2);
@@ -20,7 +25,7 @@ const double kMatchOptionFontSize = 14.0;
 
 // function
 String currencyFormat(int price) {
-  final formatCurrency = NumberFormat.simpleCurrency(
-      locale: "ko_KR", name: "", decimalDigits: 0);
+  final formatCurrency =
+      NumberFormat.simpleCurrency(locale: "ko_KR", name: "", decimalDigits: 0);
   return formatCurrency.format(price);
 }

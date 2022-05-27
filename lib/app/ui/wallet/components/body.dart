@@ -23,6 +23,23 @@ class Body extends GetView<KlipController> {
                       klaytnPrice: controller.klaytnPrice,
                     )),
                 // TODO: 코인 기록 리스트 뷰 만들기
+                IntrinsicHeight(
+                    child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    VerticalDivider(
+                      thickness: 2.5,
+                      color: Colors.blue,
+                    ),
+                    Expanded(
+                        child: Text(
+                      "최근 거래내역",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    )),
+                    Icon(Icons.more_vert_rounded)
+                  ],
+                ))
               ],
             )));
   }

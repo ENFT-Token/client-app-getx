@@ -38,7 +38,7 @@ class RegisterController extends GetxController {
 
   Future<bool> register() async {
     registerRepository.user = user;
-    print(registerRepository.user.klip.address);
+
     final result = await registerRepository.register();
     if (result.isEmpty)
       return false;

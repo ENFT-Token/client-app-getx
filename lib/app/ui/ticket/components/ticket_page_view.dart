@@ -16,12 +16,10 @@ class TicketPageView extends GetView<TicketController> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width * 0.65;
-    final height = width * 1.618;
 
     return Center(
         child: Obx(() => controller.obx(
             (state) => SizedBox(
-                height: height,
                 child: UserController.to.qrDataList.isEmpty
                     ? PageView.builder(
                         onPageChanged: (index) =>

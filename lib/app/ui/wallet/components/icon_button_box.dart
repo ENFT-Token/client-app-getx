@@ -21,13 +21,13 @@ class IconButtonBox extends StatelessWidget {
               width: 55,
               padding: const EdgeInsets.all(kDefaultPadding),
               decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: kWalletIconBoxColor,
                   borderRadius: BorderRadius.all(Radius.circular(16))),
             ),
             const SizedBox(height: kDefaultPadding / 2),
             Text(
               description,
-              style: TextStyle(color: Colors.white54, fontSize: 12),
+              style: TextStyle(color: kWalletIconTextColor, fontSize: 12),
             )
           ],
         ));

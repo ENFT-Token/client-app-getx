@@ -4,8 +4,11 @@ import 'dart:convert';
 import 'package:get/get.dart';
 
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
+
 import 'package:enft/app/data/repository/user.dart';
 import 'package:enft/app/data/repository/sqflite.dart';
+import 'package:enft/app/data/model/klip.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:jwt_decode/jwt_decode.dart';
@@ -33,6 +36,10 @@ class UserController extends GetxController {
   get user => this._user.value;
 
   set user(value) => this._user.value = value;
+
+  updateKlip(Klip newKlip) => _user.update((oldKlip) {
+        oldKlip.klip = newKlip;
+      });
 
   refreshUser() => _user.refresh();
 
@@ -87,18 +94,17 @@ class UserController extends GetxController {
     }
   }
 
-
   // idx에 해당하는 QR의 남은 초 반환
   int getRemainQrData(int idx) {
     final jwtToken = qrDataList[idx];
     Map<String, dynamic> payload = Jwt.parseJwt(jwtToken);
     DateTime now = DateTime.now();
-    DateTime expiredDate = DateTime.fromMillisecondsSinceEpoch(payload['exp'] * 1000);
-    int difference = int.parse(
-        expiredDate.difference(now).inSeconds.toString());
+    DateTime expiredDate =
+        DateTime.fromMillisecondsSinceEpoch(payload['exp'] * 1000);
+    int difference =
+        int.parse(expiredDate.difference(now).inSeconds.toString());
     return difference;
   }
-
 
   // idx에 해당하는 qr 시간을 30초로 재갱신
   void refreshQrData(int idx) {
@@ -107,7 +113,8 @@ class UserController extends GetxController {
       'nftToken': user.klip.nftTokens[idx]
     };
     final jwt = JWT(map);
-    String token = jwt.sign(SecretKey('ENFT'),expiresIn: Duration(seconds: 30));
+    String token =
+        jwt.sign(SecretKey('ENFT'), expiresIn: Duration(seconds: 30));
     qrDataList[idx] = token;
   }
 
@@ -121,7 +128,8 @@ class UserController extends GetxController {
       };
       // Create a json web token
       final jwt = JWT(map);
-      String token = jwt.sign(SecretKey('ENFT'),expiresIn: Duration(seconds: 30));
+      String token =
+          jwt.sign(SecretKey('ENFT'), expiresIn: Duration(seconds: 30));
       print(token);
       qrDataList.add(token);
     }

@@ -10,7 +10,7 @@ class WelcomeBox extends GetView {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: kDefaultPadding * 3),
+        padding: const EdgeInsets.only(top: kDefaultPadding * 4, bottom: kDefaultPadding * 3),
         child: Column(
           children: [
             Text(
