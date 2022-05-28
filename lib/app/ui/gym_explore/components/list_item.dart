@@ -49,7 +49,7 @@ class CustomListItem extends StatelessWidget {
                                   BorderRadius.all(Radius.circular(8)),
                               image: DecorationImage(
                                   image: NetworkImage(
-                                      '${dotenv.env['SERVER_ADDRESS']!}${thumbnail}'),
+                                      '${dotenv.env['SERVER_ADDRESS']! + ":3000" }${thumbnail}'),
                                   fit: BoxFit.contain)))),
                   Expanded(
                     child: Padding(
