@@ -112,16 +112,25 @@ class KlipController extends GetxController {
   }
 
   getHistory(String network, String kind, int size) async {
+    print(klipTransactionList);
     if (klipTransactionList.isEmpty) {
       klipTransactionList =
           await repository.getHistory(network, klip.address, kind, size);
+      print(await repository.getHistory(network, klip.address, kind, size));
     } else {
       final result =
           await repository.getHistory(network, klip.address, kind, size);
-      result.forEach((element) => klipTransactionList.add(element));
+      result.forEach((resultElement) {
+        var contain = klipTransactionList.where((listElement) =>
+            listElement.transferType == resultElement.transferType &&
+            listElement.transactionTime == resultElement.transactionTime);
+        if (contain.isEmpty) klipTransactionList.add(resultElement);
+      });
     }
+    print(klipTransactionList);
     _klipTransactionList.value
         .sort((a, b) => b.transactionTime.compareTo(a.transactionTime));
+    _klipTransactionList.refresh();
   }
 
   sendKlay(String targetAddress, double amount) async {

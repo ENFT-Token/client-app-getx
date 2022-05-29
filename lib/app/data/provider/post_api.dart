@@ -53,10 +53,12 @@ class PostApiClient {
 
     final http.Response response = await http.get(uri, headers: headers);
 
-    final responseBody = response.body;
+    if (response.statusCode == 200) {
+      final responseBody =
+          List<Map<String, dynamic>>.from(json.decode(response.body));
+      print(responseBody);
 
-    print(responseBody);
-
-    return responseBody;
+      return responseBody;
+    }
   }
 }

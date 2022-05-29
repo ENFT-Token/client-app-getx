@@ -49,7 +49,7 @@ class GymExploreController extends GetxController {
   RxList<GymData> list = <GymData>[].obs;
   Future<bool> init() async {
     print("GYM 입성");
-    http.Response response  =  await UserController.to.RequestAuth("GET",":3000/user/healthList");
+    http.Response response  =  await UserController.to.RequestAuth("GET","/user/healthList");
     print(response.statusCode);
     if(response.statusCode == 200) {
       Iterable l  = json.decode(response.body);

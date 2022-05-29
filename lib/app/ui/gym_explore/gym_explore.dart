@@ -13,7 +13,7 @@ class GymExplorePage extends GetView<GymExploreController>{
       if(snapshot.hasData) {
         return Scaffold(backgroundColor: Colors.grey[50], body: GymExploreBody());
       } else if (snapshot.hasError) {
-        return Center(child: Text("Error"));
+        return Center(child: Text("${snapshot.error}"));
       } else {
         return Center(child: CircularProgressIndicator());
       }

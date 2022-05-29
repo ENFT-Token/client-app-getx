@@ -12,6 +12,7 @@ import 'package:enft/app/controller/request_ticket.dart';
 import 'package:enft/app/ui/request_ticket/components/body.dart';
 
 import '../../controller/gym_explore.dart';
+import '../../data/model/klip_transaction.dart';
 
 class RequestTicketPage extends GetView {
   @override
@@ -98,9 +99,11 @@ class RequestTicketPage extends GetView {
                         : true;
                     if (isTransferable) {
                       double amount = controller.selectKlayInfo.klay;
-                      final klayStatus = await KlipController.to.sendKlay(controller.gymInfo.address, amount); // TODO: 발급 요청 때 클레이 안보내고 싶으면 해당 줄 주석
+                      final klayStatus = await KlipController.to.sendKlay(
+                          controller.gymInfo.address,
+                          amount); // TODO: 발급 요청 때 클레이 안보내고 싶으면 해당 줄 주석
                       //final klayStatus = true; // TODO: 클레이 안보내고 싶으면 윗 줄 주석 후 해당 줄 주석 해제
-                      if(klayStatus == true) {
+                      if (klayStatus == true) {
                         KlayData klayInfo = controller.selectKlayInfo;
                         final response = await UserController.to
                             .RequestAuth("POST", "/user/approve", data: {
@@ -110,13 +113,22 @@ class RequestTicketPage extends GetView {
                         print(response.statusCode);
                         Map<String, dynamic> body = jsonDecode(response.body);
                         if (response.statusCode == 201) {
+                          // TODO: 클레이 거래 기록 추가
+                          KlipController.to.klip = UserController.to.user.klip;
+                          await KlipController.to
+                              .setBalance(UserController.to.user.klip.address);
+                          KlipController.to.klipTransactionList =
+                              List<KlipTransaction>.empty(growable: true);
+                          await KlipController.to
+                              .getHistory("baobob", "nft", 5);
+                          await KlipController.to
+                              .getHistory("mainnet", "klay", 5);
                           Get.back();
-                        }else {
+                        } else {
                           Get.snackbar('Fail', body["message"],
                               snackPosition: SnackPosition.BOTTOM);
                         }
-                      }
-                      else {
+                      } else {
                         Get.snackbar('Fail', "KLAY 전송 실패",
                             snackPosition: SnackPosition.BOTTOM);
                       }

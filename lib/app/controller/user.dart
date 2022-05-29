@@ -68,10 +68,10 @@ class UserController extends GetxController {
         response = await http.post(uri, headers: headers, body: body);
       }
     } else if (method == "GET") {
-      Uri uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000"+ url);
-      ;
-      if (data != null)
-        uri = Uri.parse(dotenv.env['SERVER_ADDRESS']!+ ":3000" + url)
+      Uri uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000" + url);
+
+        if (data != null)
+        uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000" + url)
             .replace(queryParameters: data);
       response = await http.get(uri, headers: headers);
     }

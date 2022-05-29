@@ -98,6 +98,7 @@ class KlaytnApiClient {
     }
 
     print(query);
+    print(address);
     Uri uri =
         Uri.parse("https://th-api.klaytnapi.com/v2/transfer/account/${address}")
             .replace(queryParameters: query);
@@ -106,6 +107,9 @@ class KlaytnApiClient {
         ? await authHttp.get(uri, headers: xChainIdHeaders)
         : await authHttp.get(uri, headers: xChainIdHeadersBaoBab);
 
+    print("gethistory");
+    print(response.statusCode);
+    print(response.body);
     if (response.statusCode == 200) {
       final responseBody =
           List<Map<String, dynamic>>.from(json.decode(response.body)['items']);

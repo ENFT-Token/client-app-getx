@@ -8,6 +8,7 @@ import 'package:enft/app/controller/user.dart';
 
 import 'package:enft/app/ui/send_klay/components/body.dart';
 
+import '../../data/model/klip_transaction.dart';
 import '../loading_hud/loading_hud.dart';
 
 class SendKlayPage extends GetView<KlipController> {
@@ -92,18 +93,19 @@ class SendKlayPage extends GetView<KlipController> {
                         : true;
 
                     if (isTransferable) {
-                      print("전송 가능");
-                      print(controller.sendToAddress);
-                      print(controller.sendAmount);
                       LoadingHud loadingHud = LoadingHud(context: context);
                       loadingHud.showHud();
                       final status = await controller.sendKlay(
                           controller.sendToAddress, controller.sendAmount);
-                      print('final ${status}');
                       if (status) {
                         // succ
+                        // TODO: 클레이 거래 기록 추가
+                        controller.klip = UserController.to.user.klip;
                         await controller
                             .setBalance(UserController.to.user.klip.address);
+                        controller.klipTransactionList = List<KlipTransaction>.empty(growable: true);
+                        await controller.getHistory("baobob", "nft", 5);
+                        await controller.getHistory("mainnet", "klay", 5);
                         Get.snackbar('Succ', "전송 성공",
                             snackPosition: SnackPosition.TOP);
                       } else {

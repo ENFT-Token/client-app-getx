@@ -1,26 +1,38 @@
+import 'dart:io';
 import 'package:enft/app/data/model/user.dart';
 
 class Post {
   late String title;
   late String content;
   late String cost;
-  late List<String> images;
-  late User user;
+  late DateTime createAt;
+  late List<File> images;
+  late String location;
+  late String nickname;
+  late File profile;
+  late String address;
 
-  Post({title, content, cost, images, user}) {
-    this.title = title;
-    this.content = content;
-    this.cost = cost;
-    // this.images = images;
-    this.user = user;
-  }
+  Post(
+      {required this.title,
+      required this.content,
+      required this.cost,
+      required this.createAt,
+      required this.images,
+      required this.location,
+      required this.nickname,
+      required this.profile,
+      required this.address});
 
   Post.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     content = json['content'];
     cost = json['cost'];
+    createAt = DateTime.parse(json['createAt']);
     images = json['images'];
-    user = User.fromJson(json['user']);
+    location = json['location'];
+    profile = File(json['profile']);
+    nickname = json['nickname'];
+    address = json['address'];
   }
 
   Map<String, dynamic> toJson() {
@@ -28,9 +40,12 @@ class Post {
     data['title'] = content;
     data['content'] = content;
     data['cost'] = cost;
-    // data['location'] = user.location;
+    data['createAt'] = createAt.toString();
     data['images'] = images;
-    data['access_token'] = user.access_token;
+    data['location'] = location;
+    data['nickname'] = nickname;
+    data['profile'] = profile.path;
+    data['address'] = address;
 
     return data;
   }

@@ -22,30 +22,6 @@ class PostListBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        // OutlinedButton(
-        //     onPressed:  () {
-        //       ChatController.to.roomId = UserController.to.user.nickname +
-        //           " " +
-        //           "enft";
-        //       ChatController.to.chatList.add(Chat(
-        //           image: "assets/photos/basic-profile.jpg",
-        //           name: "enft",
-        //           lastMessage: "안녕하세요",
-        //           time: "5분 전"));
-        //       Get.to(() => MessagePage(),
-        //           arguments: {'index': ChatController.to.chatList.length-1, 'roomId': ChatController.to.roomId, 'tag': ChatController.to.roomId},
-        //           binding: BindingsBuilder(() {
-        //             Get.put<MessageController>(
-        //                 MessageController(
-        //                     repository: MessageRepository(
-        //                         socketClient: MessageSocketClient(),
-        //                         apiClient: MessageApiClient())),
-        //                 tag: ChatController.to.roomId);
-        //             ImageBinding();
-        //             UserBinding();
-        //           }));
-        //     },
-        //     child: Text("발급 요청")),
         CustomListItem(
           thumbnail: null,
           title: 'ENFT 헬스장 이용권 판매합니다',

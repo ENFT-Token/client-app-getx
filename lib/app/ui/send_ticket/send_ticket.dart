@@ -8,6 +8,7 @@ import 'package:enft/app/ui/send_ticket/components/body.dart';
 import '../../constant/constant.dart';
 import '../../controller/ticket.dart';
 import '../../controller/user.dart';
+import '../../data/model/klip_transaction.dart';
 
 class SendTicketPage extends GetView<KlipController> {
   @override
@@ -127,6 +128,11 @@ class SendTicketPage extends GetView<KlipController> {
                         controller.isCheckList.removeAt(controller.isTrueList[i]);
                       }
                       controller.isTrueList = List<int>.empty(growable: true);
+                      // TODO: 클레이 거래 기록 추가
+                      controller.klipTransactionList = List<KlipTransaction>.empty(growable: true);
+                      controller.klip = UserController.to.user.klip;
+                      await controller.getHistory("baobob", "nft", 5);
+                      await controller.getHistory("mainnet", "klay", 5);
                       Get.snackbar("안내", "티켓 ${succIdx}개 전송 완료.",
                           snackPosition: SnackPosition.BOTTOM);
                       UserController.to.updateKlip(UserController.to.user.klip);

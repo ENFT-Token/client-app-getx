@@ -39,9 +39,9 @@ class SplashController extends GetxController {
       if (isLogin) {
         KlipController.to.klip = UserController.to.user.klip;
         await KlipController.to.setBalance(UserController.to. user.klip.address);
-        await KlipController.to.getHistory("baobob", "nft", 10);
+        await KlipController.to.getHistory("baobob", "nft", 5);
         print(KlipController.to.klipTransactionList);
-        await KlipController.to.getHistory("mainnet", "klay", 10);
+        await KlipController.to.getHistory("mainnet", "klay", 5);
         print(KlipController.to.klipTransactionList);
         Get.offNamed('/home');
       } else {
