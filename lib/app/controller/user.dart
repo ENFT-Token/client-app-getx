@@ -60,7 +60,7 @@ class UserController extends GetxController {
       'Authorization': 'Bearer $access_token'
     };
     if (method == "POST") {
-      final uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + url);
+      final uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000" + url);
       if (data == null) {
         response = await http.post(uri, headers: headers);
       } else {
@@ -68,10 +68,10 @@ class UserController extends GetxController {
         response = await http.post(uri, headers: headers, body: body);
       }
     } else if (method == "GET") {
-      Uri uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + url);
+      Uri uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000"+ url);
       ;
       if (data != null)
-        uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + url)
+        uri = Uri.parse(dotenv.env['SERVER_ADDRESS']!+ ":3000" + url)
             .replace(queryParameters: data);
       response = await http.get(uri, headers: headers);
     }

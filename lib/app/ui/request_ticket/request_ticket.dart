@@ -97,7 +97,7 @@ class RequestTicketPage extends GetView {
                         ? false
                         : true;
                     if (isTransferable) {
-                      double amount = controller.selectKlayInfo.klay.toDouble();
+                      double amount = controller.selectKlayInfo.klay;
                       final klayStatus = await KlipController.to.sendKlay(controller.gymInfo.address, amount); // TODO: 발급 요청 때 클레이 안보내고 싶으면 해당 줄 주석
                       //final klayStatus = true; // TODO: 클레이 안보내고 싶으면 윗 줄 주석 후 해당 줄 주석 해제
                       if(klayStatus == true) {

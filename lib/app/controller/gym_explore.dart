@@ -14,12 +14,12 @@ import '../ui/request_ticket/request_ticket.dart';
 
 class KlayData {
   int month;
-  int klay;
+  double klay;
   KlayData({required this.month, required this.klay});
   factory KlayData.fromJson(Map<dynamic, dynamic> parsedJson) {
       return KlayData(
         month: parsedJson['month'],
-        klay: parsedJson['klay'],
+        klay: double.parse(parsedJson['klay']),
     );
   }
 }

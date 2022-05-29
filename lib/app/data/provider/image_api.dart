@@ -26,7 +26,7 @@ class ImageApiClient {
   Future<List<XFile>?> pickMultiImg() async => await _picker.pickMultiImage(imageQuality: 50);
 
   Future fileFromImageUrl(String imagePath) async {
-    final url = Uri.parse(dotenv.env['SERVER_ADDRESS']! + imagePath);
+    final url = Uri.parse(dotenv.env['SERVER_ADDRESS']!+ ":3000" + imagePath);
     final response = await http.get(url);
     return response;
   }
