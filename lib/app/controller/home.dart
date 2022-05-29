@@ -5,13 +5,47 @@ import 'package:get/get.dart';
 class HomeController extends GetxController {
   HomeController();
 
-  List<BottomNavigationBarItem> items = const [
-    BottomNavigationBarItem(icon: Icon(Icons.smartphone_rounded), label: '이용권'),
+  List<BottomNavigationBarItem> items = [
     BottomNavigationBarItem(
-        icon: Icon(Icons.account_balance_wallet_rounded), label: '지갑'),
-    BottomNavigationBarItem(icon: Icon(Icons.view_list_rounded), label: '게시글'),
-    BottomNavigationBarItem(icon: Icon(Icons.chat_rounded), label: '채팅'),
-    BottomNavigationBarItem(icon: Icon(Icons.people), label: '내 정보'),
+        icon: Image.asset(
+          'assets/icons/coupon.png',
+          height: 33,
+          width: 33,
+          fit: BoxFit.contain,
+        ),
+        label: '이용권'),
+    BottomNavigationBarItem(
+        icon: Image.asset(
+          'assets/icons/wallet.png',
+          height: 33,
+          width: 27,
+          fit: BoxFit.contain,
+        ),
+        label: '지갑'),
+    BottomNavigationBarItem(
+        icon: Image.asset(
+          'assets/icons/list.png',
+          height: 33,
+          width: 27,
+          fit: BoxFit.fitWidth,
+        ),
+        label: '게시글'),
+    BottomNavigationBarItem(
+        icon: Image.asset(
+          'assets/icons/chat.png',
+          height: 33,
+          width: 27,
+          fit: BoxFit.fitWidth,
+        ),
+        label: '채팅'),
+    BottomNavigationBarItem(
+        icon: Image.asset(
+          'assets/icons/person.png',
+          height: 33,
+          width: 33,
+          fit: BoxFit.fitWidth,
+        ),
+        label: '내 정보'),
   ];
   RxInt _currentIndex = 0.obs;
 

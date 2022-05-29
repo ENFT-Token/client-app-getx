@@ -1,8 +1,10 @@
 import 'dart:io';
 
-import 'package:enft/app/constant/constant.dart';
 import 'package:flutter/material.dart';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import 'package:enft/app/constant/constant.dart';
 import 'package:enft/app/ui/post_list/components/description.dart';
 
 class CustomListItem extends StatelessWidget {
@@ -10,17 +12,17 @@ class CustomListItem extends StatelessWidget {
     Key? key,
     required this.thumbnail,
     required this.title,
-    required this.position,
+    required this.nickname,
     required this.readDuration,
-    required this.price,
+    required this.cost,
     required this.onTap,
   }) : super(key: key);
 
   final File? thumbnail;
   final String title;
-  final String position;
+  final String nickname;
   final String readDuration;
-  final String price;
+  final String cost;
   final Function() onTap;
 
   @override
@@ -28,13 +30,6 @@ class CustomListItem extends StatelessWidget {
     return InkWell(
       child: Column(
         children: <Widget>[
-          const Divider(
-            height: 0,
-            thickness: 0.2,
-            indent: 0,
-            endIndent: 0,
-            color: Colors.black45,
-          ),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: SizedBox(
@@ -51,8 +46,9 @@ class CustomListItem extends StatelessWidget {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(8)),
                                   image: DecorationImage(
-                                      image: FileImage(thumbnail!),
-                                      fit: BoxFit.contain)))
+                                      image: NetworkImage(
+                                          'http://${thumbnail?.path}'),
+                                      fit: BoxFit.cover)))
                           : Container(
                               decoration: BoxDecoration(
                                 color: Colors.grey[100],
@@ -68,12 +64,13 @@ class CustomListItem extends StatelessWidget {
                                   )))),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
+                      padding: const EdgeInsets.fromLTRB(
+                          20.0, kDefaultPadding / 2, 2.0, kDefaultPadding / 2),
                       child: Description(
                         title: title,
-                        position: position,
+                        nickname: nickname,
                         readDuration: readDuration,
-                        price: price,
+                        price: cost,
                       ),
                     ),
                   )

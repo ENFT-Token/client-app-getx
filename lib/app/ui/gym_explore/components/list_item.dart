@@ -26,13 +26,6 @@ class CustomListItem extends StatelessWidget {
     return InkWell(
       child: Column(
         children: <Widget>[
-          const Divider(
-            height: 0,
-            thickness: 0.2,
-            indent: 0,
-            endIndent: 0,
-            color: Colors.black45,
-          ),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: SizedBox(
@@ -49,7 +42,7 @@ class CustomListItem extends StatelessWidget {
                                   BorderRadius.all(Radius.circular(8)),
                               image: DecorationImage(
                                   image: NetworkImage(
-                                      '${dotenv.env['SERVER_ADDRESS']! + ":3000" }${thumbnail}'),
+                                      '${dotenv.env['SERVER_ADDRESS']! + ":3000"}${thumbnail}'),
                                   fit: BoxFit.contain)))),
                   Expanded(
                     child: Padding(

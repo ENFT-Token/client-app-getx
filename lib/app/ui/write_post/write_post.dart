@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 
 import 'package:enft/app/constant/constant.dart';
 
-import 'package:enft/app/controller/post.dart';
+import 'package:enft/app/controller/post_list.dart';
 import 'package:enft/app/ui/write_post/components/body.dart';
 
-class WritePostPage extends GetView<PostController> {
+class WritePostPage extends GetView<PostListController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

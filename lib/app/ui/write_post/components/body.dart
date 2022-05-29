@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'package:enft/app/constant/constant.dart';
-import 'package:enft/app/controller/post.dart';
+import 'package:enft/app/controller/post_list.dart';
 import 'package:enft/app/controller/image.dart';
 
 import 'package:enft/app/ui/write_post/components/photo_swiper.dart';
 
-class WriteBody extends GetView<PostController> {
+class WriteBody extends GetView<PostListController> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

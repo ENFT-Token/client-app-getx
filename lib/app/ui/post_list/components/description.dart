@@ -6,13 +6,13 @@ class Description extends StatelessWidget {
   const Description({
     Key? key,
     required this.title,
-    required this.position,
+    required this.nickname,
     required this.readDuration,
     required this.price,
   }) : super(key: key);
 
   final String title;
-  final String position;
+  final String nickname;
   final String readDuration;
   final String price;
 
@@ -22,16 +22,7 @@ class Description extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          title,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            fontWeight: FontWeight.normal,
-          ),
-        ),
-        const Padding(padding: EdgeInsets.only(bottom: kDefaultPadding/2)),
-        Text(
-          position + " · " + readDuration,
+          "by " + nickname + " on " + readDuration,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(
@@ -39,13 +30,23 @@ class Description extends StatelessWidget {
             color: Colors.black45,
           ),
         ),
-        const Padding(padding: EdgeInsets.only(bottom: kDefaultPadding/2)),
-        Text(
-          price,
+        const Padding(padding: EdgeInsets.only(bottom: kDefaultPadding / 2)),
+        Expanded(
+            child: Text(
+          title,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
           style: const TextStyle(
-            fontSize: 16.0,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+          ),
+        )),
+        const Padding(padding: EdgeInsets.only(bottom: kDefaultPadding / 2)),
+        Text(
+          price + " KLAY",
+          style: const TextStyle(
+            fontSize: 18.0,
+            color: Colors.black,
           ),
         ),
       ],

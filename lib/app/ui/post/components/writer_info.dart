@@ -1,52 +1,66 @@
-// import 'package:flutter/material.dart';
-//
-// import 'package:enft/app/constant/constant.dart';
-// import 'package:blue/src/model/User.dart';
-//
-// class WriterInfo extends StatelessWidget {
-//   const WriterInfo({Key? key, required this.user}) : super(key: key);
-//
-//   final User user;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//         padding: const EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
-//         child: Row(
-//           children: [
-//             InkWell(
-//               onTap: () {},
-//               child: Container(
-//                 height: 40,
-//                 width: 40,
-//                 decoration: BoxDecoration(
-//                     shape: BoxShape.circle,
-//                     image: DecorationImage(image: AssetImage(user.profile))),
-//               ),
-//             ),
-//             const SizedBox(
-//               width: kDefaultPadding / 2,
-//             ),
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   user.nickname,
-//                   style: const TextStyle(
-//                     fontWeight: FontWeight.bold,
-//                     fontSize: 18,
-//                   ),
-//                 ),
-//                 const SizedBox(
-//                   height: kDefaultPadding / 4,
-//                 ),
-//                 Text(
-//                   user.location,
-//                   style: TextStyle(color: Colors.grey.shade700, fontSize: 14),
-//                 )
-//               ],
-//             )
-//           ],
-//         ));
-//   }
-// }
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import 'package:enft/app/constant/constant.dart';
+
+class WriterInfo extends StatelessWidget {
+  WriterInfo({
+    required this.profile,
+    required this.nickname,
+    required this.location,
+  });
+
+  final File profile;
+  final String nickname;
+  final String location;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
+        child: Row(
+          children: [
+            InkWell(
+              onTap: () {},
+              child: Container(
+                height: 60,
+                width: 60,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    image: DecorationImage(
+                        image: profile.path.contains('default_profile')
+                            ? NetworkImage(dotenv.env['SERVER_ADDRESS']! +
+                                ':3000' +
+                                profile.path)
+                            : NetworkImage('http://' + profile.path))),
+              ),
+            ),
+            const SizedBox(
+              width: kDefaultPadding,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  nickname,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                const SizedBox(
+                  height: kDefaultPadding / 4,
+                ),
+                Text(
+                  location,
+                  style: TextStyle(color: kSystemGray, fontSize: 12),
+                )
+              ],
+            )
+          ],
+        ));
+  }
+}

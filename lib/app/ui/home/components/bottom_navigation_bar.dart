@@ -12,11 +12,12 @@ class HomeBottomNavigationBar extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Obx(() => BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: kPrimaryColor,
-        selectedItemColor: Colors.white,
+        backgroundColor: kHomeBottomTabColor,
+        elevation: 0,
+        selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black54,
-        selectedFontSize: 14,
-        unselectedFontSize: 14,
+        selectedFontSize: 12,
+        unselectedFontSize: 12,
         currentIndex: controller.currentIndex,
         onTap: (index) => controller.currentIndex = index,
         items: controller.items));

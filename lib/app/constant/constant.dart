@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
 
-// Color
+// Primary
 const Color kPrimaryColor = Color(0xff6EF81F);
+
+// Home
+const Color kHomeBottomTabColor = Colors.white;
+// Ticket
 const Color kTicketMainTextColor = Color(0xff6EF81F);
 
 // Wallet

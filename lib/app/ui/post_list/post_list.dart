@@ -1,17 +1,18 @@
-import 'package:enft/app/constant/constant.dart';
-import 'package:enft/app/controller/post.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import 'package:get/get.dart';
 
+import 'package:enft/app/constant/constant.dart';
+import 'package:enft/app/controller/post_list.dart';
+
 import 'package:enft/app/ui/post_list/components/body.dart';
 
 import '../../controller/user.dart';
 import '../gym_explore/gym_explore.dart';
 
-class PostListPage extends GetView<PostController> {
+class PostListPage extends GetView<PostListController> {
   PostListPage({Key? key}) : super(key: key);
 
   final isFloatingDialOpen = ValueNotifier(false);
@@ -38,63 +39,62 @@ class PostListPage extends GetView<PostController> {
 
   AppBar buildAppBar() {
     return AppBar(
-      title: Row(
-        children: [
-          Expanded(
-            child: GestureDetector(
-                onTap: () => Get.toNamed('location'),
-                child: Row(
-                  children: [
-                    Obx(() => Text(
-                          UserController.to.user.location.split(" ").last,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        )),
-                    Icon(Icons.keyboard_arrow_down_rounded)
-                  ],
-                )),
-          ),
-          IconButton(onPressed: () {}, icon: Icon(Icons.search))
-        ],
+      title: Padding(
+        padding: const EdgeInsets.all(kDefaultPadding / 4),
+        child: Row(children: [
+          GestureDetector(
+              onTap: () => Get.toNamed('location'),
+              child: Row(
+                children: [
+                  Obx(() => Text(
+                        UserController.to.user.location.split(" ").last,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      )),
+                  Icon(Icons.keyboard_arrow_down_rounded)
+                ],
+              )),
+        ]),
       ),
       foregroundColor: Colors.black,
       backgroundColor: Colors.grey[50],
-      elevation: 0.5,
+      elevation: 0,
     );
   }
 
   Widget buildFloatingActionButton(BuildContext context) {
     return SpeedDial(
       animatedIcon: AnimatedIcons.menu_close,
-      backgroundColor: kPrimaryColor,
+      backgroundColor: Colors.white,
+      foregroundColor: Colors.black,
       overlayColor: Colors.black,
       overlayOpacity: 0.4,
       openCloseDial: isFloatingDialOpen,
       children: controller.isPostPage
           ? [
               SpeedDialChild(
-                  backgroundColor: kPrimaryLightColor,
-                  foregroundColor: Colors.white,
-                  labelBackgroundColor: kPrimaryLightColor,
-                  labelStyle: TextStyle(color: Colors.white),
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
+                  labelBackgroundColor: Colors.white,
+                  labelStyle: TextStyle(color: Colors.black),
                   onTap: () => controller.isPostPage = !controller.isPostPage,
                   child: Icon(Icons.storefront_rounded),
                   label: '헬스장 찾아보기'),
               SpeedDialChild(
-                  backgroundColor: kPrimaryLightColor,
-                  foregroundColor: Colors.white,
-                  labelBackgroundColor: kPrimaryLightColor,
-                  labelStyle: TextStyle(color: Colors.white),
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
+                  labelBackgroundColor: Colors.white,
+                  labelStyle: TextStyle(color: Colors.black),
                   onTap: () => Get.toNamed('/post/write'),
                   child: Icon(Icons.create_rounded),
                   label: '게시글 글쓰기')
             ]
           : [
               SpeedDialChild(
-                  backgroundColor: kPrimaryLightColor,
-                  foregroundColor: Colors.white,
-                  labelBackgroundColor: kPrimaryLightColor,
-                  labelStyle: TextStyle(color: Colors.white),
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
+                  labelBackgroundColor: Colors.white,
+                  labelStyle: TextStyle(color: Colors.black),
                   onTap: () => controller.isPostPage = !controller.isPostPage,
                   child: Icon(Icons.space_dashboard_rounded),
                   label: '게시글 찾아보기')

@@ -98,7 +98,7 @@ class LocationList extends GetView<LocationController> {
                                           child: Text("취소")),
                                       TextButton(
                                           onPressed: () {
-                                            UserController.to.user.location =
+                                            UserController.to.user.nickname =
                                                 controller.locationList[i];
                                             Get.back();
                                             Get.back();
