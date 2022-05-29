@@ -1,3 +1,4 @@
+import 'package:enft/app/controller/user.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -32,18 +33,30 @@ class PostPage extends GetView {
               children: [
                 const SizedBox(width: kDefaultPadding / 2),
                 Expanded(
-                    child: Text((controller.post.cost + " KLAY"),
+                    child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text((controller.post.cost),
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 24))),
+                            fontWeight: FontWeight.bold, fontSize: 24)),
+                    Text(" KLAY", style: const TextStyle(fontSize: 18)),
+                  ],
+                )),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    bool isClient = controller.post.nickname == UserController.to.user.nickname ? true : false;
+                    // TODO: 채팅 연결
+                    // if(!isClient) {
+                    //   ...chating logic
+                    // }
+                  },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(kPrimaryColor),
                     foregroundColor: MaterialStateProperty.all(Colors.white),
                   ),
                   child: const Text(
                     "채팅으로 거래하기",
-                    style: TextStyle(fontSize: 16.0),
+                    style: TextStyle(fontSize: 20.0),
                   ),
                 )
               ],
