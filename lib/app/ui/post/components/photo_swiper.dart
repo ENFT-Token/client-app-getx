@@ -9,7 +9,7 @@ import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:enft/app/constant/constant.dart';
 
 class PhotoSwiper extends StatelessWidget {
-  const PhotoSwiper({Key? key, required this.photos}) : super(key: key);
+  const PhotoSwiper({required this.photos});
 
   final List<File> photos;
 
@@ -26,7 +26,14 @@ class PhotoSwiper extends StatelessWidget {
               );
             },
             itemCount: photos.length,
-            pagination: const SwiperPagination(),
+            pagination: SwiperPagination(
+              alignment: Alignment.bottomCenter,
+              builder: DotSwiperPaginationBuilder(
+                  size: 10.0,
+                  activeSize: 14.0,
+                  color: Colors.white,
+                  activeColor: kPrimaryColor),
+            ),
           )),
       Padding(
           padding: const EdgeInsets.symmetric(
