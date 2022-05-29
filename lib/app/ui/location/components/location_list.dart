@@ -67,6 +67,8 @@ class LocationList extends GetView<LocationController> {
                                                     Klip.fromJson(UserController
                                                         .to.user.klip
                                                         .toJson());
+                                                await KlipController.to.getHistory("baobob", "nft", 10);
+                                                await KlipController.to.getHistory("mainnet", "klay", 10);
                                                 Get.offAllNamed('/home');
                                               } else {
                                                 controller.openDialog(

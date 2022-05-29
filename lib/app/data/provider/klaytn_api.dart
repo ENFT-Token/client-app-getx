@@ -54,7 +54,7 @@ class KlaytnApiClient {
    * 스마트 컨트랙트 주소 가져오기
    */
   Future<String> getContractAddress() async {
-    final uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + "/caver/contract");
+    final uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000/caver/contract");
     final http.Response response = await http.get(uri);
     if (response.statusCode == 200) {
       return response.body;

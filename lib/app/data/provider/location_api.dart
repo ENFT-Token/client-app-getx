@@ -59,30 +59,33 @@ class LocationApiClient {
     String temp = "";
 
     for (int i = 0; i < gpsMap.length; i++) {
-      http.Response response = await http.get(
-          Uri.parse(
-              "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=127.11234,${gpsMap[i]['lat']}&sourcecrs=epsg:4326&output=json"),
-          // "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=${gpsMap[i]['lon']},${gpsMap[i]['lat']}&sourcecrs=epsg:4326&output=json"),
+      http.Response response = await http.get(Uri.parse(
+              // "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=127.11234,37.341422}&sourcecrs=epsg:4326&output=json"),
+              // "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=127.11234,${gpsMap[i]['lat']}&sourcecrs=epsg:4326&output=json"),
+              "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=${gpsMap[i]['lon']},${gpsMap[i]['lat']}&sourcecrs=epsg:4326&output=json"),
           headers: headers);
-
 
       String jsonData = response.body;
 
       var status = jsonDecode(jsonData)["status"]["code"];
 
-      var state = jsonDecode(jsonData)["results"][1]['region']['area1']['name'];
-      var city = jsonDecode(jsonData)["results"][1]['region']['area2']['name'];
-      var town = jsonDecode(jsonData)["results"][1]['region']['area3']['name'];
+      if (!jsonDecode(jsonData)["results"].isEmpty) {
+        var state =
+            jsonDecode(jsonData)["results"][1]['region']['area1']['name'];
+        var city =
+            jsonDecode(jsonData)["results"][1]['region']['area2']['name'];
+        var town =
+            jsonDecode(jsonData)["results"][1]['region']['area3']['name'];
 
-      temp = state + " " + city + " " + town;
+        temp = state + " " + city + " " + town;
 
-      if (address.contains(temp) == true) {
-        continue;
-      } else {
-        address.add(temp);
+        if (address.contains(temp) == true) {
+          continue;
+        } else {
+          address.add(temp);
+        }
       }
     }
-
     return address;
   }
 }
