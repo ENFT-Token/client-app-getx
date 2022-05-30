@@ -43,7 +43,7 @@ class CustomListItem extends StatelessWidget {
                               image: DecorationImage(
                                   image: NetworkImage(
                                       '${dotenv.env['SERVER_ADDRESS']! + ":3000"}${thumbnail}'),
-                                  fit: BoxFit.contain)))),
+                                  fit: BoxFit.cover)))),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
