@@ -43,12 +43,14 @@ class QrCode extends GetView {
                                         children: [
                                           Text("남은 시간",
                                               style: TextStyle(
-                                                  color: Colors.white, fontSize: 16)),
+                                                  color: Colors.white,
+                                                  fontSize: 16)),
                                           SizedBox(
                                             width: kDefaultPadding,
                                           ),
                                           Text(
-                                            TicketController.to.qrCodeRemainTime
+                                            TicketController.to
+                                                .qrCodeRemainTime
                                                 .toString(),
                                             style: TextStyle(
                                                 color: Colors.red,
@@ -71,10 +73,14 @@ class QrCode extends GetView {
                                   OutlinedButton(
                                       onPressed: () => UserController.to
                                           .refreshQrData(index),
-                                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(kPrimaryColor)),
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  kPrimaryColor)),
                                       child: Text(
                                         "새로 고침 하기",
-                                        style: TextStyle(color: Colors.white, fontSize: 16),
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 16),
                                       ))
                                 ])))));
               },

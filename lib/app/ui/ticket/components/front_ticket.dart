@@ -33,12 +33,17 @@ class FrontTicket extends StatelessWidget {
                 children: [
                   Expanded(
                       child: Column(children: [
-                    Text(place,
-                        style: TextStyle(
-                          color: kTicketMainTextColor,
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.bold,
-                        )),
+                    RichText(
+                      maxLines: 1,
+                      text: TextSpan(
+                          text: place,
+                          style: TextStyle(
+                            overflow: TextOverflow.clip,
+                            color: kTicketMainTextColor,
+                            fontSize: width * 0.1,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
                     Text(
                       "WORK OUT",
                       style: TextStyle(color: Colors.white, fontSize: 16),
