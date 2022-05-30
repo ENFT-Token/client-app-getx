@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:enft/app/controller/klip.dart';
 import 'package:get/get.dart';
 
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
@@ -31,7 +32,8 @@ class UserController extends GetxController {
   }
 
   late var _user;
-  List<dynamic> _qrDataList = List.empty(growable: true).obs;
+  RxList<dynamic> _qrDataList = List.empty(growable: true).obs;
+  RxBool _isUpdateNFT = false.obs;
 
   get user => this._user.value;
 
@@ -43,9 +45,13 @@ class UserController extends GetxController {
 
   refreshUser() => _user.refresh();
 
-  get qrDataList => this._qrDataList;
+  get qrDataList => this._qrDataList.value;
 
-  set qrDataList(value) => this._qrDataList = value;
+  set qrDataList(value) => this._qrDataList.value = value;
+
+  get isUpdateNFT => _isUpdateNFT.value;
+
+  set isUpdateNFT(value) => _isUpdateNFT.value = value;
 
   initUser() {
     userRepository.initUser();
@@ -70,7 +76,7 @@ class UserController extends GetxController {
     } else if (method == "GET") {
       Uri uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000" + url);
 
-        if (data != null)
+      if (data != null)
         uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000" + url)
             .replace(queryParameters: data);
       response = await http.get(uri, headers: headers);
@@ -92,6 +98,22 @@ class UserController extends GetxController {
       print(e);
       return false;
     }
+  }
+
+  updateNFT() async {
+    isUpdateNFT = true;
+    final result = await userRepository.getNFT(user.klip.address);
+
+    Klip temp = Klip.fromJson({
+      'address': user.klip.address,
+      'balance': user.klip.balance,
+      'nftTokens': result['nftTokens'],
+      'nfts': result['nfts']
+    });
+    updateKlip(temp);
+    KlipController.to.klip = temp;
+
+    isUpdateNFT = false;
   }
 
   // idx에 해당하는 QR의 남은 초 반환
@@ -116,6 +138,7 @@ class UserController extends GetxController {
     String token =
         jwt.sign(SecretKey('ENFT'), expiresIn: Duration(seconds: 30));
     qrDataList[idx] = token;
+    _qrDataList.refresh();
   }
 
   // 모든 데이터 QR 생성 (30초로 시작)

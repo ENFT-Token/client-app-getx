@@ -27,12 +27,19 @@ class TicketPageView extends GetView<TicketController> {
                         controller: controller.pageController,
                         itemCount: 1,
                         itemBuilder: (BuildContext context, int index) {
-                          return FlipCard(
-                              controller: FlipCardController(),
-                              front: NoneTicket(
-                                  index: index, description: "헬스장\n티켓이\n없어요"),
-                              back: NoneTicket(
-                                  index: index, description: "헬스장\n티켓이\n없어요"));
+                          return GestureDetector(
+                              onLongPress: () async =>
+                                  await UserController.to.updateNFT(),
+                              child: UserController.to.isUpdateNFT
+                                  ? CircularProgressIndicator()
+                                  : FlipCard(
+                                      controller: FlipCardController(),
+                                      front: NoneTicket(
+                                          index: index,
+                                          description: "헬스장\n티켓이\n없어요"),
+                                      back: NoneTicket(
+                                          index: index,
+                                          description: "헬스장\n티켓이\n없어요")));
                         })
                     : PageView.builder(
                         onPageChanged: (index) {
@@ -53,6 +60,8 @@ class TicketPageView extends GetView<TicketController> {
                             ),
                             back: BackTicket(
                               index: index,
+                              place: UserController.to.user.klip.nfts[index]
+                                  ['place'],
                               startDate: UserController.to.user.klip.nfts[index]
                                   ['start_date'],
                               endDate: UserController.to.user.klip.nfts[index]

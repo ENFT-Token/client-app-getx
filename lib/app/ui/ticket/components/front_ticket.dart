@@ -33,10 +33,10 @@ class FrontTicket extends StatelessWidget {
                 children: [
                   Expanded(
                       child: Column(children: [
-                    Text("ENFT",
+                    Text(place,
                         style: TextStyle(
                           color: kTicketMainTextColor,
-                          fontSize: 45.0,
+                          fontSize: 40.0,
                           fontWeight: FontWeight.bold,
                         )),
                     Text(
@@ -47,7 +47,7 @@ class FrontTicket extends StatelessWidget {
                   Row(
                     children: [
                       Column(children: [
-                        QrCode(data: qrData),
+                        QrCode(index: index),
                         const SizedBox(
                           height: kDefaultPadding / 2,
                         ),

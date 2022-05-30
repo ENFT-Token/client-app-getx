@@ -27,8 +27,8 @@ class MessageController extends GetxController with StateMixin<List> {
   void onInit() async {
     roomId = ChatController.to.roomId;
     scrollController = ScrollController()..addListener(_scrollListener);
-    repository.socketClient.joinChatRoom(roomId);
     messageList = await repository.getMessageList(roomId);
+    if(!messageList.isEmpty) repository.socketClient.joinChatRoom(roomId);
     initMessage();
     super.onInit();
   }
@@ -42,7 +42,7 @@ class MessageController extends GetxController with StateMixin<List> {
   @override
   onClose() {
     scrollController.removeListener(_scrollListener);
-    repository.socketClient.leaveChatRoom(roomId);
+    if(!messageList.isEmpty) repository.socketClient.leaveChatRoom(roomId);
     scrollController.dispose();
     super.onClose();
   }
@@ -75,14 +75,17 @@ class MessageController extends GetxController with StateMixin<List> {
   initMessage() => _message = repository.initMessage();
 
   sendTextMessage(String nickname, String text) {
+    if(messageList.isEmpty) repository.socketClient.joinChatRoom(roomId);
     _messageList.add(repository.sendTextMessage(
         UserController.to.user.profile.path, roomId, nickname, text));
     _messageList.refresh();
   }
 
-  sendImageMessage(String nickname, List<String>? images) =>
-      _messageList.add(repository.sendImageMessage(
-          UserController.to.user.profile.path, roomId, nickname, images));
+  sendImageMessage(String nickname, List<String>? images) {
+    if(messageList.isEmpty) repository.socketClient.joinChatRoom(roomId);
+    _messageList.add(repository.sendImageMessage(
+        UserController.to.user.profile.path, roomId, nickname, images));
+  }
 
   receiveMessage(Map<String, dynamic> data) {
     switch (data['type']) {

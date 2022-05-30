@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -21,6 +23,11 @@ class TicketController extends GetxController
   int index = 0;
   double height = 0.0;
 
+  // QR code Timer
+  Timer? _timer;
+
+  RxInt _qrCodeRemainTime = 30.obs;
+
   TicketController();
 
   get pageController => _pageController.value;
@@ -43,6 +50,10 @@ class TicketController extends GetxController
 
   set currOpacity(value) => _currOpacity.value = value;
 
+  get qrCodeRemainTime => _qrCodeRemainTime.value;
+
+  set qrCodeRemainTime(value) => _qrCodeRemainTime.value = value;
+
   @override
   void onInit() {
     initPageController();
@@ -64,8 +75,24 @@ class TicketController extends GetxController
   initPageController() {
     _pageController =
         PageController(initialPage: selectedIndex, viewportFraction: 1).obs;
+    int currentQrIndex = 0;
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (UserController.to.getRemainQrData(currPageValue.round()) == 0) {
+        UserController.to.refreshQrData(currPageValue.round());
+      }
+      qrCodeRemainTime =
+          UserController.to.getRemainQrData(currPageValue.round());
+      if (currentQrIndex != currPageValue.round()) {
+        currentQrIndex = currPageValue.round();
+        UserController.to.refreshQrData(currPageValue.round());
+      }
+      print(qrCodeRemainTime);
+    });
+
     pageController.addListener(() {
       currPageValue = pageController.page;
+
       _pageController.refresh();
     });
   }

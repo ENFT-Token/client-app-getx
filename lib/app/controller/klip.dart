@@ -15,12 +15,17 @@ class KlipController extends GetxController {
   static KlipController get to => Get.find<KlipController>();
   final KlipRepository repository;
 
-  KlipController({required this.repository});
+  KlipController({required this.repository}) {
+    scrollController = ScrollController()..addListener(_scrollListener);
+  }
 
+  // wallet
   late Rx<Klip> _klip;
   RxDouble _klaytnPrice = 0.0.obs;
   RxList<KlipTransaction> _klipTransactionList =
       List<KlipTransaction>.empty(growable: true).obs;
+  late ScrollController scrollController;
+  RxBool _isTransactionLoading = false.obs;
 
   // sendKlay를 위한 변수
   // 상대방 주소
@@ -51,6 +56,10 @@ class KlipController extends GetxController {
 
   set klipTransactionList(value) => this._klipTransactionList.value = value;
 
+  get isTransactionLoading => _isTransactionLoading.value;
+
+  set isTransactionLoading(value) => _isTransactionLoading.value = value;
+
   // sendKlay
   get sendToAddress => _sendToAddress.value;
 
@@ -74,6 +83,17 @@ class KlipController extends GetxController {
   // async await가 필요한가?
   // 나중에 try - catch로 error 잡기
   initKlip() async => _klip = repository.initKlip();
+
+  void _scrollListener() async {
+    print(scrollController.position.extentAfter);
+    if (scrollController.position.extentAfter > 750) {
+      isTransactionLoading = true;
+      klipTransactionList = List<KlipTransaction>.empty(growable: true);
+      await getHistory("baobob", "nft", 5);
+      await getHistory("mainnet", "klay", 5);
+      isTransactionLoading = false;
+    }
+  }
 
   refreshKlip() => _klip.refresh();
 

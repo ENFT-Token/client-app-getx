@@ -11,17 +11,20 @@ import 'package:enft/app/ui/wallet/components/transaction_nft_list_item.dart';
 class TransactionListView extends GetView<KlipController> {
   @override
   Widget build(BuildContext context) {
-    return Obx(() => ListView.builder(
-        shrinkWrap: true,
-        itemCount: controller.klipTransactionList.length,
-        itemBuilder: (context, index) {
-          return Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
-              child:
-                  controller.klipTransactionList[index].transferType == "klay"
+    return Obx(() => controller.isTransactionLoading
+        ? Center(child: CircularProgressIndicator())
+        : ListView.builder(
+            controller: controller.scrollController,
+            shrinkWrap: true,
+            itemCount: controller.klipTransactionList.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
+                  child: controller.klipTransactionList[index].transferType ==
+                          "klay"
                       ? TransactionKlayListItem(index: index)
                       : TransactionNFTListItem(index: index));
-        }));
+            }));
   }
 }

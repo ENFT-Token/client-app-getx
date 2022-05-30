@@ -10,6 +10,7 @@ class BackTicket extends StatelessWidget {
   const BackTicket(
       {Key? key,
       required this.index,
+      required this.place,
       required this.startDate,
       required this.endDate,
       required this.during,
@@ -17,6 +18,7 @@ class BackTicket extends StatelessWidget {
       : super(key: key);
 
   final int index;
+  final String place;
   final String startDate;
   final String endDate;
   final String during;
@@ -37,10 +39,10 @@ class BackTicket extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Column(children: [
-                    Text("ENFT",
+                    Text(place,
                         style: TextStyle(
                           color: kTicketMainTextColor,
-                          fontSize: 45.0,
+                          fontSize: 40.0,
                           fontWeight: FontWeight.bold,
                         )),
                     Text(
@@ -99,7 +101,7 @@ class BackTicket extends StatelessWidget {
                       child: Row(
                         children: [
                           Column(children: [
-                            QrCode(data: qrData),
+                            QrCode(index: index),
                             const SizedBox(
                               height: kDefaultPadding / 2,
                             ),
