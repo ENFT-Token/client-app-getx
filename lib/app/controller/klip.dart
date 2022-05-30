@@ -86,7 +86,9 @@ class KlipController extends GetxController {
 
   void _scrollListener() async {
     print(scrollController.position.extentAfter);
-    if (scrollController.position.extentAfter > 750) {
+    double klipTransactionListViewHeight = klipTransactionList.length * 56.175;
+    print("klipTransactionListViewHeight ${klipTransactionListViewHeight}");
+    if (scrollController.position.extentAfter > klipTransactionListViewHeight) {
       isTransactionLoading = true;
       klipTransactionList = List<KlipTransaction>.empty(growable: true);
       await getHistory("baobob", "nft", 5);

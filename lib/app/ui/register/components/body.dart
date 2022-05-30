@@ -103,6 +103,7 @@ class RegisterBody extends GetView<RegisterController> {
                     RoundedDropDown(values: ['남자', '여자']),
                     RoundedRegisterButton(
                       onPressed: () {
+                        print(!controller.isAlreadyNickname);
                         if (!controller.isAlreadyNickname) {
                           openDialog('중복체크', '닉네임 중복체크를 해주세요', [
                             TextButton(

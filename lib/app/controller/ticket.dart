@@ -77,23 +77,33 @@ class TicketController extends GetxController
         PageController(initialPage: selectedIndex, viewportFraction: 1).obs;
     int currentQrIndex = 0;
 
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (UserController.to.getRemainQrData(currPageValue.round()) == 0) {
-        UserController.to.refreshQrData(currPageValue.round());
-      }
-      qrCodeRemainTime =
-          UserController.to.getRemainQrData(currPageValue.round());
-      if (currentQrIndex != currPageValue.round()) {
-        currentQrIndex = currPageValue.round();
-        UserController.to.refreshQrData(currPageValue.round());
-      }
-      print(qrCodeRemainTime);
-    });
+    if(!UserController.to.user.klip.nfts.isEmpty) {
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        if (UserController.to.getRemainQrData(currPageValue.round()) == 0) {
+          UserController.to.refreshQrData(currPageValue.round());
+        }
+        qrCodeRemainTime =
+            UserController.to.getRemainQrData(currPageValue.round());
+        if (currentQrIndex != currPageValue.round()) {
+          currentQrIndex = currPageValue.round();
+          UserController.to.refreshQrData(currPageValue.round());
+        }
+        print(qrCodeRemainTime);
+      });
+    }
 
     pageController.addListener(() {
       currPageValue = pageController.page;
 
       _pageController.refresh();
     });
+  }
+
+  void openDialog(String title, String content, List<Widget> actions) {
+    Get.dialog(foundation.defaultTargetPlatform == foundation.TargetPlatform.iOS
+        ? CupertinoAlertDialog(
+        title: Text(title), content: Text(content), actions: actions)
+        : AlertDialog(
+        title: Text(title), content: Text(content), actions: actions));
   }
 }
