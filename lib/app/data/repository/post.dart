@@ -12,8 +12,8 @@ class PostRepository {
           String access_token) async =>
       await apiClient.writePost(data, images, access_token);
 
-  getPost() async {
-    List result = await apiClient.getPost();
+  getPost(String location) async {
+    List result = await apiClient.getPost(location);
 
     List<Post> response = List<Post>.empty(growable: true);
 

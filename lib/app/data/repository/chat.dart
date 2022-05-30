@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 
 import 'package:enft/app/data/model/chat.dart';
@@ -5,13 +7,15 @@ import 'package:enft/app/data/provider/chat_api.dart';
 import 'package:intl/intl.dart';
 
 import '../../controller/user.dart';
+import '../provider/message_socket.dart';
 
 class ChatRepository {
   final ChatApiClient apiClient;
+  final MessageSocketClient socketClient;
 
   late Chat chat;
 
-  ChatRepository({required this.apiClient});
+  ChatRepository({required this.apiClient, required this.socketClient});
 
   initChat() => chat = Chat(image: "", name: "", lastMessage: "", time: "");
 
@@ -21,11 +25,13 @@ class ChatRepository {
 
 
     result.forEach((element) {
+      print("element ${element['chat'][0]['msg']}");
       chatList.add(Chat(
-          image: "assets/photos/basic-profile.jpg",
+          image: File(element['user']['profile']),
           name: getChatUser(element['roomId']),
           lastMessage: element['chat'][0]['msg'],
-          time: distanceTimeFromNow(DateTime.parse(element['chat'][0]['sendAt']))));
+          time: distanceTimeFromNow(
+              DateTime.parse(element['chat'][0]['sendAt']))));
       // chatList.add(Chat(
       //     image: "assets/photos/basic-profile.jpg",
       //     name: getChatUser(element['roomId']),
@@ -52,7 +58,7 @@ class ChatRepository {
 
     distance = DateTime(now.year, now.month, now.day, now.hour, now.minute)
         .difference(DateTime(originDateTime.year, originDateTime.month,
-        originDateTime.day, originDateTime.hour, originDateTime.minute))
+            originDateTime.day, originDateTime.hour, originDateTime.minute))
         .inMinutes;
 
     if (distance ~/ 60 != 0) {

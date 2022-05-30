@@ -1,3 +1,4 @@
+import 'package:enft/app/data/provider/message_socket.dart';
 import 'package:get/get.dart';
 
 import 'package:enft/app/controller/chat.dart';
@@ -8,7 +9,10 @@ class ChatBinding extends Bindings {
   @override
   void dependencies() {
     Get.put<ChatController>(
-        ChatController(repository: ChatRepository(apiClient: ChatApiClient())),
+        ChatController(
+            repository: ChatRepository(
+                apiClient: ChatApiClient(),
+                socketClient: MessageSocketClient())),
         permanent: true);
   }
 }

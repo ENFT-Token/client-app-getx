@@ -45,11 +45,12 @@ class PostApiClient {
     }
   }
 
-  Future getPost() async {
+  Future getPost(String location) async {
     Map<String, String> headers = <String, String>{
       'Content-Type': 'application/json'
     };
-    final uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000/board");
+    final uri =
+        Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000/board/${location}");
 
     final http.Response response = await http.get(uri, headers: headers);
 

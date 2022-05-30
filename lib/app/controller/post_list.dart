@@ -70,7 +70,8 @@ class PostListController extends GetxController {
         data, images, UserController.to.user.access_token);
   }
 
-  getPost() async => postList = await repository.getPost();
+  getPost() async =>
+      postList = await repository.getPost(UserController.to.user.location);
 
   toPost(int index) => Get.to(PostPage(), arguments: {'tag': index},
           binding: BindingsBuilder(() {

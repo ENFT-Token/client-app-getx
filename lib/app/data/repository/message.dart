@@ -20,8 +20,9 @@ class MessageRepository {
           isSender: true)
       .obs;
 
-  sendTextMessage(String roomId, String nickname, String text) {
-    socketClient.sendTextMessage(roomId, nickname, text);
+  sendTextMessage(
+      String profilePath, String roomId, String nickname, String text) {
+    socketClient.sendTextMessage(profilePath, roomId, nickname, text);
     return Message(
         text: text,
         images: null,
@@ -30,8 +31,9 @@ class MessageRepository {
         isSender: true);
   }
 
-  sendImageMessage(String roomId, String nickname, List<String>? images) {
-    socketClient.sendImageMessage(roomId, nickname, images);
+  sendImageMessage(String profilePath, String roomId, String nickname,
+      List<String>? images) {
+    socketClient.sendImageMessage(profilePath, roomId, nickname, images);
     return Message(
         text: null,
         images: images,
@@ -49,12 +51,13 @@ class MessageRepository {
     int i = 0;
 
     result.forEach((element) {
-
       messageList.add(Message(
           text: element['msg'],
           images: null,
           messageType: MessageType.text,
-          time: DateFormat.yMd().add_jm().format(DateTime.parse(element['sendAt'])),
+          time: DateFormat.yMd()
+              .add_jm()
+              .format(DateTime.parse(element['sendAt'])),
           isSender: nickname == element['senderName'] ? true : false));
     });
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'package:enft/app/constant/constant.dart';
 import 'package:enft/app/data/model/chat.dart';
 
@@ -23,23 +25,11 @@ class ChatCard extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 24,
-                    backgroundImage: AssetImage(chat.image),
+                    backgroundImage: NetworkImage(
+                        dotenv.env['SERVER_ADDRESS']! +
+                            ':3000' +
+                            chat.image.path),
                   ),
-                  // if (chat.isActive)
-                  //   Positioned(
-                  //       right: 0,
-                  //       bottom: 0,
-                  //       child: Container(
-                  //         height: 16,
-                  //         width: 16,
-                  //         decoration: BoxDecoration(
-                  //             color: Colors.green,
-                  //             shape: BoxShape.circle,
-                  //             border: Border.all(
-                  //                 color:
-                  //                     Theme.of(context).scaffoldBackgroundColor,
-                  //                 width: 3)),
-                  //       ))
                 ],
               ),
               Expanded(

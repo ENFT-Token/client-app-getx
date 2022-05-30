@@ -46,9 +46,9 @@ class PostPage extends GetView {
                   onPressed: () {
                     bool isClient = controller.post.nickname == UserController.to.user.nickname ? true : false;
                     // TODO: 채팅 연결
-                    // if(!isClient) {
-                    //   ...chating logic
-                    // }
+                    if(!isClient) {
+                      controller.toChatRoom();
+                    }
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(kPrimaryColor),

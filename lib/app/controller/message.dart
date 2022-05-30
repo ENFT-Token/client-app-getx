@@ -18,7 +18,6 @@ class MessageController extends GetxController with StateMixin<List> {
   MessageRepository repository;
 
   MessageController({required this.repository}) {
-    repository.socketClient.receiveCallback = receiveMessage;
     initMessage();
     initializeDateFormatting("ko_KR");
     Intl.defaultLocale = "ko_KR";
@@ -28,9 +27,9 @@ class MessageController extends GetxController with StateMixin<List> {
   void onInit() async {
     roomId = ChatController.to.roomId;
     scrollController = ScrollController()..addListener(_scrollListener);
+    repository.socketClient.joinChatRoom(roomId);
     messageList = await repository.getMessageList(roomId);
     initMessage();
-    initSocket();
     super.onInit();
   }
 
@@ -43,8 +42,8 @@ class MessageController extends GetxController with StateMixin<List> {
   @override
   onClose() {
     scrollController.removeListener(_scrollListener);
+    repository.socketClient.leaveChatRoom(roomId);
     scrollController.dispose();
-    repository.socketClient.socket.disconnect();
     super.onClose();
   }
 
@@ -75,18 +74,15 @@ class MessageController extends GetxController with StateMixin<List> {
 
   initMessage() => _message = repository.initMessage();
 
-  initSocket() {
-    repository.socketClient.initSocket(roomId);
-    repository.socketClient.socket.connect();
-  }
-
   sendTextMessage(String nickname, String text) {
-    _messageList.add(repository.sendTextMessage(roomId, nickname, text));
+    _messageList.add(repository.sendTextMessage(
+        UserController.to.user.profile.path, roomId, nickname, text));
     _messageList.refresh();
   }
 
   sendImageMessage(String nickname, List<String>? images) =>
-      _messageList.add(repository.sendImageMessage(roomId, nickname, images));
+      _messageList.add(repository.sendImageMessage(
+          UserController.to.user.profile.path, roomId, nickname, images));
 
   receiveMessage(Map<String, dynamic> data) {
     switch (data['type']) {
@@ -95,7 +91,9 @@ class MessageController extends GetxController with StateMixin<List> {
             text: data['msg'],
             images: null,
             messageType: MessageType.text,
-            time: DateFormat.yMd().add_jm().format(DateTime.parse(data['sendAt'])),
+            time: DateFormat.yMd()
+                .add_jm()
+                .format(DateTime.parse(data['sendAt'])),
             isSender: false);
         break;
 
@@ -104,7 +102,9 @@ class MessageController extends GetxController with StateMixin<List> {
             text: null,
             images: data['msg'],
             messageType: MessageType.text,
-            time: DateFormat.yMd().add_jm().format(DateTime.parse(data['sendAt'])),
+            time: DateFormat.yMd()
+                .add_jm()
+                .format(DateTime.parse(data['sendAt'])),
             isSender: false);
         break;
 
@@ -113,5 +113,36 @@ class MessageController extends GetxController with StateMixin<List> {
     }
     _messageList.add(message);
     _messageList.refresh();
+  }
+
+  String distanceTimeFromNow(DateTime originDateTime) {
+    String timeFromNow;
+    DateTime now = DateTime.now();
+    int distance;
+
+    distance = DateTime(now.year, now.month, now.day, now.hour, now.minute)
+        .difference(DateTime(originDateTime.year, originDateTime.month,
+            originDateTime.day, originDateTime.hour, originDateTime.minute))
+        .inMinutes;
+
+    if (distance ~/ 60 != 0) {
+      if (distance ~/ (60 * 24) != 0) {
+        if (distance ~/ (60 * 24 * 30) != 0) {
+          if (distance ~/ (60 * 24 * 365) != 0) {
+            timeFromNow = (distance ~/ (60 * 24 * 365)).toString() + "년 전";
+            return timeFromNow;
+          }
+          timeFromNow = (distance ~/ (60 * 24 * 30)).toString() + "달 전";
+          return timeFromNow;
+        }
+        timeFromNow = (distance ~/ (60 * 24)).toString() + "일 전";
+        return timeFromNow;
+      }
+      timeFromNow = (distance ~/ (60)).toString() + "시간 전";
+      return timeFromNow;
+    } else {
+      timeFromNow = distance.toString() + "분 전";
+    }
+    return timeFromNow;
   }
 }

@@ -1,6 +1,16 @@
+import 'package:enft/app/controller/chat.dart';
 import 'package:get/get.dart';
 
+import 'package:enft/app/controller/user.dart';
 import 'package:enft/app/data/model/post.dart';
+
+import '../binding/image.dart';
+import '../data/model/chat.dart';
+import '../data/provider/message_api.dart';
+import '../data/provider/message_socket.dart';
+import '../data/repository/message.dart';
+import '../ui/message/message.dart';
+import 'message.dart';
 
 class PostController extends GetxController {
   late Post post;
@@ -12,7 +22,7 @@ class PostController extends GetxController {
 
     distance = DateTime(now.year, now.month, now.day, now.hour, now.minute)
         .difference(DateTime(originDateTime.year, originDateTime.month,
-        originDateTime.day, originDateTime.hour, originDateTime.minute))
+            originDateTime.day, originDateTime.hour, originDateTime.minute))
         .inMinutes;
 
     if (distance ~/ 60 != 0) {
@@ -34,5 +44,31 @@ class PostController extends GetxController {
       timeFromNow = distance.toString() + "분 전";
     }
     return timeFromNow;
+  }
+
+  toChatRoom() {
+    final roomId = UserController.to.user.nickname + " " + post.nickname;
+
+    ChatController.to.roomId = roomId;
+    ChatController.to.chatList.add(Chat(
+        image: post.profile,
+        name: post.nickname,
+        lastMessage: "",
+        time: ""));
+
+    Get.to(MessagePage(), arguments: {
+      'index': ChatController.to.chatList
+          .indexWhere((chat) => chat.name == post.nickname),
+      'roomId': roomId,
+      'tag': roomId
+    }, binding: BindingsBuilder(() {
+      Get.put<MessageController>(
+          MessageController(
+              repository: MessageRepository(
+                  socketClient: MessageSocketClient(),
+                  apiClient: MessageApiClient())),
+          tag: roomId);
+      ImageBinding();
+    }));
   }
 }
