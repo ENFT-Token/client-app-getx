@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:enft/app/controller/klip.dart';
+import 'package:enft/app/controller/ticket.dart';
 import 'package:get/get.dart';
 
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
@@ -114,6 +115,7 @@ class UserController extends GetxController {
     updateKlip(temp);
     KlipController.to.klip = temp;
     generateQrDatas();
+    TicketController.to.setTimer();
     _user.refresh();
     isUpdateNFT = false;
   }

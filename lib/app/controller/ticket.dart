@@ -72,11 +72,8 @@ class TicketController extends GetxController
     super.onClose();
   }
 
-  initPageController() {
-    _pageController =
-        PageController(initialPage: selectedIndex, viewportFraction: 1).obs;
+  void setTimer() {
     int currentQrIndex = 0;
-
     if(!UserController.to.user.klip.nfts.isEmpty) {
       _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
         if(UserController.to.user.klip.nfts.isEmpty) return;
@@ -92,7 +89,14 @@ class TicketController extends GetxController
         print(qrCodeRemainTime);
       });
     }
+  }
 
+
+  initPageController() {
+    _pageController =
+        PageController(initialPage: selectedIndex, viewportFraction: 1).obs;
+
+    setTimer();
     pageController.addListener(() {
       currPageValue = pageController.page;
 
