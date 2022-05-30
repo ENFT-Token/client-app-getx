@@ -52,8 +52,7 @@ class LocationList extends GetView<LocationController> {
                                             RegisterController
                                                     .to.user.location =
                                                 controller.locationList[i];
-                                            RegisterController.to.user.profile =
-                                                ImageController.to.img;
+
                                             if (await RegisterController.to
                                                     .register() ==
                                                 true) {
@@ -67,8 +66,12 @@ class LocationList extends GetView<LocationController> {
                                                     Klip.fromJson(UserController
                                                         .to.user.klip
                                                         .toJson());
-                                                await KlipController.to.getHistory("baobob", "nft", 10);
-                                                await KlipController.to.getHistory("mainnet", "klay", 10);
+                                                await KlipController.to
+                                                    .getHistory(
+                                                        "baobob", "nft", 10);
+                                                await KlipController.to
+                                                    .getHistory(
+                                                        "mainnet", "klay", 10);
                                                 Get.offAllNamed('/home');
                                               } else {
                                                 controller.openDialog(

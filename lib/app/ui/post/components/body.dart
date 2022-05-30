@@ -19,10 +19,14 @@ class PostBody extends GetView {
     final locationSplit = controller.post.location.split(" ");
     final location =
         locationSplit[locationSplit.length - 2] + " " + locationSplit.last;
+    bool isImagesEmpty = controller.post.images.isEmpty;
     return SingleChildScrollView(
       child: Column(
         children: [
-          PhotoSwiper(photos: controller.post.images),
+          if (!controller.post.images.isEmpty)
+            PhotoSwiper(photos: controller.post.images)
+          else
+            Padding(padding: const EdgeInsets.all(kDefaultPadding)),
           // SizedBox(height: kDefaultPadding,),
           Padding(
               padding: const EdgeInsets.all(kDefaultPadding),

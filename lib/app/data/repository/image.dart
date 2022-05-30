@@ -14,9 +14,13 @@ class ImageRepository {
 
   ImageRepository({required this.apiClient});
 
-  pickImgFromGallery() async => await apiClient
-      .pickImgFromGallery()
-      .then((value) => File(value?.path ?? ""));
+  pickImgFromGallery() async {
+    final result = await apiClient
+        .pickImgFromGallery()
+        .then((value) => File(value?.path ?? ""));
+    print(result);
+    return result;
+  }
 
   pickImgFromCamera() async => await apiClient
       .pickImgFromCamera()
@@ -31,24 +35,6 @@ class ImageRepository {
 
     return imgList;
   }
-
-  // pickImgFromGallery() async => await apiClient
-  //     .pickImgFromGallery()
-  //     .then((value) async => await imgToBase64(File(value?.path ?? "")));
-  //
-  // pickImgFromCamera() async => await apiClient
-  //     .pickImgFromCamera()
-  //     .then((value) async => await imgToBase64(File(value?.path ?? "")));
-  //
-  // pickMultiImg() async {
-  //   List<String> imgList = [];
-  //   final pickedImages = await apiClient.pickMultiImg() ?? [];
-  //   await Future.forEach(pickedImages, (XFile element) async {
-  //     imgList.add(await imgToBase64(File(element.path)));
-  //   });
-  //
-  //   return imgList;
-  // }
 
   pickOriginProfile() => "photos/basic-profile.jpg";
 

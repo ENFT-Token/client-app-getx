@@ -14,8 +14,7 @@ class RegisterProfileBody extends GetView<ImageController> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SafeArea(
-        child: Center(
+    return Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -28,8 +27,9 @@ class RegisterProfileBody extends GetView<ImageController> {
               text: "프로필 등록하기",
               onPressed: () {
                 RegisterController.to.user.profile = controller.img;
+                print(RegisterController.to.user.profile);
                 Get.toNamed('location');
               })
-        ])));
+        ]));
   }
 }

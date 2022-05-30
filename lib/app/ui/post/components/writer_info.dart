@@ -31,11 +31,10 @@ class WriterInfo extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                     image: DecorationImage(
-                        image: profile.path.contains('default_profile')
-                            ? NetworkImage(dotenv.env['SERVER_ADDRESS']! +
-                                ':3000' +
-                                profile.path)
-                            : NetworkImage('http://' + profile.path))),
+                        image: NetworkImage(dotenv.env['SERVER_ADDRESS']! +
+                            ':3000' +
+                            profile.path),
+                        fit: BoxFit.cover)),
               ),
             ),
             const SizedBox(
