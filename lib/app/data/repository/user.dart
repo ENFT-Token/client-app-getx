@@ -38,7 +38,7 @@ class UserRepository {
     fromJson['profile'] =
         await ImageController.to.fileFromImageUrl(result['profile']);
 
-    final nftResult = await getNFT(result['access_token']);
+    final nftResult = await getNFT(data['address']);
     Klip klip = Klip(
         address: data['address'],
         balance: 0.0,
@@ -49,8 +49,8 @@ class UserRepository {
     return user;
   }
 
-  getNFT(String access_token) async {
-    final result = await userApiClient.getNFT(access_token);
+  getNFT(String address) async {
+    final result = await userApiClient.getNFT(address);
     List<String> nftTokens = [];
     List<Map<String, dynamic>> nfts = [];
     for (int i = 0; i < result.length; i++) {

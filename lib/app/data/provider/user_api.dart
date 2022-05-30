@@ -34,12 +34,12 @@ class UserApiClient {
     return responseBody;
   }
 
-  Future<List<String>> getNFT(String access_token) async {
-    final uri = Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000/user/myNFT");
+  Future<List<String>> getNFT(String address) async {
+    final uri = Uri.parse(
+        dotenv.env['SERVER_ADDRESS']! + ":3000/user/myNFT?address=${address}");
 
     Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $access_token'
+      'Content-Type': 'application/json'
     };
 
     final http.Response response = await http.get(uri, headers: headers);
