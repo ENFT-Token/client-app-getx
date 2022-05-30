@@ -53,7 +53,7 @@ class CustomListItem extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.grey[100],
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(4)),
+                                    BorderRadius.all(Radius.circular(8)),
                               ),
                               child: Padding(
                                   padding:

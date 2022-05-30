@@ -30,7 +30,7 @@ class ButtonBox extends StatelessWidget {
 
         // TODO: 코인 입금 페이지 만들기
         IconButtonBox(
-            onTap: () => {},
+            onTap: () => Get.toNamed('/wallet/deposit_klay'),
             icon: SvgPicture.asset(
               'assets/icons/deposit.svg',
               width: 44,

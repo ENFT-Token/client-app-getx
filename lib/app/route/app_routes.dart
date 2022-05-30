@@ -36,6 +36,7 @@ import 'package:enft/app/ui/request_ticket/request_ticket.dart';
 import 'package:enft/app/ui/write_post/write_post.dart';
 
 import '../binding/gym_explore.dart';
+import '../ui/deposit_klay/deposit_klay.dart';
 
 class AppRoutes implements Routes {
   static final routes = [
@@ -72,6 +73,10 @@ class AppRoutes implements Routes {
       PostBinding(),
       ChatBinding(),
     ]),
+    GetPage(
+        name: '/wallet/deposit_klay',
+        page: () => DepositKlayPage(),
+        bindings: [KlipBinding()]),
     GetPage(
         name: '/wallet/send_klay',
         page: () => SendKlayPage(),

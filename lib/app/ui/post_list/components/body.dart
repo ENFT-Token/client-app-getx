@@ -33,7 +33,9 @@ class PostListBody extends GetView<PostListController> {
                         padding: const EdgeInsets.symmetric(vertical: 2),
                         color: Colors.white,
                         child: CustomListItem(
-                            thumbnail: controller.postList[index].images[0],
+                            thumbnail: controller.postList[index].images.isEmpty
+                                ? null
+                                : controller.postList[index].images[0],
                             title: controller.postList[index].title,
                             nickname: controller.postList[index].nickname,
                             readDuration: controller.distanceTimeFromNow(
