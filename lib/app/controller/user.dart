@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:enft/app/controller/klip.dart';
+import 'package:enft/app/controller/ticket.dart';
 import 'package:get/get.dart';
 
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
@@ -104,6 +105,7 @@ class UserController extends GetxController {
     isUpdateNFT = true;
     final result = await userRepository.getNFT(user.klip.address);
 
+    print( result['nfts']);
     Klip temp = Klip.fromJson({
       'address': user.klip.address,
       'balance': user.klip.balance,
@@ -112,7 +114,9 @@ class UserController extends GetxController {
     });
     updateKlip(temp);
     KlipController.to.klip = temp;
-
+    generateQrDatas();
+    TicketController.to.setTimer();
+    _user.refresh();
     isUpdateNFT = false;
   }
 

@@ -75,10 +75,25 @@ class TicketController extends GetxController
   initPageController() {
     _pageController =
         PageController(initialPage: selectedIndex, viewportFraction: 0.8).obs;
-    int currentQrIndex = 0;
 
-    if(!UserController.to.user.klip.nfts.isEmpty) {
+    initPageController() {
+      _pageController =
+          PageController(initialPage: selectedIndex, viewportFraction: 1).obs;
+
+      setTimer();
+      pageController.addListener(() {
+        currPageValue = pageController.page;
+
+        _pageController.refresh();
+      });
+    }
+  }
+
+  void setTimer() {
+    int currentQrIndex = 0;
+    if (!UserController.to.user.klip.nfts.isEmpty) {
       _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        if (UserController.to.user.klip.nfts.isEmpty) return;
         if (UserController.to.getRemainQrData(currPageValue.round()) == 0) {
           UserController.to.refreshQrData(currPageValue.round());
         }
@@ -91,19 +106,5 @@ class TicketController extends GetxController
         print(qrCodeRemainTime);
       });
     }
-
-    pageController.addListener(() {
-      currPageValue = pageController.page;
-
-      _pageController.refresh();
-    });
-  }
-
-  void openDialog(String title, String content, List<Widget> actions) {
-    Get.dialog(foundation.defaultTargetPlatform == foundation.TargetPlatform.iOS
-        ? CupertinoAlertDialog(
-        title: Text(title), content: Text(content), actions: actions)
-        : AlertDialog(
-        title: Text(title), content: Text(content), actions: actions));
   }
 }
