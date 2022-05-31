@@ -46,7 +46,6 @@ class TicketPageView extends GetView<TicketController> {
                                     controller.selectedIndex = index;
                                   },
                                   controller: controller.pageController,
-                                  // itemCount: 3,
                                   itemCount:
                                       UserController.to.user.klip.nfts.length,
                                   itemBuilder:

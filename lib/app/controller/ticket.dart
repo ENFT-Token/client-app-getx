@@ -74,7 +74,7 @@ class TicketController extends GetxController
 
   initPageController() {
     _pageController =
-        PageController(initialPage: selectedIndex, viewportFraction: 1).obs;
+        PageController(initialPage: selectedIndex, viewportFraction: 0.8).obs;
     int currentQrIndex = 0;
 
     if(!UserController.to.user.klip.nfts.isEmpty) {
