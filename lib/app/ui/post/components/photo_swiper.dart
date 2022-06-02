@@ -22,7 +22,7 @@ class PhotoSwiper extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return Image.network(
                 'http://' + photos[index].path,
-                fit: BoxFit.fill,
+                fit: BoxFit.contain,
               );
             },
             itemCount: photos.length,

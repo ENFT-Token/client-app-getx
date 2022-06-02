@@ -25,7 +25,7 @@ class FrontTicket extends StatelessWidget {
     return Ticket(
         index: index,
         detail: Container(
-          margin: EdgeInsets.symmetric(horizontal: width * 0.2),
+          margin: EdgeInsets.symmetric(horizontal: width * 0.125),
           child: Padding(
               padding: const EdgeInsets.symmetric(vertical: kDefaultPadding),
               child: Column(
@@ -40,7 +40,7 @@ class FrontTicket extends StatelessWidget {
                           style: TextStyle(
                             overflow: TextOverflow.clip,
                             color: kTicketMainTextColor,
-                            fontSize: width * 0.1,
+                            fontSize: width * 0.0875,
                             fontWeight: FontWeight.bold,
                           )),
                     ),

@@ -76,17 +76,12 @@ class TicketController extends GetxController
     _pageController =
         PageController(initialPage: selectedIndex, viewportFraction: 0.8).obs;
 
-    initPageController() {
-      _pageController =
-          PageController(initialPage: selectedIndex, viewportFraction: 1).obs;
+    setTimer();
+    pageController.addListener(() {
+      currPageValue = pageController.page;
 
-      setTimer();
-      pageController.addListener(() {
-        currPageValue = pageController.page;
-
-        _pageController.refresh();
-      });
-    }
+      _pageController.refresh();
+    });
   }
 
   void setTimer() {

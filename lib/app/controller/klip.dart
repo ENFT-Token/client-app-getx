@@ -86,7 +86,7 @@ class KlipController extends GetxController {
 
   void _scrollListener() async {
     print(scrollController.position.extentAfter);
-    double klipTransactionListViewHeight = klipTransactionList.length * 56.175;
+    double klipTransactionListViewHeight = klipTransactionList.length * 62.0;
     print("klipTransactionListViewHeight ${klipTransactionListViewHeight}");
     if (scrollController.position.extentAfter > klipTransactionListViewHeight) {
       isTransactionLoading = true;

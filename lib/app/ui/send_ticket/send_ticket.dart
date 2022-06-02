@@ -14,6 +14,7 @@ class SendTicketPage extends GetView<KlipController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: buildAppBar(),
       backgroundColor: Colors.grey[50],
       body: SendTicketBody(),
@@ -27,7 +28,10 @@ class SendTicketPage extends GetView<KlipController> {
       foregroundColor: Colors.black,
       elevation: 0,
       centerTitle: true,
-      title: Text("이용권 전송"),
+      title: Text(
+        "이용권 전송",
+        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      ),
       actions: [
         TextButton(
             // 이 부분에 sendTicket 함수 작성
@@ -122,14 +126,18 @@ class SendTicketPage extends GetView<KlipController> {
                       return true;
                     });
                     if (succIdx > 0) {
-                      for(int i = 0; i < controller.isTrueList.length; i++) {
-                        UserController.to.user.klip.nfts.removeAt(controller.isTrueList[i]);
-                        UserController.to.user.klip.nftTokens.removeAt(controller.isTrueList[i]);
-                        controller.isCheckList.removeAt(controller.isTrueList[i]);
+                      for (int i = 0; i < controller.isTrueList.length; i++) {
+                        UserController.to.user.klip.nfts
+                            .removeAt(controller.isTrueList[i]);
+                        UserController.to.user.klip.nftTokens
+                            .removeAt(controller.isTrueList[i]);
+                        controller.isCheckList
+                            .removeAt(controller.isTrueList[i]);
                       }
                       controller.isTrueList = List<int>.empty(growable: true);
                       // TODO: 클레이 거래 기록 추가
-                      controller.klipTransactionList = List<KlipTransaction>.empty(growable: true);
+                      controller.klipTransactionList =
+                          List<KlipTransaction>.empty(growable: true);
                       controller.klip = UserController.to.user.klip;
                       await controller.getHistory("baobob", "nft", 5);
                       await controller.getHistory("mainnet", "klay", 5);

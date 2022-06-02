@@ -31,7 +31,7 @@ class BackTicket extends StatelessWidget {
     return Ticket(
         index: index,
         detail: Container(
-          margin: EdgeInsets.symmetric(horizontal: size.width * 0.2),
+          margin: EdgeInsets.symmetric(horizontal: size.width * 0.125),
           child: Padding(
               padding: const EdgeInsets.symmetric(vertical: kDefaultPadding),
               child: Column(
@@ -46,7 +46,7 @@ class BackTicket extends StatelessWidget {
                           style: TextStyle(
                             overflow: TextOverflow.clip,
                             color: kTicketMainTextColor,
-                            fontSize: size.width * 0.1,
+                            fontSize: size.width * 0.0875,
                             fontWeight: FontWeight.bold,
                           )),
                     ),

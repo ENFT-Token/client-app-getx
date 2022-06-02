@@ -15,6 +15,7 @@ class SendKlayPage extends GetView<KlipController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: buildAppBar(),
       backgroundColor: Colors.grey[50],
       body: SendKlayBody(),
@@ -103,7 +104,8 @@ class SendKlayPage extends GetView<KlipController> {
                         controller.klip = UserController.to.user.klip;
                         await controller
                             .setBalance(UserController.to.user.klip.address);
-                        controller.klipTransactionList = List<KlipTransaction>.empty(growable: true);
+                        controller.klipTransactionList =
+                            List<KlipTransaction>.empty(growable: true);
                         await controller.getHistory("baobob", "nft", 5);
                         await controller.getHistory("mainnet", "klay", 5);
                         Get.snackbar('Succ', "전송 성공",
