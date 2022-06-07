@@ -87,13 +87,16 @@ class MessageController extends GetxController with StateMixin<List> {
       ChatController.to.chatList[chatRoomIndex].lastMessage = text;
       ChatController.to.chatList[chatRoomIndex].time =
           ChatController.to.repository.distanceTimeFromNow(DateTime.now());
+      ChatController.to.chatList[chatRoomIndex].timeStamp = DateTime.now();
     } else {
       ChatController.to.chatList.add(Chat(
-          // image: File(data['profilePath']),
+          image: File(
+              await ChatController.to.getChatUserProfileByNickname(nickname)),
           roomId: roomId,
           lastMessage: text,
-          time: ChatController.to.repository
-              .distanceTimeFromNow(DateTime.now())));
+          time:
+              ChatController.to.repository.distanceTimeFromNow(DateTime.now()),
+          timeStamp: DateTime.now()));
     }
 
     if (messageList.isEmpty) {
@@ -126,13 +129,16 @@ class MessageController extends GetxController with StateMixin<List> {
       ChatController.to.chatList[chatRoomIndex].lastMessage = "이미지를 보냈습니다.";
       ChatController.to.chatList[chatRoomIndex].time =
           ChatController.to.repository.distanceTimeFromNow(DateTime.now());
+      ChatController.to.chatList[chatRoomIndex].timeStamp = DateTime.now();
     } else {
       ChatController.to.chatList.add(Chat(
-          // image: File(data['profilePath']),
+          image: File(
+              await ChatController.to.getChatUserProfileByNickname(nickname)),
           roomId: roomId,
           lastMessage: "이미지를 보냈습니다.",
-          time: ChatController.to.repository
-              .distanceTimeFromNow(DateTime.now())));
+          time:
+              ChatController.to.repository.distanceTimeFromNow(DateTime.now()),
+          timeStamp: DateTime.now()));
     }
     if (messageList.isEmpty) repository.socketClient.joinChatRoom(roomId);
     _messageList.add(repository.sendImageMessage(

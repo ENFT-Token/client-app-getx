@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -20,9 +21,11 @@ class MessageBody extends GetView {
                 padding:
                     const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                 child: Obx(() => ListView.builder(
+                      reverse: true,
+                      dragStartBehavior: DragStartBehavior.down,
                       itemCount: controller.messageList.length,
                       itemBuilder: (context, index) =>
-                          ChatMessage(message: controller.messageList[index]),
+                          ChatMessage(message: controller.messageList.reversed.toList()[index]),
                     )))),
         ChatInputField()
       ],

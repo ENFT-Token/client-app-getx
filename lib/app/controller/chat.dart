@@ -46,6 +46,11 @@ class ChatController extends GetxController {
 
   set roomId(value) => _roomId = value;
 
+  refreshChatList() {
+    _chatList.sort((a, b) => a.timeStamp.compareTo(b.timeStamp));
+    _chatList.refresh();
+  }
+
   getChatList() async {
     chatList = await repository.getChatList(UserController.to.user.nickname);
     print(chatList.runtimeType);
@@ -89,8 +94,8 @@ class ChatController extends GetxController {
           image: File(await getChatUserProfileByNickname(data['userName'])),
           name: repository.getChatUser(data['roomId']),
           lastMessage: data['msg'],
-          time:
-              repository.distanceTimeFromNow(DateTime.parse(data['sendAt']))));
+          time: repository.distanceTimeFromNow(DateTime.parse(data['sendAt'])),
+          timeStamp: DateTime.parse(data['sendAt'])));
     }
     _chatList.refresh();
   }

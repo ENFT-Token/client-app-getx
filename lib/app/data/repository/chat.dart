@@ -17,8 +17,13 @@ class ChatRepository {
 
   ChatRepository({required this.apiClient, required this.socketClient});
 
-  initChat() =>
-      chat = Chat(roomId: "", image: "", name: "", lastMessage: "", time: "");
+  initChat() => chat = Chat(
+      roomId: "",
+      image: "",
+      name: "",
+      lastMessage: "",
+      time: "",
+      timeStamp: DateTime.now());
 
   getChatList(String nickname) async {
     final result = await apiClient.getChatList(nickname);
@@ -31,8 +36,9 @@ class ChatRepository {
           image: File(element['user']['profile']),
           name: getChatUser(element['roomId']),
           lastMessage: element['chat'][0]['msg'],
-          time: distanceTimeFromNow(
-              DateTime.parse(element['chat'][0]['sendAt']))));
+          time:
+              distanceTimeFromNow(DateTime.parse(element['chat'][0]['sendAt'])),
+          timeStamp: DateTime.parse(element['chat'][0]['sendAt'])));
       // chatList.add(Chat(
       //     image: "assets/photos/basic-profile.jpg",
       //     name: getChatUser(element['roomId']),
