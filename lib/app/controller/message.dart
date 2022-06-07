@@ -44,12 +44,15 @@ class MessageController extends GetxController with StateMixin<List> {
   @override
   onClose() {
     if (!messageList.isEmpty) repository.socketClient.leaveChatRoom(roomId);
+    msgEditingController.dispose();
     super.onClose();
   }
 
   late var _message;
   RxList<dynamic> _messageList = List.empty(growable: true).obs;
   RxString _roomId = "".obs;
+
+  TextEditingController msgEditingController = TextEditingController();
 
   get message => _message.value;
 

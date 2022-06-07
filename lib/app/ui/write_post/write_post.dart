@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -19,12 +20,14 @@ class WritePostPage extends GetView<PostListController> {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
+      foregroundColor: Colors.black,
       backgroundColor: Colors.grey[50],
       elevation: 1,
       actions: [
         TextButton(
             onPressed: () async {
               await controller.writePost();
+              controller.images = List<File>.empty(growable: true).obs;
               Get.back();
             },
             child: Text(
@@ -32,9 +35,7 @@ class WritePostPage extends GetView<PostListController> {
               style: TextStyle(color: kPrimaryColor, fontSize: 18),
             ))
       ],
-      leading: IconButton(
-          icon: Icon(Icons.close_outlined), onPressed: () => Get.back()),
-      title: Text("글쓰기"),
+      title: Text("게시글 글쓰기"),
     );
   }
 }

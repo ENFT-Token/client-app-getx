@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import 'package:enft/app/controller/chat.dart';
 import 'package:enft/app/controller/message.dart';
 import 'package:enft/app/controller/user.dart';
 
@@ -55,13 +54,17 @@ class ChatInputField extends GetView {
                   const SizedBox(width: kDefaultPadding / 4),
                   Expanded(
                       child: TextField(
-                    textInputAction: TextInputAction.go,
-                    onSubmitted: (text) {
-                      controller.sendTextMessage(UserController.to.user.nickname, text);
-                    },
-                    decoration: InputDecoration(
-                        hintText: "메세지를 입력하세요", border: InputBorder.none),
-                  )),
+                            controller: controller.msgEditingController,
+                            textInputAction: TextInputAction.go,
+                            onSubmitted: (text) {
+                              controller.msgEditingController.clear();
+                              controller.sendTextMessage(
+                                  UserController.to.user.nickname, text);
+                            },
+                            decoration: InputDecoration(
+                                hintText: "메세지를 입력하세요",
+                                border: InputBorder.none),
+                          )),
                   ImgUploadBtn(iconData: Icons.attach_file),
                   const SizedBox(width: kDefaultPadding / 4),
                   Icon(

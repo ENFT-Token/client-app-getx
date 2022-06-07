@@ -9,12 +9,13 @@ import 'package:enft/app/controller/image.dart';
 
 import 'package:enft/app/ui/write_post/components/photo_swiper.dart';
 
-import '../../deposit_klay/components/text_field_with_title.dart';
-import '../../register/components/text_field_container.dart';
+import 'text_field_with_title.dart';
+import 'text_field_container.dart';
 
 class WriteBody extends GetView<PostListController> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
         child: Padding(
             padding: const EdgeInsets.all(kDefaultPadding),
@@ -83,14 +84,105 @@ class WriteBody extends GetView<PostListController> {
                     ),
                   ),
                 ),
-                OutlinedButton(
-                    onPressed: () async {
-                      await ImageController.to.pickMultiImg().then((value) =>
-                          value.forEach((e) => controller.images.add(e)));
-                      //controller.images = await ImageController.to.pickMultiImg();
-                      print(controller.images);
-                    },
-                    child: Text("이미지 업로드")),
+                SizedBox(
+                  height: kDefaultPadding * 2,
+                ),
+                Obx(() => GestureDetector(
+                    onTap: () async => await ImageController.to
+                        .pickMultiImg()
+                        .then((value) =>
+                            value.forEach((e) => controller.images.add(e))),
+                    child: SizedBox(
+                        height: size.height * 0.25,
+                        child: controller.images.isEmpty
+                            ? ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 3,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: kDefaultPadding),
+                                      child: index == 0
+                                          ? Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                Container(
+                                                  height: size.height * 0.25,
+                                                  width: (size.width -
+                                                          kDefaultPadding * 3) /
+                                                      2,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      border: Border.all(
+                                                          color: kPrimaryColor),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16)),
+                                                ),
+                                                Icon(Icons.add_rounded)
+                                              ],
+                                            )
+                                          : Container(
+                                              height: size.height * 0.25,
+                                              width: (size.width -
+                                                      kDefaultPadding * 3) /
+                                                  2,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  border: Border.all(
+                                                      color: kPrimaryColor),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          16)),
+                                            ));
+                                })
+                            : ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: controller.images.length + 1,
+                                itemBuilder: (BuildContext context, int index) {
+                                  if (index == controller.images.length) {
+                                    return Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Container(
+                                          height: size.height * 0.25,
+                                          width: (size.width -
+                                                  kDefaultPadding * 3) /
+                                              2,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: Border.all(
+                                                  color: kPrimaryColor),
+                                              borderRadius:
+                                                  BorderRadius.circular(16)),
+                                        ),
+                                        Icon(Icons.add_rounded)
+                                      ],
+                                    );
+                                  } else {
+                                    return Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: kDefaultPadding),
+                                        child: Container(
+                                          height: size.height * 0.25,
+                                          width: (size.width -
+                                                  kDefaultPadding * 3) /
+                                              2,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            border: Border.all(
+                                                color: kPrimaryColor),
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            image: DecorationImage(
+                                              image: FileImage(
+                                                  controller.images[index]),
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ));
+                                  }
+                                })))),
               ],
             )));
   }

@@ -53,9 +53,12 @@ class PostListController extends GetxController {
 
   set cost(value) => _cost.value = value;
 
-  get images => _images.value;
+  get images => _images;
 
-  set images(value) => _images.value;
+  set images(value) {
+    _images = value;
+    _images.refresh();
+  }
 
   writePost() async {
     print(images);
@@ -93,15 +96,12 @@ class PostListController extends GetxController {
   getPost() async =>
       postList = await repository.getPost(UserController.to.user.location);
 
-  toPost(int index) =>
-      Get.to(PostPage(), arguments: {'tag': index},
+  toPost(int index) => Get.to(PostPage(), arguments: {'tag': index},
           binding: BindingsBuilder(() {
-            Get.put<PostController>(PostController(), tag: index.toString());
-            Get
-                .find<PostController>(tag: index.toString())
-                .post = postList[index];
-            ImageBinding();
-          }));
+        Get.put<PostController>(PostController(), tag: index.toString());
+        Get.find<PostController>(tag: index.toString()).post = postList[index];
+        ImageBinding();
+      }));
 
   String distanceTimeFromNow(DateTime originDateTime) {
     String timeFromNow;
@@ -110,7 +110,7 @@ class PostListController extends GetxController {
 
     distance = DateTime(now.year, now.month, now.day, now.hour, now.minute)
         .difference(DateTime(originDateTime.year, originDateTime.month,
-        originDateTime.day, originDateTime.hour, originDateTime.minute))
+            originDateTime.day, originDateTime.hour, originDateTime.minute))
         .inMinutes;
 
     if (distance ~/ 60 != 0) {
