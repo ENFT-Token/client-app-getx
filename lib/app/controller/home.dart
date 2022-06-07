@@ -38,14 +38,6 @@ class HomeController extends GetxController {
           fit: BoxFit.fitWidth,
         ),
         label: '채팅'),
-    BottomNavigationBarItem(
-        icon: Image.asset(
-          'assets/icons/person.png',
-          height: 33,
-          width: 33,
-          fit: BoxFit.fitWidth,
-        ),
-        label: '내 정보'),
   ];
   RxInt _currentIndex = 0.obs;
 

@@ -15,11 +15,6 @@ class HomeBody extends GetView<HomeController> {
     WalletPage(),
     PostListPage(),
     ChatPage(),
-    Container(),
-    // WalletPage(),
-    // const PostListScreen(),
-    // ChatPage(),
-    // MyInfoPage(user: userList[0])
   ];
 
   @override

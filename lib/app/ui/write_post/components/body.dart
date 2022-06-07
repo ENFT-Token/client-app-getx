@@ -7,8 +7,6 @@ import 'package:enft/app/constant/constant.dart';
 import 'package:enft/app/controller/post_list.dart';
 import 'package:enft/app/controller/image.dart';
 
-import 'package:enft/app/ui/write_post/components/photo_swiper.dart';
-
 import 'text_field_with_title.dart';
 import 'text_field_container.dart';
 
