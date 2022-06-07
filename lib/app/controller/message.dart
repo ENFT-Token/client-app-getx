@@ -152,9 +152,8 @@ class MessageController extends GetxController with StateMixin<List> {
             text: data['msg'],
             images: null,
             messageType: MessageType.text,
-            time: DateFormat.yMd()
-                .add_jm()
-                .format(DateTime.parse(data['sendAt'])),
+            time: DateFormat.yMd().add_jm().format(
+                DateTime.parse(data['sendAt']).add(const Duration(hours: 9))),
             isSender: false);
         break;
 
@@ -163,9 +162,8 @@ class MessageController extends GetxController with StateMixin<List> {
             text: null,
             images: data['msg'],
             messageType: MessageType.text,
-            time: DateFormat.yMd()
-                .add_jm()
-                .format(DateTime.parse(data['sendAt'])),
+            time: DateFormat.yMd().add_jm().format(
+                DateTime.parse(data['sendAt']).add(const Duration(hours: 9))),
             isSender: false);
         break;
 

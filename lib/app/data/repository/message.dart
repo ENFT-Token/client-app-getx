@@ -55,9 +55,8 @@ class MessageRepository {
           text: element['msg'],
           images: null,
           messageType: MessageType.text,
-          time: DateFormat.yMd()
-              .add_jm()
-              .format(DateTime.parse(element['sendAt'])),
+          time: DateFormat.yMd().add_jm().format(
+              DateTime.parse(element['sendAt']).add(const Duration(hours: 9))),
           isSender: nickname == element['senderName'] ? true : false));
     });
 

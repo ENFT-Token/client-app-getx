@@ -30,20 +30,14 @@ class ChatRepository {
     List chatList = List.empty(growable: true);
 
     result.forEach((element) {
-      print("element ${element['chat'].length}");
       chatList.add(Chat(
           roomId: element['roomId'],
           image: File(element['user']['profile']),
           name: getChatUser(element['roomId']),
           lastMessage: element['chat'][0]['msg'],
           time:
-              distanceTimeFromNow(DateTime.parse(element['chat'][0]['sendAt'])),
+              distanceTimeFromNow(DateTime.parse(element['chat'][0]['sendAt']).add(const Duration(hours :9))),
           timeStamp: DateTime.parse(element['chat'][0]['sendAt'])));
-      // chatList.add(Chat(
-      //     image: "assets/photos/basic-profile.jpg",
-      //     name: getChatUser(element['roomId']),
-      //     lastMessage: "안녕하세요",
-      //     time: "7분 전"));
     });
     return chatList;
   }

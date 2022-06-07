@@ -31,7 +31,9 @@ class ChatController extends GetxController {
   }
 
   late var _chat;
-  RxList<dynamic> _chatList = List.empty(growable: true).obs;
+  RxList<dynamic> _chatList = List
+      .empty(growable: true)
+      .obs;
   String _roomId = "";
 
   get chat => _chat.value;
@@ -84,7 +86,7 @@ class ChatController extends GetxController {
           repository.distanceTimeFromNow(DateTime.parse(data['sendAt']));
 
       bool isMessageControllerExists =
-          Get.isRegistered<MessageController>(tag: roomId);
+      Get.isRegistered<MessageController>(tag: roomId);
       if (isMessageControllerExists) {
         Get.find<MessageController>(tag: roomId).receiveMessage(data);
       }
@@ -94,7 +96,8 @@ class ChatController extends GetxController {
           image: File(await getChatUserProfileByNickname(data['userName'])),
           name: repository.getChatUser(data['roomId']),
           lastMessage: data['msg'],
-          time: repository.distanceTimeFromNow(DateTime.parse(data['sendAt'])),
+          time: repository.distanceTimeFromNow(
+              DateTime.parse(data['sendAt']).add(const Duration(hours :9))),
           timeStamp: DateTime.parse(data['sendAt'])));
     }
     _chatList.refresh();
