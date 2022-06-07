@@ -20,7 +20,6 @@ class MessageBody extends GetView {
                 padding:
                     const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                 child: Obx(() => ListView.builder(
-                      controller: controller.scrollController,
                       itemCount: controller.messageList.length,
                       itemBuilder: (context, index) =>
                           ChatMessage(message: controller.messageList[index]),

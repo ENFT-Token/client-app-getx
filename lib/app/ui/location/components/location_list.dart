@@ -1,3 +1,4 @@
+import 'package:enft/app/controller/post_list.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -100,9 +101,14 @@ class LocationList extends GetView<LocationController> {
                                           onPressed: () => Get.back(),
                                           child: Text("취소")),
                                       TextButton(
-                                          onPressed: () {
-                                            UserController.to.user.location =
-                                                controller.locationList[i];
+                                          onPressed: () async {
+                                            await UserController.to
+                                                .updateLocation(
+                                                    controller.locationList[i]);
+
+                                            await PostListController.to
+                                                .getPost();
+
                                             UserController.to.refreshUser();
                                             Get.back();
                                             Get.back();

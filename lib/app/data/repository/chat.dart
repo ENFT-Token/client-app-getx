@@ -17,16 +17,17 @@ class ChatRepository {
 
   ChatRepository({required this.apiClient, required this.socketClient});
 
-  initChat() => chat = Chat(image: "", name: "", lastMessage: "", time: "");
+  initChat() =>
+      chat = Chat(roomId: "", image: "", name: "", lastMessage: "", time: "");
 
   getChatList(String nickname) async {
     final result = await apiClient.getChatList(nickname);
     List chatList = List.empty(growable: true);
 
-
     result.forEach((element) {
-      print("element ${element['chat'][0]['msg']}");
+      print("element ${element['chat'].length}");
       chatList.add(Chat(
+          roomId: element['roomId'],
           image: File(element['user']['profile']),
           name: getChatUser(element['roomId']),
           lastMessage: element['chat'][0]['msg'],
@@ -50,6 +51,9 @@ class ChatRepository {
     });
     return nickname;
   }
+
+  getChatUserProfileByNickname(String chatUserNickname) async =>
+      (await apiClient.getChatUserProfileByNickname(chatUserNickname));
 
   String distanceTimeFromNow(DateTime originDateTime) {
     String timeFromNow;

@@ -92,20 +92,24 @@ class UserController extends GetxController {
     try {
       user = await userRepository.login(loginData[0]);
       this.access_token = user.access_token;
-
+      print("login success");
       generateQrDatas();
       return true;
     } catch (e) {
+      print("login failed");
       print(e);
       return false;
     }
   }
 
+  updateLocation(String location) async =>
+      user.location = (await userRepository.updateLocation(location))['location'];
+
   updateNFT() async {
     isUpdateNFT = true;
     final result = await userRepository.getNFT(user.klip.address);
 
-    print( result['nfts']);
+    print(result['nfts']);
     Klip temp = Klip.fromJson({
       'address': user.klip.address,
       'balance': user.klip.balance,

@@ -37,6 +37,7 @@ class UserRepository {
     fromJson['sex'] = result['sex'];
     fromJson['profile'] =
         await ImageController.to.fileFromImageUrl(result['profile']);
+    print("profile ${fromJson['profile']}");
 
     final nftResult = await getNFT(data['address']);
     Klip klip = Klip(
@@ -60,6 +61,9 @@ class UserRepository {
     }
     return {'nftTokens': nftTokens, 'nfts': nfts};
   }
+
+  updateLocation(String location) async =>
+      await userApiClient.updateLocation(location);
 
   void calDuringTicket(Map<String, dynamic> data, String jwtToken) {
     if (Jwt.isExpired(jwtToken) == true) {

@@ -1,6 +1,8 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
+import '../../controller/user.dart';
+
 class MessageSocketClient {
   late final IO.Socket socket;
   late final void Function(Map<String, dynamic>) receiveCallback;
@@ -23,6 +25,7 @@ class MessageSocketClient {
             .setPath('/chat/socket.io') // for Flutter or Dart VM
             .enableForceNew()
             .disableAutoConnect()
+            .setQuery({'nickname': UserController.to.user.nickname})
             .build() // disable auto-connection
         );
 

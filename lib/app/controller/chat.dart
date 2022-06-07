@@ -20,8 +20,8 @@ class ChatController extends GetxController {
   @override
   onInit() async {
     repository.socketClient.receiveCallback = receiveMessage;
+    repository.socketClient.socket.connect();
     await getChatList();
-    initSocket();
   }
 
   @override
@@ -46,25 +46,36 @@ class ChatController extends GetxController {
 
   set roomId(value) => _roomId = value;
 
-  initSocket() {
-    repository.socketClient.initSocket();
-    repository.socketClient.socket.connect();
-  }
-
   getChatList() async {
     chatList = await repository.getChatList(UserController.to.user.nickname);
     print(chatList.runtimeType);
     _chatList.refresh();
   }
 
-  receiveMessage(Map<String, dynamic> data) {
-    int chatRoomIndex =
-        _chatList.value.indexOf((element) => element.roomId == data['roomId']);
+  getChatUserProfileByNickname(String chatUserNickname) async =>
+      await repository.getChatUserProfileByNickname(chatUserNickname);
+
+  receiveMessage(Map<String, dynamic> data) async {
+    int chatRoomIndex = _chatList.indexWhere((element) {
+      List splitRoomId = data['roomId'].split(" ");
+      int checkRoomId = 0;
+
+      splitRoomId.forEach((nickname) {
+        if (element.roomId.contains(nickname)) {
+          checkRoomId += 1;
+        }
+      });
+
+      bool test = checkRoomId == 2 ? true : false;
+
+      return test;
+    });
+
     bool isChatRoomExist = chatRoomIndex == -1 ? false : true;
 
     if (isChatRoomExist) {
-      _chatList.value[chatRoomIndex].lastMessage = data['msg'];
-      _chatList.value[chatRoomIndex].time =
+      _chatList[chatRoomIndex].lastMessage = data['msg'];
+      _chatList[chatRoomIndex].time =
           repository.distanceTimeFromNow(DateTime.parse(data['sendAt']));
 
       bool isMessageControllerExists =
@@ -73,12 +84,14 @@ class ChatController extends GetxController {
         Get.find<MessageController>(tag: roomId).receiveMessage(data);
       }
     } else {
-      _chatList.value.add(Chat(
-          image: File(data['profilePath']),
-          name: repository.getChatUser(roomId),
+      _chatList.add(Chat(
+          roomId: roomId,
+          image: File(await getChatUserProfileByNickname(data['userName'])),
+          name: repository.getChatUser(data['roomId']),
           lastMessage: data['msg'],
           time:
               repository.distanceTimeFromNow(DateTime.parse(data['sendAt']))));
     }
+    _chatList.refresh();
   }
 }

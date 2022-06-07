@@ -66,19 +66,42 @@ class PostListController extends GetxController {
       'location': UserController.to.user.location,
     };
 
-    await repository.writePost(
-        data, images, UserController.to.user.access_token);
+    Map<String, dynamic> postData = {
+      'title': title,
+      'content': content,
+      'cost': cost.toString(),
+      'location': UserController.to.user.location,
+      'nickname': UserController.to.user.nickname,
+      'address': UserController.to.user.klip.address,
+      'profile': UserController.to.user.profile.path,
+      'images': images,
+      'createAt': DateTime.now().toString(),
+    };
+
+    print("postList length ${postList.length}");
+    print("postList length ${postList.length}");
+
+    try {
+      await repository.writePost(
+          data, images, UserController.to.user.access_token);
+      _postList.add(Post.fromJson(postData));
+    } catch (e) {
+      print("write post error: ${e}");
+    }
   }
 
   getPost() async =>
       postList = await repository.getPost(UserController.to.user.location);
 
-  toPost(int index) => Get.to(PostPage(), arguments: {'tag': index},
+  toPost(int index) =>
+      Get.to(PostPage(), arguments: {'tag': index},
           binding: BindingsBuilder(() {
-        Get.put<PostController>(PostController(), tag: index.toString());
-        Get.find<PostController>(tag: index.toString()).post = postList[index];
-        ImageBinding();
-      }));
+            Get.put<PostController>(PostController(), tag: index.toString());
+            Get
+                .find<PostController>(tag: index.toString())
+                .post = postList[index];
+            ImageBinding();
+          }));
 
   String distanceTimeFromNow(DateTime originDateTime) {
     String timeFromNow;
@@ -87,7 +110,7 @@ class PostListController extends GetxController {
 
     distance = DateTime(now.year, now.month, now.day, now.hour, now.minute)
         .difference(DateTime(originDateTime.year, originDateTime.month,
-            originDateTime.day, originDateTime.hour, originDateTime.minute))
+        originDateTime.day, originDateTime.hour, originDateTime.minute))
         .inMinutes;
 
     if (distance ~/ 60 != 0) {

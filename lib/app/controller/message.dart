@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -11,6 +12,8 @@ import 'package:enft/app/controller/chat.dart';
 import 'package:enft/app/data/model/message.dart';
 
 import 'package:enft/app/data/repository/message.dart';
+
+import '../data/model/chat.dart';
 
 class MessageController extends GetxController with StateMixin<List> {
   static MessageController get to => Get.find<MessageController>();
@@ -26,9 +29,8 @@ class MessageController extends GetxController with StateMixin<List> {
   @override
   void onInit() async {
     roomId = ChatController.to.roomId;
-    scrollController = ScrollController()..addListener(_scrollListener);
     messageList = await repository.getMessageList(roomId);
-    if(!messageList.isEmpty) repository.socketClient.joinChatRoom(roomId);
+    if (!messageList.isEmpty) repository.socketClient.joinChatRoom(roomId);
     initMessage();
     super.onInit();
   }
@@ -41,16 +43,13 @@ class MessageController extends GetxController with StateMixin<List> {
 
   @override
   onClose() {
-    scrollController.removeListener(_scrollListener);
-    if(!messageList.isEmpty) repository.socketClient.leaveChatRoom(roomId);
-    scrollController.dispose();
+    if (!messageList.isEmpty) repository.socketClient.leaveChatRoom(roomId);
     super.onClose();
   }
 
   late var _message;
   RxList<dynamic> _messageList = List.empty(growable: true).obs;
   RxString _roomId = "".obs;
-  late ScrollController scrollController;
 
   get message => _message.value;
 
@@ -64,25 +63,78 @@ class MessageController extends GetxController with StateMixin<List> {
 
   set roomId(value) => _roomId.value = value;
 
-  void _scrollListener() async {
-    print(scrollController.position.extentAfter);
-    if (scrollController.position.extentAfter < 500) {
-      _messageList.add(await repository.getMessageList(roomId));
-      _messageList.refresh();
-    }
-  }
-
   initMessage() => _message = repository.initMessage();
 
-  sendTextMessage(String nickname, String text) {
-    if(messageList.isEmpty) repository.socketClient.joinChatRoom(roomId);
+  sendTextMessage(String nickname, String text) async {
+    int chatRoomIndex = ChatController.to.chatList.indexWhere((element) {
+      List splitRoomId = roomId.split(" ");
+      int checkRoomId = 0;
+
+      splitRoomId.forEach((nickname) {
+        if (element.roomId.contains(nickname)) {
+          checkRoomId += 1;
+        }
+      });
+
+      bool test = checkRoomId == 2 ? true : false;
+
+      return test;
+    });
+
+    bool isChatRoomExist = chatRoomIndex == -1 ? false : true;
+
+    if (isChatRoomExist) {
+      ChatController.to.chatList[chatRoomIndex].lastMessage = text;
+      ChatController.to.chatList[chatRoomIndex].time =
+          ChatController.to.repository.distanceTimeFromNow(DateTime.now());
+    } else {
+      ChatController.to.chatList.add(Chat(
+          // image: File(data['profilePath']),
+          roomId: roomId,
+          lastMessage: text,
+          time: ChatController.to.repository
+              .distanceTimeFromNow(DateTime.now())));
+    }
+
+    if (messageList.isEmpty) {
+      repository.socketClient.joinChatRoom(roomId);
+    }
     _messageList.add(repository.sendTextMessage(
         UserController.to.user.profile.path, roomId, nickname, text));
     _messageList.refresh();
   }
 
-  sendImageMessage(String nickname, List<String>? images) {
-    if(messageList.isEmpty) repository.socketClient.joinChatRoom(roomId);
+  sendImageMessage(String nickname, List<String>? images) async {
+    int chatRoomIndex = ChatController.to.chatList.indexWhere((element) {
+      List splitRoomId = roomId.split(" ");
+      int checkRoomId = 0;
+
+      splitRoomId.forEach((nickname) {
+        if (element.roomId.contains(nickname)) {
+          checkRoomId += 1;
+        }
+      });
+
+      bool test = checkRoomId == 2 ? true : false;
+
+      return test;
+    });
+
+    bool isChatRoomExist = chatRoomIndex == -1 ? false : true;
+
+    if (isChatRoomExist) {
+      ChatController.to.chatList[chatRoomIndex].lastMessage = "이미지를 보냈습니다.";
+      ChatController.to.chatList[chatRoomIndex].time =
+          ChatController.to.repository.distanceTimeFromNow(DateTime.now());
+    } else {
+      ChatController.to.chatList.add(Chat(
+          // image: File(data['profilePath']),
+          roomId: roomId,
+          lastMessage: "이미지를 보냈습니다.",
+          time: ChatController.to.repository
+              .distanceTimeFromNow(DateTime.now())));
+    }
+    if (messageList.isEmpty) repository.socketClient.joinChatRoom(roomId);
     _messageList.add(repository.sendImageMessage(
         UserController.to.user.profile.path, roomId, nickname, images));
   }

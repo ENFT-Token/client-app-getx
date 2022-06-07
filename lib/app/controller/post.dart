@@ -52,6 +52,7 @@ class PostController extends GetxController {
     ChatController.to.roomId = roomId;
     ChatController.to.chatList.add(Chat(
         image: post.profile,
+        roomId: roomId,
         name: post.nickname,
         lastMessage: "",
         time: ""));

@@ -7,6 +7,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
+import '../../controller/user.dart';
+
 class UserApiClient {
   Map<String, String> headers = <String, String>{
     'Content-Type': 'application/json'
@@ -67,11 +69,37 @@ class UserApiClient {
       var formData = FormData.fromMap(data);
 
       var response = await dio.post(
-        dotenv.env['SERVER_ADDRESS']! + ":3000/board",
+        dotenv.env['SERVER_ADDRESS']! + ":3000/user/upload_profile",
         data: formData,
       );
 
       return response.data;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  updateLocation(String location) async {
+    try {
+      final uri =
+          Uri.parse(dotenv.env['SERVER_ADDRESS']! + ":3000/user/location");
+
+      Map<String, String> headers = <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${UserController.to.user.access_token}',
+      };
+
+      Map<String, String> data = <String, String>{'location': location};
+
+      final body = json.encode(data);
+
+      final http.Response response =
+          await http.post(uri, headers: headers, body: body);
+
+      final responseBody = json.decode(response.body);
+
+      print(response.body);
+      return responseBody;
     } catch (e) {
       print(e);
     }

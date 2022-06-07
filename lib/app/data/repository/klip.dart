@@ -18,22 +18,22 @@ class KlipRepository {
       nfts: <Map<String, dynamic>>[]).obs;
 
   getKlip() async {
-    // await klipApiClient.createUriLaunch();
-    // int i = 0;
-    // String address = "";
-    // await Future.doWhile(() async {
-    //   i++;
-    //   await Future.delayed(const Duration(seconds: 3));
-    //   final result = await klipApiClient.getKlipAddress();
-    //   if (result['status'] == "success") {
-    //     address = result['address'];
-    //     return false;
-    //   }
-    //   if (i == 10) {
-    //     return false;
-    //   }
-    //   return true;
-    // });
+    await klipApiClient.createUriLaunch();
+    int i = 0;
+    String address = "";
+    await Future.doWhile(() async {
+      i++;
+      await Future.delayed(const Duration(seconds: 3));
+      final result = await klipApiClient.getKlipAddress();
+      if (result['status'] == "success") {
+        address = result['address'];
+        return false;
+      }
+      if (i == 10) {
+        return false;
+      }
+      return true;
+    });
     // 실제 기기 테스트 때 사용
 
     // 애뮬레이터 테스트 때 사용하는 코드, 실제 기기 테스트 할 때는 이 줄 아래부터 주석처리
@@ -41,7 +41,7 @@ class KlipRepository {
     // var address = "0x1e30781a9cfe3322feef25ab41734f64b056e76f";
 
     // android
-    var address = "0x63266DeC603fB6Ab5349Cd3150A7bf32c6836E8A";
+    // var address = "0x63266DeC603fB6Ab5349Cd3150A7bf32c6836E8A";
     // 실제 기기 테스트 때는 이 위까지 주석
 
     if (address != "") {

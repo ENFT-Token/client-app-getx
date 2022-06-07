@@ -21,4 +21,24 @@ class ChatApiClient {
 
     return responseBody;
   }
+
+  getChatUserProfileByNickname(String nickname) async {
+    try {
+      final uri = Uri.parse(
+          dotenv.env['SERVER_ADDRESS']! + ":3000/user/profile/${nickname}");
+
+      Map<String, String> headers = <String, String>{
+        'Content-Type': 'application/json',
+      };
+
+      final http.Response response = await http.get(uri, headers: headers);
+
+      print("response.body ${response.body}");
+
+      print("response.body ${response.body}");
+      return response.body;
+    } catch (e) {
+      print("getChatUserProfile ${e}");
+    }
+  }
 }
