@@ -23,7 +23,8 @@ class RequestTicketBody extends GetView {
 
     return Padding(
         padding: const EdgeInsets.all(kDefaultPadding),
-        child: Column(
+        child: SingleChildScrollView(
+            child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -107,7 +108,7 @@ class RequestTicketBody extends GetView {
                     child: Row(
                       children: [
                         Obx(() => Expanded(
-                            child: Text(
+                                child: Text(
                               UserController.to.user.klip.balance
                                   .toStringAsFixed(2),
                               style: TextStyle(
@@ -125,6 +126,6 @@ class RequestTicketBody extends GetView {
                       ],
                     )))
           ],
-        ));
+        )));
   }
 }

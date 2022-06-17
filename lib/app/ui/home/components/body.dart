@@ -9,7 +9,7 @@ import 'package:enft/app/ui/wallet/wallet.dart';
 import 'package:enft/app/ui/post_list/post_list.dart';
 import 'package:enft/app/ui/chat/chat.dart';
 
-class HomeBody extends GetView<HomeController> {
+class HomeBody extends GetView {
   List<Widget> pages = [
     const TicketPage(),
     WalletPage(),
@@ -20,6 +20,6 @@ class HomeBody extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-        () => IndexedStack(index: controller.currentIndex, children: pages));
+        () => IndexedStack(index: HomeController.to.currentIndex, children: pages));
   }
 }

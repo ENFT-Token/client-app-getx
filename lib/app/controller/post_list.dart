@@ -87,14 +87,17 @@ class PostListController extends GetxController {
     try {
       await repository.writePost(
           data, images, UserController.to.user.access_token);
-      _postList.add(Post.fromJson(postData));
+      await getPost();
+      _postList.refresh();
     } catch (e) {
       print("write post error: ${e}");
     }
   }
 
-  getPost() async =>
-      postList = await repository.getPost(UserController.to.user.location);
+  getPost() async {
+    _postList.value = await repository.getPost(UserController.to.user.location);
+    _postList.sort((a, b) => a.createAt.compareTo(b.createAt));
+  }
 
   toPost(int index) => Get.to(PostPage(), arguments: {'tag': index},
           binding: BindingsBuilder(() {

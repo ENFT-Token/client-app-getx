@@ -55,7 +55,7 @@ class PostController extends GetxController {
         roomId: roomId,
         name: post.nickname,
         lastMessage: "",
-        time: ""));
+        time: "", timeStamp: DateTime.now()));
 
     Get.to(MessagePage(), arguments: {
       'index': ChatController.to.chatList

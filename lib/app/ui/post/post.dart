@@ -13,12 +13,16 @@ class PostPage extends GetView {
   Widget build(BuildContext context) {
     final controller =
         Get.find<PostController>(tag: Get.arguments['tag'].toString());
+
     return Scaffold(
         bottomNavigationBar: buildBottomNavigationBar(controller),
         body: PostBody());
   }
 
   BottomAppBar buildBottomNavigationBar(PostController controller) {
+    bool isClient = controller.post.nickname == UserController.to.user.nickname
+        ? true
+        : false;
     return BottomAppBar(
         color: Colors.white,
         elevation: 0,
@@ -44,14 +48,15 @@ class PostPage extends GetView {
                 )),
                 OutlinedButton(
                   onPressed: () {
-                    bool isClient = controller.post.nickname == UserController.to.user.nickname ? true : false;
                     // TODO: 채팅 연결
-                    if(!isClient) {
+                    if (!isClient) {
                       controller.toChatRoom();
                     }
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(kPrimaryColor),
+                    backgroundColor: isClient
+                        ? MaterialStateProperty.all(kSystemGray)
+                        : MaterialStateProperty.all(kPrimaryColor),
                     foregroundColor: MaterialStateProperty.all(Colors.white),
                   ),
                   child: const Text(

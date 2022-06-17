@@ -18,7 +18,7 @@ class SendTicketBody extends GetView<KlipController> {
     print("length ${UserController.to.user.klip.nfts.length}");
     return Padding(
         padding: const EdgeInsets.all(kDefaultPadding),
-        child: Column(
+        child:Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

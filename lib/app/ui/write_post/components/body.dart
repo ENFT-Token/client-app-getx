@@ -14,7 +14,10 @@ class WriteBody extends GetView<PostListController> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
+    return GestureDetector(
+        onTap: () {
+      FocusScope.of(context).unfocus();
+    }, child: SingleChildScrollView(
         child: Padding(
             padding: const EdgeInsets.all(kDefaultPadding),
             child: Column(
@@ -40,7 +43,7 @@ class WriteBody extends GetView<PostListController> {
                 ),
                 TextFieldWithTitle(
                   title: Text(
-                    "제목",
+                    "가격",
                     style: TextStyle(
                       color: kSystemGray,
                       fontSize: 16,
@@ -65,7 +68,7 @@ class WriteBody extends GetView<PostListController> {
                 ),
                 TextFieldWithTitle(
                   title: Text(
-                    "제목",
+                    "내용",
                     style: TextStyle(
                       color: kSystemGray,
                       fontSize: 16,
@@ -182,6 +185,6 @@ class WriteBody extends GetView<PostListController> {
                                   }
                                 })))),
               ],
-            )));
+            ))));
   }
 }
