@@ -96,7 +96,7 @@ class PostListController extends GetxController {
 
   getPost() async {
     _postList.value = await repository.getPost(UserController.to.user.location);
-    _postList.sort((a, b) => a.createAt.compareTo(b.createAt));
+    _postList.sort((a, b) => b.createAt.compareTo(a.createAt));
   }
 
   toPost(int index) => Get.to(PostPage(), arguments: {'tag': index},

@@ -1,3 +1,4 @@
+import 'package:enft/app/controller/image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -14,6 +15,7 @@ class ChatInputField extends GetView {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<MessageController>(tag: Get.arguments['tag']);
+
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: kDefaultPadding,
@@ -54,27 +56,49 @@ class ChatInputField extends GetView {
                   const SizedBox(width: kDefaultPadding / 4),
                   Expanded(
                       child: TextField(
-                            controller: controller.msgEditingController,
-                            textInputAction: TextInputAction.go,
-                            onSubmitted: (text) {
-                              controller.msgEditingController.clear();
-                              controller.sendTextMessage(
-                                  UserController.to.user.nickname, text);
-                            },
-                            decoration: InputDecoration(
-                                hintText: "메세지를 입력하세요",
-                                border: InputBorder.none),
-                          )),
+                    controller: controller.msgEditingController.value,
+                    textInputAction: TextInputAction.go,
+                    onSubmitted: (text) {
+                      if (text.isNotEmpty) {
+                        controller.msgEditingController.value.clear();
+                        controller.sendTextMessage(
+                            UserController.to.user.nickname, text);
+                      }
+                    },
+                    decoration: InputDecoration(
+                        hintText: "메세지를 입력하세요", border: InputBorder.none),
+                  )),
                   ImgUploadBtn(iconData: Icons.attach_file),
                   const SizedBox(width: kDefaultPadding / 4),
-                  Icon(
-                    Icons.camera_alt_outlined,
-                    color: Theme.of(context)
-                        .textTheme
-                        .bodyText1
-                        ?.color
-                        ?.withOpacity(0.64),
-                  ),
+                  IconButton(
+                      onPressed: () async {
+                        if (controller
+                            .msgEditingController.value.text.isNotEmpty) {
+                          controller.msgEditingController.value.clear();
+                          controller.sendTextMessage(
+                              UserController.to.user.nickname,
+                              controller.msgEditingController.value.text);
+                        } else {
+                          await ImageController.to.pickImgFromCamera();
+                          bool isCameraImageExists =
+                              ImageController.to.img.path != "" ? true : false;
+                          if (isCameraImageExists) {
+                            controller.sendImageMessage(
+                                UserController.to.user.nickname,
+                                ImageController.to.img);
+                          }
+                        }
+                      },
+                      icon: Obx(() => Icon(
+                            controller.isMessageExists.value
+                                ? Icons.arrow_upward_outlined
+                                : Icons.camera_alt_outlined,
+                            color: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.color
+                                ?.withOpacity(0.64),
+                          )))
                 ],
               ),
             ))

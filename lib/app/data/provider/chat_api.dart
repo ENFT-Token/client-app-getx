@@ -16,7 +16,6 @@ class ChatApiClient {
 
     final http.Response response = await http.get(uri, headers: headers);
 
-    print(json.decode(response.body));
     final responseBody = json.decode(response.body);
 
     return responseBody;

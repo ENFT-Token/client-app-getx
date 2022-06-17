@@ -50,6 +50,7 @@ class PostController extends GetxController {
     final roomId = UserController.to.user.nickname + " " + post.nickname;
 
     ChatController.to.roomId = roomId;
+
     ChatController.to.chatList.add(Chat(
         image: post.profile,
         roomId: roomId,

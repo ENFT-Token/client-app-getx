@@ -26,19 +26,29 @@ class ChatRepository {
       timeStamp: DateTime.now());
 
   getChatList(String nickname) async {
-    final result = await apiClient.getChatList(nickname);
+    final List result = await apiClient.getChatList(nickname);
     List chatList = List.empty(growable: true);
 
-    result.forEach((element) {
-      chatList.add(Chat(
-          roomId: element['roomId'],
-          image: File(element['user']['profile']),
-          name: getChatUser(element['roomId']),
-          lastMessage: element['chat'][0]['msg'],
-          time:
-              distanceTimeFromNow(DateTime.parse(element['chat'][0]['sendAt']).add(const Duration(hours :9))),
-          timeStamp: DateTime.parse(element['chat'][0]['sendAt'])));
-    });
+    print("getChatList repository ${result}");
+
+    if (result.isNotEmpty) {
+      for (int i = 0; i < result.length; i++) {
+        print("result ${result[i]}");
+        print(result[i]['user']);
+        String profile = (result[i]['user'])['profile'];
+        print(profile);
+        chatList.add(Chat(
+            roomId: result[i]['roomId'],
+            image: File(profile),
+            name: getChatUser(result[i]['roomId']),
+            lastMessage: result[i]['chat'][0]['msg'],
+            time: distanceTimeFromNow(
+                DateTime.parse(result[i]['chat'][0]['sendAt'])
+                    .add(const Duration(hours: 9))),
+            timeStamp: DateTime.parse(result[i]['chat'][0]['sendAt'])));
+      }
+    }
+
     return chatList;
   }
 

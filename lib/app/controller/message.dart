@@ -32,6 +32,8 @@ class MessageController extends GetxController with StateMixin<List> {
     messageList = await repository.getMessageList(roomId);
     if (!messageList.isEmpty) repository.socketClient.joinChatRoom(roomId);
     initMessage();
+    msgEditingController.value.addListener(() => _msgEditingListener());
+
     super.onInit();
   }
 
@@ -44,15 +46,19 @@ class MessageController extends GetxController with StateMixin<List> {
   @override
   onClose() {
     if (!messageList.isEmpty) repository.socketClient.leaveChatRoom(roomId);
-    msgEditingController.dispose();
+    msgEditingController.value.dispose();
     super.onClose();
   }
 
   late var _message;
-  RxList<dynamic> _messageList = List.empty(growable: true).obs;
+  RxList<dynamic> _messageList = List
+      .empty(growable: true)
+      .obs;
   RxString _roomId = "".obs;
 
-  TextEditingController msgEditingController = TextEditingController();
+  final Rx<TextEditingController> msgEditingController = TextEditingController()
+      .obs;
+  final RxBool isMessageExists = false.obs;
 
   get message => _message.value;
 
@@ -67,6 +73,14 @@ class MessageController extends GetxController with StateMixin<List> {
   set roomId(value) => _roomId.value = value;
 
   initMessage() => _message = repository.initMessage();
+
+  void _msgEditingListener() {
+    if (msgEditingController.value.text.isNotEmpty) {
+      isMessageExists.value = true;
+    } else {
+      isMessageExists.value = false;
+    }
+  }
 
   sendTextMessage(String nickname, String text) async {
     int chatRoomIndex = ChatController.to.chatList.indexWhere((element) {
@@ -98,8 +112,9 @@ class MessageController extends GetxController with StateMixin<List> {
           roomId: roomId,
           lastMessage: text,
           time:
-              ChatController.to.repository.distanceTimeFromNow(DateTime.now()),
+          ChatController.to.repository.distanceTimeFromNow(DateTime.now()),
           timeStamp: DateTime.now()));
+      ChatController.to.refreshChatList();
     }
 
     if (messageList.isEmpty) {
@@ -140,7 +155,7 @@ class MessageController extends GetxController with StateMixin<List> {
           roomId: roomId,
           lastMessage: "이미지를 보냈습니다.",
           time:
-              ChatController.to.repository.distanceTimeFromNow(DateTime.now()),
+          ChatController.to.repository.distanceTimeFromNow(DateTime.now()),
           timeStamp: DateTime.now()));
     }
     if (messageList.isEmpty) repository.socketClient.joinChatRoom(roomId);
@@ -184,7 +199,7 @@ class MessageController extends GetxController with StateMixin<List> {
 
     distance = DateTime(now.year, now.month, now.day, now.hour, now.minute)
         .difference(DateTime(originDateTime.year, originDateTime.month,
-            originDateTime.day, originDateTime.hour, originDateTime.minute))
+        originDateTime.day, originDateTime.hour, originDateTime.minute))
         .inMinutes;
 
     if (distance ~/ 60 != 0) {

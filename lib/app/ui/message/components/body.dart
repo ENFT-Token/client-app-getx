@@ -14,7 +14,12 @@ class MessageBody extends GetView {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<MessageController>(tag: Get.arguments['tag']);
-    return Column(
+    return GestureDetector(
+        onTap: () {
+          //FocusManager.instance.primaryFocus?.unfocus();
+          FocusScope.of(context).unfocus();
+        },
+        child: Column(
       children: [
         Expanded(
             child: Padding(
@@ -29,6 +34,6 @@ class MessageBody extends GetView {
                     )))),
         ChatInputField()
       ],
-    );
+    ));
   }
 }
