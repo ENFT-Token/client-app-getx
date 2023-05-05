@@ -62,25 +62,14 @@ ENFT는 **온라인으로 헬스장 이용권을 거래할 수 있는 NFT 플랫
 <tbody>
 <tr>
 <td align="center">
-
-![qr_code.jpeg](assets/showcases/qr_code.gif)
-
+<img src="assets/showcases/qr_code.gif" style="height: 250px;"/>
 </td>
 </tr>
 <tr>
 <td>
 <strong>
 <font style="vertical-align: inherit;">
-각 헬스장 이용권 별로 QR 코드가 생성됩니다.
-</font>
-</strong>
-</td>
-</tr>
-<tr>
-<td>
-<strong>
-<font style="vertical-align: inherit;">
-JWT를 사용하여 QR 코드는 30초 후에 만료됩니다.
+각 헬스장 이용권 별로 QR 코드가 생성됩니다. JWT를 사용하여 QR 코드는 30초 후에 만료됩니다.
 </font>
 </strong>
 </td>
@@ -100,7 +89,7 @@ JWT를 사용하여 QR 코드는 30초 후에 만료됩니다.
 <tr>
 <td align="center">
 
-![purchase.gif](assets/showcases/purchase.gif)
+<img src="assets/showcases/purchase.gif" style="height: 250px;"/>
 
 </td>
 </tr>
@@ -128,7 +117,7 @@ JWT를 사용하여 QR 코드는 30초 후에 만료됩니다.
 <tr>
 <td align="center">
 
-![hand_over.gif](assets/showcases/hand_over.gif)
+<img src="assets/showcases/hand_over.gif" style="height: 250px;"/>
 
 </td>
 </tr>
@@ -175,16 +164,17 @@ NFT 전송을 통해 소유하고 있는 헬스장 이용권을 다른 사람에
 
 ## 기술 스택
 
-+ **Flutter** 
++ **Flutter**
 
   Android, iOS를 동시에 지원하는 모바일 어플리케이션 개발에 용이한 크로스 플랫폼 프레임워크입니다.
 
 
 + **GetX**
 
-  Flutter의 상태 관리 라이브러리입니다. BuildContext가 필요하지 않아 위젯 트리에 의존하지 않는다는 장점이 있습니다. 
+  Flutter의 상태 관리 라이브러리입니다. BuildContext가 필요하지 않아 위젯 트리에 의존하지 않는다는 장점이 있습니다.
 
-  처음에는 상태 관리 라이브러리로 Provider를 사용하고 있었습니다. 해당 라이브러리에서는 BuildContext를 필요로 하기에, 위젯 트리에서 로직을 작성하는 일이 잦았습니다. 프로젝트 크기가 커지면서 더이상 손 쓸 수 없을 정도로 코드가 복잡해졌습니다. 뷰와 로직의 분리를 위해서 BuildContext가 필요 없는 GetX로 마이그레이션하게 되었습니다.
+  처음에는 상태 관리 라이브러리로 Provider를 사용하고 있었습니다. 해당 라이브러리에서는 BuildContext를 필요로 하기에, 위젯 트리에서 로직을 작성하는 일이 잦았습니다. 프로젝트 크기가 커지면서
+  더이상 손 쓸 수 없을 정도로 코드가 복잡해졌습니다. 뷰와 로직의 분리를 위해서 BuildContext가 필요 없는 GetX로 마이그레이션하게 되었습니다.
 
 
 + **Klip**
@@ -195,7 +185,6 @@ NFT 전송을 통해 소유하고 있는 헬스장 이용권을 다른 사람에
 + **Klaytn API Service**
 
   클레이튼은 전송 속도가 빠르며 수수료 대납이 가능한 블록체인 네트워크입니다. 비즈니스 모델에서 거래 수수료 대납이 중요한 역할을 할 것 같아 클레이튼을 선택했습니다.
-
 
 ## 폴더 구조
 
