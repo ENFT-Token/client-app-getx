@@ -13,7 +13,7 @@ void main() async {
   await dotenv.load(fileName: '.env');
 
   // 애뮬레이터 테스트 할 때는 카카오 sdk 주석처리
-  KakaoSdk.init(nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY']);
+  // KakaoSdk.init(nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY']);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
